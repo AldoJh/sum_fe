@@ -113,12 +113,32 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <script>
     // Fungsi Logout
-    document.getElementById("logout-btn").addEventListener("click", function () {
-      alert("Anda telah logout!");
-      window.location.href = "../login.html"; // Redirect ke halaman login
-    });
+    document.getElementById("logout-btn").addEventListener("click", async function () {
+    try {
+        const response = await axios.delete("http://localhost:3000/logout", {
+            withCredentials: true // Agar cookie dihapus juga
+        });
+
+        if (response.status === 200) {
+            alert("✅ Logout berhasil!");
+            
+            // Hapus cookie user
+            document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+
+            // Redirect ke halaman login
+            window.location.href = "../login.html";
+        } else {
+            alert("❌ Logout gagal!");
+        }
+    } catch (error) {
+        console.error("❌ Terjadi kesalahan saat logout:", error);
+        alert("Terjadi kesalahan saat logout.");
+    }
+});
 
     // Popup Modal untuk Status Sewa
     const statusDropdown = document.getElementById("status-sewa");
