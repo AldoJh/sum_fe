@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    background-color: #065f46;
+    color: white;
+    width: 25%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.admin-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.logout-btn {
+    background-color: #d1d5db;
+    color: #1f2937;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    color: #065f46;
+    display: flex;
+    align-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.radio-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.file-upload {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.file-upload button {
+    background-color: #d1d5db;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.save-btn, .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.save-btn {
+    background-color: #d1d5db;
+    color: #374151;
+}
+
+.cancel-btn {
+    background-color: #d1d5db;
+    color: #374151;
+}

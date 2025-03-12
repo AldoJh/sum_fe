@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-200">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div class="bg-green-800 text-white w-64 flex flex-col items-center py-8 relative">
+      <div class="profile-pic bg-gray-300 rounded-full w-24 h-24 mb-4"></div>
+      <h2 class="text-xl mb-8">ADMIN</h2>
+      <nav class="flex flex-col space-y-4">
+        <a class="text-lg" href="#">DASHBOARD</a>
+        <a class="text-lg" href="#">HOME</a>
+      </nav>
+
+      <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
+      <div class="absolute top-1/2 left-[90%] transform -translate-x-1/2 -translate-y-1/2 -rotate-90 text-6xl font-extrabold tracking-widest leading-none whitespace-nowrap">
+        DASHBOARD ADMIN
+      </div>
+
+      <!-- Tombol Logout -->
+      <div class="mt-auto mb-8">
+        <button id="logout-btn" class="bg-white text-green-800 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white transition duration-300">
+          LOG OUT
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+      <h1 class="text-center text-3xl font-bold mb-8">WELCOME ADMIN</h1>
+      <div class="flex justify-center space-x-4 mb-8">
+        <input class="border border-gray-400 p-2 w-80" placeholder="Provinsi" type="text"/>
+        <input class="border border-gray-400 p-2 w-80" placeholder="Kabupaten" type="text"/>
+        <input class="border border-gray-400 p-2 w-80" placeholder="Kota" type="text"/>
+        <input class="border border-gray-400 p-2 w-80" placeholder="Ukuran" type="text"/>
+        
+        <!-- Dropdown Status Sewa -->
+        <select id="status-sewa" class="border border-gray-400 p-2 rounded">
+          <option value="">Pilih Status Sewa</option>
+          <option value="available">Available</option>
+          <option value="rented">Rented</option>
+        </select>
+      </div>
+
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
+          <thead>
+            <tr class="w-full bg-gray-200 text-left">
+              <th class="py-2 px-4">No</th>
+              <th class="py-2 px-4">Kode Tiang</th>
+              <th class="py-2 px-4">Gambar</th>
+              <th class="py-2 px-4">Provinsi</th>
+              <th class="py-2 px-4">Kabupaten</th>
+              <th class="py-2 px-4">Kota</th>
+              <th class="py-2 px-4">Nama Jalan</th>
+              <th class="py-2 px-4">Ukuran</th>
+              <th class="py-2 px-4">Jenis</th>
+              <th class="py-2 px-4">Jenis Lampu</th>
+              <th class="py-2 px-4">Titik Koordinat</th>
+              <th class="py-2 px-4">Jumlah Kendaraan</th>
+              <th class="py-2 px-4">Nama Pemilik Tiang</th>
+              <th class="py-2 px-4">Status Sewa</th>
+              <th class="py-2 px-4">Nama Penyewa</th>
+              <th class="py-2 px-4">Lama Sewa</th>
+              <th class="py-2 px-4">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="py-2 px-4">1</td>
+              <td class="py-2 px-4">SOK01</td>
+              <td class="py-2 px-4">
+                <img alt="Placeholder image of a billboard" height="100" src="https://storage.googleapis.com/a1aa/image/BxppoJOZXalBvfQ3i7Jr7AMtK-wM4Fsdhy6gGwYrWYY.jpg" width="100"/>
+              </td>
+              <td class="py-2 px-4">Kepulauan Riau</td>
+              <td class="py-2 px-4">Bintan</td>
+              <td class="py-2 px-4">Bintan</td>
+              <td class="py-2 px-4">Jl. Indun Suri, Teluk Sasah, Tanjung Uban</td>
+              <td class="py-2 px-4">4x6 2 sisi</td>
+              <td class="py-2 px-4">Billboard</td>
+              <td class="py-2 px-4">Frontlight</td>
+              <td class="py-2 px-4">1.03657323560951, 104.24801992463553</td>
+              <td class="py-2 px-4">2000 Kendaraan / Hari</td>
+              <td class="py-2 px-4">PT. Angin Ribut Banget</td>
+              <td class="py-2 px-4">Rented</td>
+              <td class="py-2 px-4">Camel</td>
+              <td class="py-2 px-4">3 Bulan</td>
+              <td class="py-2 px-4">
+                <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300" onclick="window.location.href='Edit/edit.html'">
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup Modal -->
+  <div id="popup-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+      <h2 id="popup-title" class="text-2xl font-bold mb-4">Status Sewa</h2>
+      <p id="popup-message" class="mb-4"></p>
+      <button id="close-popup" class="bg-green-500 text-white px-4 py-2 rounded">Tutup</button>
+    </div>
+  </div>
+
+  <script>
+    // Fungsi Logout
+    document.getElementById("logout-btn").addEventListener("click", function () {
+      alert("Anda telah logout!");
+      window.location.href = "../login.html"; // Redirect ke halaman login
+    });
+
+    // Popup Modal untuk Status Sewa
+    const statusDropdown = document.getElementById("status-sewa");
+    const popupModal = document.getElementById("popup-modal");
+    const popupTitle = document.getElementById("popup-title");
+    const popupMessage = document.getElementById("popup-message");
+    const closePopup = document.getElementById("close-popup");
+
+    statusDropdown.addEventListener("change", function () {
+      if (this.value === "available" || this.value === "rented") {
+        popupTitle.innerText = "Status Sewa Dipilih";
+        popupMessage.innerText = `Anda memilih status: ${this.options[this.selectedIndex].text}`;
+        popupModal.classList.remove("hidden");
+      }
+    });
+
+    closePopup.addEventListener("click", function () {
+      popupModal.classList.add("hidden");
+    });
+  </script>
+
+</body>
+</html>

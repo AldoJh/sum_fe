@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soematra Media Advertising</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-roboto">
+
+    <!-- Header -->
+    <header class="bg-gray-800 text-white">
+        <div class="container mx-auto flex flex-wrap justify-between items-center py-4 px-6">
+            <img src="Asset/Frame 24.png" alt="Company Logo" class="h-8">
+            <nav class="flex space-x-4">
+                <div class="relative">
+                    <button onclick="toggleDropdown()" class="hover:text-gray-400 focus:outline-none px-4 py-2 bg-gray-700 rounded">
+                        Layanan ▼
+                    </button>
+                    <div id="dropdown-menu" class="hidden absolute mt-2 bg-white text-gray-800 shadow-lg rounded-lg w-40 z-50">
+                        <a href="Layanan.html" class="block px-4 py-2 hover:bg-gray-200">Layanan Advertising</a>
+                        <a href="Sewa.html" class="block px-4 py-2 hover:bg-gray-200">Cetak Baliho & Spanduk</a>
+                    </div>
+                </div>
+                <button onclick="scrollToFooter()" class="hover:text-gray-400 px-4 py-2 bg-gray-700 rounded">Kontak</button>
+            </nav>
+            <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded" onclick="window.location.href='Login/login.html'">
+                Login
+            </button>
+        </div>
+    </header>
+
+  <!-- Hero Section (Slider) -->
+<section class="relative max-w-6xl mx-auto mt-8 overflow-hidden">
+    <div class="relative w-full">
+        <div id="slider" class="flex whitespace-nowrap transition-transform duration-700 ease-in-out">
+            <div class="min-w-full"><img src="Asset/Gambar 1.png" class="w-full h-64 object-cover rounded-lg"></div>
+            <div class="min-w-full"><img src="Asset/Gambar 2.png" class="w-full h-64 object-cover rounded-lg"></div>
+            <div class="min-w-full"><img src="Asset/Gambar 3.png" class="w-full h-64 object-cover rounded-lg"></div>
+            <div class="min-w-full"><img src="Asset/Gambar 4.png" class="w-full h-64 object-cover rounded-lg"></div>
+        </div>
+</section>
+
+    <!-- Digital Printing Section -->
+<section class="mb-12 px-6 md:px-12 lg:px-30">
+    <h1 class="text-3xl font-bold mb-6 text-center mt-4">Digital Printing</h1>
+    <p class="mt-4 mb-6 text-lg leading-relaxed text-justify">
+        Digital printing adalah proses cetak langsung dari file digital ke media tanpa perlu plate. 
+        Berbeda dari offset printing, metode ini lebih cepat dan fleksibel. Jenis printer yang umum digunakan 
+        meliputi inkjet, laser, dan digital press.
+    </p>
+    <p class="text-lg leading-relaxed text-justify">
+        Kami menawarkan berbagai layanan, seperti cetak spanduk, banner, offset, signage, large format printing, 
+        kemasan, mobil branding, souvenir, seminar kit, laser cutting, buku tahunan, album foto, print textile, 
+        dan lainnya.
+    </p>
+</section>
+
+<!-- Layanan Cetak -->
+<section class="mb-8">
+    <div class="flex flex-col gap-8 items-center">
+        <!-- Cetak Brand Identity -->
+        <div class="relative w-full max-w-4xl">
+            <img src="Asset/download.png" alt="Brand Identity" class="w-full h-96 object-cover rounded-lg shadow-lg">
+            <div class="absolute top-4 left-4 bg-white text-green-500 py-3 px-5 m-4 rounded shadow-lg flex flex-col items-center">
+                <img src="Asset/Frame 24.png" alt="Logo" class="w-10 h-10 mb-2">
+                <span class="text-lg font-bold">Cetak Brand Identity</span>
+            </div>
+        </div>
+
+        <!-- Cetak Baliho dan Spanduk -->
+        <div class="relative w-full max-w-4xl">
+            <img src="Asset/download.jpg" alt="Spanduk" class="w-full h-96 object-cover rounded-lg shadow-lg">
+            <div class="absolute top-4 right-4 bg-white text-green-500 py-3 px-5 m-4 rounded shadow-lg flex flex-col items-center">
+                <img src="Asset/Frame 24.png" alt="Logo" class="w-10 h-10 mb-2">
+                <span class="text-lg font-bold">Cetak Baliho & Spanduk</span>
+            </div>
+        </div>
+
+        <!-- Cetak Neon Box -->
+        <div class="relative w-full max-w-4xl">
+            <img src="Asset/images.jpg" alt="Neon Box" class="w-full h-96 object-cover rounded-lg shadow-lg">
+            <div class="absolute top-4 left-4 bg-white text-green-500 py-3 px-5 m-4 rounded shadow-lg flex flex-col items-center">
+                <img src="Asset/Frame 24.png" alt="Logo" class="w-10 h-10 mb-2">
+                <span class="text-lg font-bold">Cetak Neon Box</span>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+<section class="mb-12 px-6 md:px-12 lg:px-30">
+<h2 class="text-xl font-bold mb-4">Pusat Media Promosi</h2>
+<p class="mb-6 text-lg leading-relaxed text-justify">
+    Digital printing adalah proses cetak langsung dari file digital ke media tanpa perlu plate. 
+    Berbeda dari offset printing, metode ini lebih cepat dan fleksibel. Jenis printer yang umum digunakan 
+    meliputi inkjet, laser, dan digital press.
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+    <div class="flex flex-col items-center">
+        <i class="fas fa-bullhorn text-4xl text-green-500 mb-2"></i>
+        <p>Profesional dalam mengerjakan media promosi</p>
+    </div>
+    <div class="flex flex-col items-center">
+        <i class="fas fa-thumbs-up text-4xl text-green-500 mb-2"></i>
+        <p>Dipercaya oleh berbagai perusahaan</p>
+    </div>
+    <div class="flex flex-col items-center">
+        <i class="fas fa-lightbulb text-4xl text-green-500 mb-2"></i>
+        <p>Selalu berinovasi dalam media promosi</p>
+    </div>
+</div>
+</section>
+</main>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/6282287229752" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+      <!-- Footer -->
+<footer id="footer" class="bg-gray-800 text-white py-6">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="text-left">
+            <h2 class="text-xl font-bold mb-2">Konsul Layanan</h2>
+            <p class="mb-4">Hubungi kami untuk informasi lebih lanjut:</p>
+            <a href="mailto:info@digitalprinting.com" class="text-blue-400 hover:underline">info@digitalprinting.com</a>
+            <p class="mt-2">Telp: 0812-3456-7890</p>
+            <p class="mt-2">Alamat: Jl. Contoh No. 123, Kota ABC</p>
+        </div>
+        <div>
+            <img src="Asset/Frame 24.png" alt="Logo" class="h-12">
+        </div>
+    </div>
+    <div class="container mx-auto text-center mt-4">
+        <a href="ProvideBySoematraMediaAdvertising" class="text-gray-400 hover:underline">Provide By Soematra Media Advertising</a>    
+    </div>
+</footer>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("dropdown-menu").classList.toggle("hidden");
+        }
+        function scrollToFooter() {
+            document.getElementById("footer").scrollIntoView({ behavior: "smooth" });
+        }
+    </script>
+    <!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
