@@ -116,29 +116,50 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <script>
-    // Fungsi Logout
-    document.getElementById("logout-btn").addEventListener("click", async function () {
-    try {
-        const response = await axios.delete("http://localhost:3000/logout", {
-            withCredentials: true // Agar cookie dihapus juga
-        });
+     // Fungsi Logout
+     document.getElementById("logout-btn").addEventListener("click", async function () {
+      try {
+          const response = await axios.delete("http://localhost:3000/logout", {
+              withCredentials: true // Agar cookie dihapus juga
+          });
+  
+          if (response.status === 200) {
+              alert("✅ Logout berhasil!");
+              
+             // Hapus cookie user
+             document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+  
+             // Hapus data user dari Local Storage
+             localStorage.removeItem("user");
+  
+              // Redirect ke halaman login
+              window.location.href = "../login.html";
+          } else {
+              alert("❌ Logout gagal!");
+          }
+      } catch (error) {
+          console.error("❌ Terjadi kesalahan saat logout:", error);
+          alert("Terjadi kesalahan saat logout.");
+      }
+  });
+  
+  // Cek apakah data User ada di Local Storage
+  const userStorage = localStorage.getItem("user");
+  
 
-        if (response.status === 200) {
-            alert("✅ Logout berhasil!");
-            
-            // Hapus cookie user
-            document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-
-            // Redirect ke halaman login
-            window.location.href = "../login.html";
-        } else {
-            alert("❌ Logout gagal!");
-        }
-    } catch (error) {
-        console.error("❌ Terjadi kesalahan saat logout:", error);
-        alert("Terjadi kesalahan saat logout.");
+  if (!userStorage) {
+    alert("❌ Anda harus login terlebih dahulu!");
+    window.location.href = "../login.html"; // Redirect ke halaman login
+  } else {
+    const userData = JSON.parse(userStorage);
+  
+    if (userData.user && userData.user.status === 1) {
+      console.log("✅ User terautentikasi:", userData.user);
+    } else {
+      alert("❌ Akun Anda tidak memiliki izin akses!");
+      window.location.href = "../login.html";
     }
-});
+  }
 
     // Popup Modal untuk Status Sewa
     const statusDropdown = document.getElementById("status-sewa");

@@ -153,8 +153,11 @@
         if (response.status === 200) {
             alert("✅ Logout berhasil!");
             
-            // Hapus cookie user
-            document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+           // Hapus cookie user
+           document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+
+           // Hapus data user dari Local Storage
+           localStorage.removeItem("user");
 
             // Redirect ke halaman login
             window.location.href = "../login.html";
@@ -166,6 +169,26 @@
         alert("Terjadi kesalahan saat logout.");
     }
 });
+
+// Cek apakah data User ada di Local Storage
+const userStorage = localStorage.getItem("user");
+
+
+
+if (!userStorage) {
+  alert("❌ Anda harus login terlebih dahulu!");
+  window.location.href = "../login.html"; // Redirect ke halaman login
+} else {
+  const userData = JSON.parse(userStorage);
+
+  if (userData.user && userData.user.status === 1) {
+    console.log("✅ User terautentikasi:", userData.user);
+  } else {
+    alert("❌ Akun Anda tidak memiliki izin akses!");
+    window.location.href = "../login.html";
+  }
+}
+
 
 
     // Popup Modal untuk Status Sewa
