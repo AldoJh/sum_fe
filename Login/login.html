@@ -62,8 +62,20 @@
                     alert(response.data.error);
                 } else {
                     alert("✅ Login berhasil!");
+                    
+                    // Simpan data user dalam cookie
                     document.cookie = `user=${JSON.stringify(response.data)}; path=/;`;
-                    window.location.href = "Dashboard/dashboard.html"; // Redirect setelah login
+
+                    console.log("User Role:", response.data.user.role);
+                
+                    // Cek role user (asumsi response.data.role berisi angka 0 atau 1)
+                    if (response.data.user.role === 1) {
+                        window.location.href = "Admin/admin.html"; // Halaman admin
+                    } else if (response.data.user.role === 0) {
+                        window.location.href = "Dashboard/dashboard.html"; // Halaman user biasa
+                    } else {
+                        alert("Role tidak dikenali!");
+                    }
                 }
             } catch (error) {
                 console.error("❌ Login failed:", error);
