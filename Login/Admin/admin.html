@@ -174,14 +174,13 @@
 const userStorage = localStorage.getItem("user");
 
 
-
 if (!userStorage) {
   alert("❌ Anda harus login terlebih dahulu!");
   window.location.href = "../login.html"; // Redirect ke halaman login
 } else {
   const userData = JSON.parse(userStorage);
 
-  if (userData.user && userData.user.status === 1) {
+  if (userData.user) {
     console.log("✅ User terautentikasi:", userData.user);
   } else {
     alert("❌ Akun Anda tidak memiliki izin akses!");
