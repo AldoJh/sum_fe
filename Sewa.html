@@ -112,6 +112,176 @@
     </script>
     <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // ======================= Dropdown Menu =======================
+        function setupDropdownMenu() {
+            const dropdownButton = document.getElementById("dropdownButton");
+            const dropdownMenu = document.getElementById("dropdown-menu");
+    
+            dropdownButton?.addEventListener("click", (event) => {
+                event.stopPropagation(); // Hindari event dari bubbling ke document
+                dropdownMenu?.classList.toggle("hidden");
+            });
+    
+            document.addEventListener("click", (event) => {
+                if (!dropdownMenu?.contains(event.target) && !dropdownButton?.contains(event.target)) {
+                    dropdownMenu?.classList.add("hidden");
+                }
+            });
+        }
+    
+        setupDropdownMenu();
+    
+        // ======================= Scroll to Footer =======================
+        document.getElementById("scrollToFooter")?.addEventListener("click", () => {
+            document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" });
+        });
+    
+        // ======================= Image Slider =======================
+        function initializeSlider() {
+            let slideIndex = 0;
+            const slides = document.querySelectorAll("#slider .min-w-full");
+            const totalSlides = slides.length;
+            const slider = document.getElementById("slider");
+    
+            function showSlide(index) {
+                slider?.style.setProperty("transform", `translateX(${-index * 100}%)`);
+            }
+    
+            if (totalSlides > 0) {
+                setInterval(() => {
+                    slideIndex = (slideIndex + 1) % totalSlides;
+                    showSlide(slideIndex);
+                }, 3000);
+            }
+        }
+    
+        initializeSlider();
+    
+        // ======================= Initialize Map =======================
+        function initializeMap() {
+            const mapElement = document.getElementById("map");
+            if (!mapElement) return null;
+    
+            const map = L.map("map").setView([-2.5489, 118.0149], 5);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+    
+            // Add Search Box to Map
+            const searchBox = L.control({ position: "topright" });
+            searchBox.onAdd = function () {
+                const div = L.DomUtil.create("div", "search-container");
+                div.innerHTML = ` 
+                    <div class="relative flex items-center bg-white rounded-full shadow-lg p-2">
+                        <input type="text" id="searchBox" placeholder="Search keyword" class="px-4 py-2 rounded-full outline-none w-64">
+                        <button id="searchButton" class="ml-2 px-4 py-2 bg-orange-400 text-white rounded-full">Search</button>
+                    </div>
+                `;
+                return div;
+            };
+            searchBox.addTo(map);
+    
+            return map;
+        }
+    
+        const map = initializeMap();
+        const markers = L.layerGroup().addTo(map);
+    
+        // ======================= Custom Icons =======================
+        const icons = {
+            billboard: L.icon({ iconUrl: "Asset/blue.png", iconSize: [60, 65] }),
+            baliho: L.icon({ iconUrl: "Asset/red.png", iconSize: [60, 65] }),
+            videotron: L.icon({ iconUrl: "Asset/green.png", iconSize: [60, 65] }),
+        };
+    
+        // ======================= Ambil Data dengan Axios =======================
+        async function fetchData(category) {
+            try {
+                const response = await axios.get(`http://localhost:3000/data/${category}`);
+                console.log(response.data);  // Menampilkan data yang diterima dari API
+                return response.data; // Mengembalikan data yang diterima
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return []; // Mengembalikan array kosong jika terjadi error
+            }
+        }
+        
+    
+        // ======================= Tambah Markers Berdasarkan Data =======================
+    async function addMarkers(category) {
+        if (!markers) return;
+    markers.clearLayers(); // Menghapus marker lama
+    const data = await fetchData(category); // Ambil data berdasarkan kategori
+
+    data.forEach(item => {
+        // Memastikan ada lat dan long untuk menampilkan marker
+        if (item.lat && item.long) {
+            // Buat marker dengan koordinat lat dan long
+            const marker = L.marker([parseFloat(item.lat), parseFloat(item.long)], { 
+                icon: icons[category] // Menentukan ikon berdasarkan kategori
+            }).bindPopup(`
+                <div style="display: flex; gap: 15px; max-width: 400px; font-family: Arial, sans-serif; padding: 10px;">
+                    <img src="${item.gambar}" alt="${item.nama_jalan}" 
+                         style="width: 40%; height: auto; max-height: 150px; object-fit: cover; border-radius: 5px;">
+                    <div style="width: 60%;">
+                        <h3>${item.kota}</h3>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Kode Tiang:</strong> ${item.kode_tiang}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Deskripsi:</strong> ${item.jenis_lampu}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Lokasi:</strong> ${item.kabupaten}, ${item.kota}, ${item.provinsi}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Ukuran:</strong> ${item.ukuran}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Jenis Lampu:</strong> ${item.jenis_lampu}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Koordinat:</strong> ${item.lat}, ${item.long}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Volume Kendaraan:</strong> ${item.jumlah_kendaraan} kendaraan/hari</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Pemilik Tiang:</strong> ${item.nama_pemilik}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Status Sewa:</strong> 
+                            <span style="color: ${item.status_sewa === 'available' ? 'green' : 'red'}; font-weight: bold;">
+                                ${item.status_sewa === 'available' ? 'Available' : 'Rented'}
+                            </span>
+                        </p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Nama Penyewa:</strong> ${item.nama_penyewa}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Lama Sewa:</strong> ${item.lama_sewa} ${item.satuan_sewa}</p>
+                        <a href="./${item.jenis}.html?code=${item.kode_tiang}" 
+                            style="display: block; background-color: orange; color: white; text-align: center; padding: 10px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 10px;">
+                            Show Details
+                        </a>
+                    </div>
+                </div>
+            `);
+
+            markers.addLayer(marker); // Menambahkan marker ke layer
+        }
+    });
+
+    map.addLayer(markers); // Menambahkan layer ke peta
+}
+    
+        // ======================= Event Listeners untuk Tombol =======================
+        document.getElementById("btnBillboard")?.addEventListener("click", () => addMarkers("billboard"));
+        document.getElementById("btnBaliho")?.addEventListener("click", () => addMarkers("baliho"));
+        document.getElementById("btnVideotron")?.addEventListener("click", () => addMarkers("videotron"));
+    
+        // ======================= Detail Lokasi (Klik Gambar) =======================
+        function setupLocationDetails() {
+            document.querySelectorAll(".location-img").forEach((image) => {
+                image.addEventListener("click", function () {
+                    const type = this.getAttribute("data-type");
+                    const data = locations[type]?.[0];
+    
+                    if (data) {
+                        document.getElementById("locationImage").src = data.image;
+                        document.getElementById("locationName").textContent = data.name;
+                        document.getElementById("locationDescription").textContent = data.description;
+                        document.getElementById("navigateButton").href = `./${data.type}.html?code=${data.code}`;
+                        document.getElementById("location-detail").classList.remove("hidden");
+                    }
+                });
+            });
+        }
+    
+        setupLocationDetails();
+    });
+    
+</script>
 </body>
 </html>
