@@ -84,19 +84,16 @@
                             <input type="radio" name="jenis_lampu" value="BackLight" class="ml-4 mr-2"> BackLight
                         </div>
                     </div>
-                    <!-- kordinat -->
                     <div class="mb-4">
-                        <label for="lat" class="block text-gray-700">Latitude :</label>
-                        <input type="number" step="0.0000001" id="lat" name="lat" class="w-full border border-gray-300 p-2" value="1.036573">
+                        <label for="titik_koordinat" class="block text-gray-700">Titik Koordinat :</label>
+                        <input type="text" id="titik_koordinat" name="titik_koordinat" class="w-full border border-gray-300 p-2" value="1.036573253609591, 104.24891992465353">
                     </div>
-                    <div class="mb-4">
-                        <label for="long" class="block text-gray-700">Longitude :</label>
-                        <input type="number" step="0.0000001" id="long" name="long" class="w-full border border-gray-300 p-2" value="104.248919">
-                    </div>
-                    <!-- n/kordinat -->
                     <div class="mb-4">
                         <label for="jumlah_kendaraan" class="block text-gray-700">Jumlah Kendaraan :</label>
-                        <input type="number" id="jumlah_kendaraan" name="jumlah_kendaraan" class="w-full border border-gray-300 p-2" value="2000">
+                        <div class="flex items-center">
+                            <input type="text" id="jumlah_kendaraan" name="jumlah_kendaraan" class="w-1/2 border border-gray-300 p-2" value="2000">
+                            <span class="ml-2">/ Hari</span>
+                        </div>
                     </div>
                     <div class="mb-4">
                         <label for="nama_pemilik" class="block text-gray-700">Nama Pemilik Tiang :</label>
@@ -114,12 +111,33 @@
                         <input type="text" id="nama_penyewa" name="nama_penyewa" class="w-full border border-gray-300 p-2" value="Camel">
                     </div>
                     <div class="mb-4">
-                        <label for="lama_sewa" class="block text-gray-700">Lama Sewa (bulan/tahun) :</label>
-                        <input type="number" id="lama_sewa" name="lama_sewa" class="w-full border border-gray-300 p-2">
+                        <label class="block text-gray-700">Lama Sewa :</label>
+                        <div class="flex items-center">
+                            <select name="lama_sewa" class="border border-gray-300 p-2">
+                                <option value="">Pilih Lama Sewa</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <input type="radio" name="tipe_sewa" value="Bulan" class="ml-4 mr-2"> Bulan
+                            <input type="radio" name="tipe_sewa" value="Tahun" class="ml-4 mr-2"> Tahun
+                        </div>
                     </div>
                     <div class="mb-4">
-                        <label for="harga" class="block text-gray-700">Harga :</label>
-                        <input type="number" step="0.01" id="harga" name="harga" class="w-full border border-gray-300 p-2">
+                        <label for="harga" class="block text-gray-500">Harga :</label>
+                        <div class="flex items-center">
+                            <span class="mr-2">Rp</span>
+                            <input type="text" id="harga" name="harga" class="w-full border border-gray-300 p-2">
+                        </div>
                     </div>
                     <div class="flex justify-center mt-4">
                         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2">Simpan</button>
@@ -156,17 +174,17 @@
         const popupMessage = document.getElementById("popup-message");
         const closePopup = document.getElementById("close-popup");
     
-        // statusDropdown.addEventListener("change", function () {
-        //   if (this.value === "available" || this.value === "rented") {
-        //     popupTitle.innerText = "Status Sewa Dipilih";
-        //     popupMessage.innerText = `Anda memilih status: ${this.options[this.selectedIndex].text}`;
-        //     popupModal.classList.remove("hidden");
-        //   }
-        // });
+        statusDropdown.addEventListener("change", function () {
+          if (this.value === "available" || this.value === "rented") {
+            popupTitle.innerText = "Status Sewa Dipilih";
+            popupMessage.innerText = `Anda memilih status: ${this.options[this.selectedIndex].text}`;
+            popupModal.classList.remove("hidden");
+          }
+        });
     
-        // closePopup.addEventListener("click", function () {
-        //   popupModal.classList.add("hidden");
-        // });
+        closePopup.addEventListener("click", function () {
+          popupModal.classList.add("hidden");
+        });
       </script>
 
     <script>

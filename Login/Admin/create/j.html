@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Input Data</title>
+</head>
+<body>
+    <h2>Form Input Data</h2>
+    <form id="dataForm">
+        <label>Kode Tiang: <input type="text" name="kode_tiang" required></label><br>
+        <label>Jenis Lampu: <input type="text" name="jenis_lampu" required></label><br>
+        <label>Gambar: <input type="text" name="gambar" required></label><br>
+        <label>Latitude: <input type="text" name="lat" required></label><br>
+        <label>Longitude: <input type="text" name="long" required></label><br>
+        <label>Jumlah Kendaraan: <input type="text" name="jumlah_kendaraan" required></label><br>
+        <label>Provinsi: <input type="text" name="provinsi" required></label><br>
+        <label>Kabupaten: <input type="text" name="kabupaten" required></label><br>
+        <label>Kota: <input type="text" name="kota"></label><br>
+        <label>Nama Jalan: <input type="text" name="nama_jalan" required></label><br>
+        <label>Ukuran: <input type="text" name="ukuran" required></label><br>
+        <label>Sisi: <input type="text" name="sisi" required></label><br>
+        <label>Jenis: <input type="text" name="jenis" required></label><br>
+        <label>Nama Pemilik: <input type="text" name="nama_pemilik" required></label><br>
+        <label>Status Sewa: <input type="text" name="status_sewa" required></label><br>
+        <label>Nama Penyewa: <input type="text" name="nama_penyewa" required></label><br>
+        <label>Lama Sewa: <input type="text" name="lama_sewa" required></label><br>
+        <label>Satuan Sewa: <input type="text" name="satuan_sewa" required></label><br>
+        <label>Harga: <input type="text" name="harga" required></label><br>
+        <button type="submit">Kirim</button>
+    </form>
+
+    <script>
+        document.getElementById("dataForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            const jsonObject = {};
+            formData.forEach((value, key) => jsonObject[key] = value);
+            
+            try {
+                const response = await fetch("http://localhost:3000/data", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(jsonObject)
+                });
+                const result = await response.json();
+                console.log("Data berhasil dikirim:", result);
+            } catch (error) {
+                console.error("Error mengirim data:", error);
+            }
+        });
+    </script>
+</body>
+</html>
