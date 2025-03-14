@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,24 +11,14 @@
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <div class="bg-red-800 text-white w-64 flex flex-col items-center py-8 relative">
-            <div class="    profile-pic bg-gray-300 rounded-full w-24 h-24 mb-4"></div>
+            <div class="profile-pic bg-gray-300 rounded-full w-24 h-24 mb-4"></div>
             <h2 class="text-xl mb-8">SUPER ADMIN</h2>
             <nav class="flex flex-col space-y-4">
               <a class="text-lg" href="#">DASHBOARD</a>
               <a class="text-lg" href="#">HOME</a>
             </nav>
-        <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
-      <div class="absolute top-1/2 left-[90%] transform -translate-x-1/2 -translate-y-1/2 -rotate-90 text-6xl font-extrabold tracking-widest leading-none whitespace-nowrap">
-        DATA INPUT TIANG
-      </div>
+        </div>
 
-      <!-- Tombol Logout -->
-      <div class="mt-auto mb-8">
-        <button id="logout-btn" class="bg-white text-green-800 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white transition duration-300">
-          LOG OUT
-        </button>
-      </div>
-    </div>
         <!-- Main Content -->
         <div class="flex-1 p-8">
             <div class="flex justify-between items-center mb-8">
@@ -38,54 +27,53 @@
                     <i class="fas fa-arrow-left mr-2"></i> Kembali
                 </button>
             </div>
-            <form class="grid grid-cols-2 gap-8">
+            <form id="dataForm" class="grid grid-cols-2 gap-8">
                 <div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kode Tiang :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="SOK01">
+                        <input type="text" name="kode_tiang" class="w-full border border-gray-300 p-2" value="T005">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Gambar :</label>
                         <div class="border border-gray-300 p-2 flex justify-center items-center">
-                            <input type="file" id="fileInput" class="hidden">
+                            <input type="file" id="fileInput" class="hidden" onchange="previewImage(event)">
                             <button type="button" class="bg-gray-300 text-gray-700 py-2 px-4" onclick="document.getElementById('fileInput').click()">Choose File</button>
                         </div>
+                        <div id="imagePreview" class="mt-4"></div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Provinsi :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Kepulauan Riau">
+                        <input type="text" name="provinsi" class="w-full border border-gray-300 p-2" value="Jawa Barat">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kabupaten :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Bintan">
+                        <input type="text" name="kabupaten" class="w-full border border-gray-300 p-2" value="Bandung">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kota:</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Bintan">
+                        <input type="text" name="kota" class="w-full border border-gray-300 p-2" value="Bandung">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Nama Jalan :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Jl. Indunsuri">
+                        <input type="text" name="nama_jalan" class="w-full border border-gray-300 p-2" value="Jalan Pasteur">
                     </div>
                     <div class="mb-4 flex space-x-4">
-                        <!-- Kotak Ukuran -->
                         <div class="w-1/2">
                             <label class="block text-gray-700">Ukuran :</label>
-                            <input type="text" class="w-full border border-gray-300 p-2 text-sm" value="4x6">
+                            <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" value="10x6">
                         </div>
                     
-                        <!-- Kotak Sisi -->
                         <div class="w-1/2">
                             <label class="block text-gray-700">Sisi :</label>
-                            <input type="text" class="w-full border border-gray-300 p-2 text-sm" value="2">
+                            <input type="text" name="sisi" class="w-full border border-gray-300 p-2 text-sm" value="1">
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Jenis :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="jenis" class="mr-2"> Billboard
-                            <input type="radio" name="jenis" class="ml-4 mr-2"> Baliho
-                            <input type="radio" name="jenis" class="ml-4 mr-2"> Videotron
+                            <input type="radio" name="jenis" value="billboard" class="mr-2" checked> Billboard
+                            <input type="radio" name="jenis" value="baliho" class="ml-4 mr-2"> Baliho
+                            <input type="radio" name="jenis" value="videotron" class="ml-4 mr-2"> Videotron
                         </div>
                     </div>
                 </div>
@@ -93,162 +81,126 @@
                     <div class="mb-4">
                         <label class="block text-gray-700">Jenis Lampu :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="jenis_lampu" class="mr-2"> FrontLight
-                            <input type="radio" name="jenis_lampu" class="ml-4 mr-2"> BackLight
+                            <input type="radio" name="jenis_lampu" value="front light" class="mr-2" checked> FrontLight
+                            <input type="radio" name="jenis_lampu" value="back light" class="ml-4 mr-2"> BackLight
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Titik Kordinat :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="1.036573253609591, 104.24891992465353">
+                        <input type="text" name="titik_kordinat" class="w-full border border-gray-300 p-2" value="1.036573253609591, 104.24891992465353">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Jumlah Kendaraan :</label>
                         <div class="flex items-center">
-                            <input type="text" class="w-1/2 border border-gray-300 p-2" value="2000">
+                            <input type="text" name="jumlah_kendaraan" class="w-1/2 border border-gray-300 p-2" value="2000">
                             <span class="ml-2">/ Hari</span>
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Nama Pemilik Tiang :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="PT. Angin Ribut Banget">
+                        <input type="text" name="nama_pemilik" class="w-full border border-gray-300 p-2" value="PT. UVW">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Status Sewa :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="status_sewa" class="mr-2"> Rented
-                            <input type="radio" name="status_sewa" class="ml-4 mr-2"> Available
+                            <input type="radio" name="status_sewa" value="rented" class="mr-2" checked> Rented
+                            <input type="radio" name="status_sewa" value="available" class="ml-4 mr-2"> Available
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Nama Penyewa :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Camel">
+                        <input type="text" name="nama_penyewa" class="w-full border border-gray-300 p-2" value="PT. XYZ">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Lama Sewa :</label>
                         <div class="flex items-center">
-                            <select class="border border-gray-300 p-2">
-                                <option value="">Pilih Lama Sewa</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
+                            <select name="lama_sewa" class="border border-gray-300 p-2">
                                 <option value="12">12</option>
+                                <option value="6">6</option>
+                                <option value="3">3</option>
                             </select>
-                            <input type="radio" name="lama_sewa" class="ml-4 mr-2"> Bulan
-                            <input type="radio" name="lama_sewa" class="ml-4 mr-2"> Tahun
+                            <input type="radio" name="lama_sewa_unit" value="bulan" class="ml-4 mr-2" checked> Bulan
+                            <input type="radio" name="lama_sewa_unit" value="tahun" class="ml-4 mr-2"> Tahun
                         </div>
+                    </div>
                     <div class="mb-4">
                         <label class="block text-gray-500">Harga :</label>
                         <div class="flex items-center">
                             <span class="mr-2">Rp</span>
-                            <input type="text" class="w-full border border-gray-300 p-2">
+                            <input type="text" name="harga" class="w-full border border-gray-300 p-2" value="1800000">
                         </div>
                     </div>
                     <div class="flex justify-center mt-4">
-                        <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2" onclick="saveData()">Simpan</button>
+                        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2">Simpan</button>
                         <button type="button" class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="openCancelPopup()">Batal</button>
                     </div>
                 </div>
             </form>
-            
-        </div>
-    </div>
-    
-    <!-- Custom Modal Popup -->
-    <div id="cancelPopup" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <p class="text-lg font-semibold mb-4">Anda yakin ingin membatalkan perubahan?</p>
-            <div class="flex justify-end">
-                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-full mr-2" onclick="closeCancelPopup()">Tidak</button>
-                <button class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="confirmCancel()">Ya</button>
-            </div>
         </div>
     </div>
     
     <script>
-        // Fungsi Logout
-        document.getElementById("logout-btn").addEventListener("click", function () {
-          alert("Anda telah logout!");
-          window.location.href = "/SMA/Login/login.html"; // Redirect ke halaman login
-        });
-    
-        // Popup Modal untuk Status Sewa
-        const statusDropdown = document.getElementById("status-sewa");
-        const popupModal = document.getElementById("popup-modal");
-        const popupTitle = document.getElementById("popup-title");
-        const popupMessage = document.getElementById("popup-message");
-        const closePopup = document.getElementById("close-popup");
-    
-        // statusDropdown.addEventListener("change", function () {
-        //   if (this.value === "available" || this.value === "rented") {
-        //     popupTitle.innerText = "Status Sewa Dipilih";
-        //     popupMessage.innerText = `Anda memilih status: ${this.options[this.selectedIndex].text}`;
-        //     popupModal.classList.remove("hidden");
-        //   }
-        // });
-    
-        // closePopup.addEventListener("click", function () {
-        //   popupModal.classList.add("hidden");
-        // });
-      </script>
-
-    <script>
-      // Handle form submission
-      document.getElementById("dataForm").addEventListener("submit", async function(event) {
-        event.preventDefault();
-
-        // Ambil form data
-        const formData = new FormData(this);
-        
-        // Handle the image file (if there is one)
-        const fileInput = document.getElementById('fileInput');
-        const imageFile = fileInput.files[0]; // Get the file object from the input
-
-        if (imageFile) {
-            // Simulate storing the image in the frontend (no upload to backend)
-            const imageName = Date.now() + '.' + imageFile.name.split('.').pop(); // Unique image name
-
-            // Preview image in the frontend (optional)
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const imgElement = document.createElement('img');
-                imgElement.src = e.target.result; // Preview the image in base64 format
-                document.body.appendChild(imgElement); // Append to body or wherever you need
-            };
-            reader.readAsDataURL(imageFile);
-
-            // Append image filename to FormData (not the image itself)
-            formData.set("gambar", imageName);
-        }
-
-        try {
-            // Send the form data (including image filename) to the backend
-            const response = await fetch("http://localhost:3000/data", {
-                method: "POST",
-                body: formData, // Send the data as FormData (multipart)
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                alert("Data berhasil disimpan");
-                window.location.href = '../admin.html'; // Redirect after successful data submission
-            } else {
-                alert("Gagal menyimpan data: " + result.message);
+         // Preview the selected image
+         function previewImage(event) {
+            const file = event.target.files[0]; // Get the file selected by the user
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imagePreview = document.getElementById('imagePreview');
+                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Image Preview" class="w-32 h-32 object-cover">`;
+                };
+                reader.readAsDataURL(file); // Convert file to base64 and display it
             }
-        } catch (error) {
-            alert("Terjadi kesalahan: " + error.message);
         }
-    });
-    </script>
-
-    
+        // Handle form submission
+        document.getElementById("dataForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+        
+            const formData = new FormData();
+        
+            // Ambil data dari form
+            formData.append("kode_tiang", document.querySelector('input[name="kode_tiang"]').value);
+            formData.append("jenis_lampu", document.querySelector('input[name="jenis_lampu"]:checked').value);
+            formData.append("lat", document.querySelector('input[name="titik_kordinat"]').value.split(',')[0].trim());
+            formData.append("long", document.querySelector('input[name="titik_kordinat"]').value.split(',')[1].trim());
+            formData.append("jumlah_kendaraan", document.querySelector('input[name="jumlah_kendaraan"]').value);
+            formData.append("provinsi", document.querySelector('input[name="provinsi"]').value);
+            formData.append("kabupaten", document.querySelector('input[name="kabupaten"]').value);
+            formData.append("kota", document.querySelector('input[name="kota"]').value);
+            formData.append("nama_jalan", document.querySelector('input[name="nama_jalan"]').value);
+            formData.append("ukuran", document.querySelector('input[name="ukuran"]').value);
+            formData.append("sisi", document.querySelector('input[name="sisi"]').value);
+            formData.append("jenis", document.querySelector('input[name="jenis"]:checked').value);
+            formData.append("nama_pemilik", document.querySelector('input[name="nama_pemilik"]').value);
+            formData.append("status_sewa", document.querySelector('input[name="status_sewa"]:checked').value);
+            formData.append("nama_penyewa", document.querySelector('input[name="nama_penyewa"]').value);
+            formData.append("lama_sewa", document.querySelector('select[name="lama_sewa"]').value);
+            formData.append("satuan_sewa", document.querySelector('input[name="lama_sewa_unit"]:checked').value);
+            formData.append("harga", document.querySelector('input[name="harga"]').value);
+        
+            const fileInput = document.getElementById('fileInput');
+            const imageFile = fileInput.files[0];
+            if (imageFile) {
+                formData.append('gambar', imageFile); // Menambahkan file gambar ke FormData
+            }
+        
+            try {
+                const response = await fetch("http://localhost:3000/data", {
+                    method: "POST",
+                    body: formData, // Mengirim data dengan FormData (termasuk file)
+                });
+        
+                const result = await response.json();
+                if (response.ok) {
+                    alert("Data berhasil disimpan");
+                    window.location.href = '../admin.html'; // Redirect setelah berhasil
+                } else {
+                    alert("Gagal menyimpan data: " + result.message);
+                }
+            } catch (error) {
+                alert("Terjadi kesalahan: " + error.message);
+            }
+        });
+            </script>
 </body>
 </html>
