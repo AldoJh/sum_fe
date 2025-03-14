@@ -38,41 +38,54 @@
                     <i class="fas fa-arrow-left mr-2"></i> Kembali
                 </button>
             </div>
-            <form id="dataForm" class="grid grid-cols-2 gap-8">
+            <form class="grid grid-cols-2 gap-8">
                 <div>
                     <div class="mb-4">
-                        <label for="kode_tiang" class="block text-gray-700">Kode Tiang :</label>
-                        <input type="text" id="kode_tiang" name="kode_tiang" class="w-full border border-gray-300 p-2" value="SOK01">
+                        <label class="block text-gray-700">Kode Tiang :</label>
+                        <input type="text" class="w-full border border-gray-300 p-2" value="SOK01">
                     </div>
                     <div class="mb-4">
-                        <label for="fileInput" class="block text-gray-700">Gambar :</label>
+                        <label class="block text-gray-700">Gambar :</label>
                         <div class="border border-gray-300 p-2 flex justify-center items-center">
-                            <input type="file" id="fileInput" name="gambar" class="hidden">
+                            <input type="file" id="fileInput" class="hidden">
                             <button type="button" class="bg-gray-300 text-gray-700 py-2 px-4" onclick="document.getElementById('fileInput').click()">Choose File</button>
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label for="provinsi" class="block text-gray-700">Provinsi :</label>
-                        <input type="text" id="provinsi" name="provinsi" class="w-full border border-gray-300 p-2" value="Kepulauan Riau">
+                        <label class="block text-gray-700">Provinsi :</label>
+                        <input type="text" class="w-full border border-gray-300 p-2" value="Kepulauan Riau">
                     </div>
                     <div class="mb-4">
-                        <label for="kabupaten" class="block text-gray-700">Kabupaten :</label>
-                        <input type="text" id="kabupaten" name="kabupaten" class="w-full border border-gray-300 p-2" value="Bintan">
+                        <label class="block text-gray-700">Kabupaten :</label>
+                        <input type="text" class="w-full border border-gray-300 p-2" value="Bintan">
                     </div>
                     <div class="mb-4">
-                        <label for="kota" class="block text-gray-700">Kota:</label>
-                        <input type="text" id="kota" name="kota" class="w-full border border-gray-300 p-2" value="Bintan">
+                        <label class="block text-gray-700">Kota:</label>
+                        <input type="text" class="w-full border border-gray-300 p-2" value="Bintan">
                     </div>
                     <div class="mb-4">
-                        <label for="nama_jalan" class="block text-gray-700">Nama Jalan :</label>
-                        <input type="text" id="nama_jalan" name="nama_jalan" class="w-full border border-gray-300 p-2" value="Jl. Indunsuri">
+                        <label class="block text-gray-700">Nama Jalan :</label>
+                        <input type="text" class="w-full border border-gray-300 p-2" value="Jl. Indunsuri">
+                    </div>
+                    <div class="mb-4 flex space-x-4">
+                        <!-- Kotak Ukuran -->
+                        <div class="w-1/2">
+                            <label class="block text-gray-700">Ukuran :</label>
+                            <input type="text" class="w-full border border-gray-300 p-2 text-sm" value="4x6">
+                        </div>
+                    
+                        <!-- Kotak Sisi -->
+                        <div class="w-1/2">
+                            <label class="block text-gray-700">Sisi :</label>
+                            <input type="text" class="w-full border border-gray-300 p-2 text-sm" value="2">
+                        </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Jenis :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="jenis" value="Billboard" class="mr-2"> Billboard
-                            <input type="radio" name="jenis" value="Baliho" class="ml-4 mr-2"> Baliho
-                            <input type="radio" name="jenis" value="Videotron" class="ml-4 mr-2"> Videotron
+                            <input type="radio" name="jenis" class="mr-2"> Billboard
+                            <input type="radio" name="jenis" class="ml-4 mr-2"> Baliho
+                            <input type="radio" name="jenis" class="ml-4 mr-2"> Videotron
                         </div>
                     </div>
                 </div>
@@ -80,49 +93,66 @@
                     <div class="mb-4">
                         <label class="block text-gray-700">Jenis Lampu :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="jenis_lampu" value="FrontLight" class="mr-2"> FrontLight
-                            <input type="radio" name="jenis_lampu" value="BackLight" class="ml-4 mr-2"> BackLight
+                            <input type="radio" name="jenis_lampu" class="mr-2"> FrontLight
+                            <input type="radio" name="jenis_lampu" class="ml-4 mr-2"> BackLight
                         </div>
                     </div>
-                    <!-- kordinat -->
                     <div class="mb-4">
-                        <label for="lat" class="block text-gray-700">Latitude :</label>
-                        <input type="number" step="0.0000001" id="lat" name="lat" class="w-full border border-gray-300 p-2" value="1.036573">
+                        <label class="block text-gray-700">Titik Kordinat :</label>
+                        <input type="text" class="w-full border border-gray-300 p-2" value="1.036573253609591, 104.24891992465353">
                     </div>
                     <div class="mb-4">
-                        <label for="long" class="block text-gray-700">Longitude :</label>
-                        <input type="number" step="0.0000001" id="long" name="long" class="w-full border border-gray-300 p-2" value="104.248919">
-                    </div>
-                    <!-- n/kordinat -->
-                    <div class="mb-4">
-                        <label for="jumlah_kendaraan" class="block text-gray-700">Jumlah Kendaraan :</label>
-                        <input type="number" id="jumlah_kendaraan" name="jumlah_kendaraan" class="w-full border border-gray-300 p-2" value="2000">
+                        <label class="block text-gray-700">Jumlah Kendaraan :</label>
+                        <div class="flex items-center">
+                            <input type="text" class="w-1/2 border border-gray-300 p-2" value="2000">
+                            <span class="ml-2">/ Hari</span>
+                        </div>
                     </div>
                     <div class="mb-4">
-                        <label for="nama_pemilik" class="block text-gray-700">Nama Pemilik Tiang :</label>
-                        <input type="text" id="nama_pemilik" name="nama_pemilik" class="w-full border border-gray-300 p-2" value="PT. Angin Ribut Banget">
+                        <label class="block text-gray-700">Nama Pemilik Tiang :</label>
+                        <input type="text" class="w-full border border-gray-300 p-2" value="PT. Angin Ribut Banget">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Status Sewa :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="status_sewa" value="Rented" class="mr-2"> Rented
-                            <input type="radio" name="status_sewa" value="Available" class="ml-4 mr-2"> Available
+                            <input type="radio" name="status_sewa" class="mr-2"> Rented
+                            <input type="radio" name="status_sewa" class="ml-4 mr-2"> Available
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label for="nama_penyewa" class="block text-gray-700">Nama Penyewa :</label>
-                        <input type="text" id="nama_penyewa" name="nama_penyewa" class="w-full border border-gray-300 p-2" value="Camel">
+                        <label class="block text-gray-700">Nama Penyewa :</label>
+                        <input type="text" class="w-full border border-gray-300 p-2" value="Camel">
                     </div>
                     <div class="mb-4">
-                        <label for="lama_sewa" class="block text-gray-700">Lama Sewa (bulan/tahun) :</label>
-                        <input type="number" id="lama_sewa" name="lama_sewa" class="w-full border border-gray-300 p-2">
-                    </div>
+                        <label class="block text-gray-700">Lama Sewa :</label>
+                        <div class="flex items-center">
+                            <select class="border border-gray-300 p-2">
+                                <option value="">Pilih Lama Sewa</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <input type="radio" name="lama_sewa" class="ml-4 mr-2"> Bulan
+                            <input type="radio" name="lama_sewa" class="ml-4 mr-2"> Tahun
+                        </div>
                     <div class="mb-4">
-                        <label for="harga" class="block text-gray-700">Harga :</label>
-                        <input type="number" step="0.01" id="harga" name="harga" class="w-full border border-gray-300 p-2">
+                        <label class="block text-gray-500">Harga :</label>
+                        <div class="flex items-center">
+                            <span class="mr-2">Rp</span>
+                            <input type="text" class="w-full border border-gray-300 p-2">
+                        </div>
                     </div>
                     <div class="flex justify-center mt-4">
-                        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2">Simpan</button>
+                        <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2" onclick="saveData()">Simpan</button>
                         <button type="button" class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="openCancelPopup()">Batal</button>
                     </div>
                 </div>
@@ -170,49 +200,53 @@
       </script>
 
     <script>
-        document.getElementById("dataForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
+      // Handle form submission
+      document.getElementById("dataForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
 
-            // Ambil form data
-            const formData = new FormData(this);
-            const jsonObject = {};
-            formData.forEach((value, key) => jsonObject[key] = value);
+        // Ambil form data
+        const formData = new FormData(this);
+        
+        // Handle the image file (if there is one)
+        const fileInput = document.getElementById('fileInput');
+        const imageFile = fileInput.files[0]; // Get the file object from the input
 
-            try {
-                const response = await fetch("http://localhost:3000/data", {
-                    method: "POST",
-                    body:formData
-                });
+        if (imageFile) {
+            // Simulate storing the image in the frontend (no upload to backend)
+            const imageName = Date.now() + '.' + imageFile.name.split('.').pop(); // Unique image name
 
-                const result = await response.json();
-                
-                if (response.ok) {
-                    alert("done");
-                    window.location.href = '../admin.html';
-                } else {
-                    alert("Gagal menyimpan data: " + result.message);
-                }
-            } catch (error) {
-                alert("Terjadi kesalahan: " + error.message);
+            // Preview image in the frontend (optional)
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imgElement = document.createElement('img');
+                imgElement.src = e.target.result; // Preview the image in base64 format
+                document.body.appendChild(imgElement); // Append to body or wherever you need
+            };
+            reader.readAsDataURL(imageFile);
+
+            // Append image filename to FormData (not the image itself)
+            formData.set("gambar", imageName);
+        }
+
+        try {
+            // Send the form data (including image filename) to the backend
+            const response = await fetch("http://localhost:3000/data", {
+                method: "POST",
+                body: formData, // Send the data as FormData (multipart)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("Data berhasil disimpan");
+                window.location.href = '../admin.html'; // Redirect after successful data submission
+            } else {
+                alert("Gagal menyimpan data: " + result.message);
             }
-        });
-
-        // Fungsi untuk membuka pop-up pembatalan
-        function openCancelPopup() {
-            document.getElementById('cancelPopup').classList.remove('hidden');
+        } catch (error) {
+            alert("Terjadi kesalahan: " + error.message);
         }
-
-        // Fungsi untuk menutup pop-up pembatalan
-        function closeCancelPopup() {
-            document.getElementById('cancelPopup').classList.add('hidden');
-        }
-
-        // Fungsi konfirmasi pembatalan
-        function confirmCancel() {
-            alert('Perubahan dibatalkan!');
-            closeCancelPopup();
-        }
-
+    });
     </script>
 
     
