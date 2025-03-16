@@ -17,18 +17,8 @@
               <a class="text-lg" href="#">DASHBOARD</a>
               <a class="text-lg" href="#">HOME</a>
             </nav>
-        <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
-      <div class="absolute top-1/2 left-[90%] transform -translate-x-1/2 -translate-y-1/2 -rotate-90 text-6xl font-extrabold tracking-widest leading-none whitespace-nowrap">
-        Edit Data Tiang
-      </div>
+        </div>
 
-      <!-- Tombol Logout -->
-      <div class="mt-auto mb-8">
-        <button id="logout-btn" class="bg-white text-green-800 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white transition duration-300">
-          LOG OUT
-        </button>
-      </div>
-    </div>
         <!-- Main Content -->
         <div class="flex-1 p-8">
             <div class="flex justify-between items-center mb-8">
@@ -36,18 +26,12 @@
                 <button class="btn-back" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i> Kembali
                 </button>
-            
-                <script>
-                    function goBack() {
-                        window.location.href = '../admin.html';
-                    }
-                </script>
             </div>
             <form class="grid grid-cols-2 gap-8">
                 <div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kode Tiang :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="SOK01">
+                        <input type="text" name="kode_tiang" class="w-full border border-gray-300 p-2">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Gambar :</label>
@@ -58,39 +42,39 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Provinsi :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Kepulauan Riau">
+                        <input type="text" name="provinsi" class="w-full border border-gray-300 p-2">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kabupaten :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Bintan">
+                        <input type="text" name="kabupaten" class="w-full border border-gray-300 p-2">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kota:</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Bintan">
+                        <input type="text" name="kota" class="w-full border border-gray-300 p-2">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Nama Jalan :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Jl. Indunsuri">
+                        <input type="text" name="nama_jalan" class="w-full border border-gray-300 p-2">
                     </div>
                     <div class="mb-4 flex space-x-4">
                         <!-- Kotak Ukuran -->
                         <div class="w-1/2">
                             <label class="block text-gray-700">Ukuran :</label>
-                            <input type="text" class="w-full border border-gray-300 p-2 text-sm" value="4x6">
+                            <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm">
                         </div>
                     
                         <!-- Kotak Sisi -->
                         <div class="w-1/2">
                             <label class="block text-gray-700">Sisi :</label>
-                            <input type="text" class="w-full border border-gray-300 p-2 text-sm" value="2">
+                            <input type="text" name="sisi" class="w-full border border-gray-300 p-2 text-sm">
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Jenis :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="jenis" class="mr-2"> Billboard
-                            <input type="radio" name="jenis" class="ml-4 mr-2"> Baliho
-                            <input type="radio" name="jenis" class="ml-4 mr-2"> Videotron
+                            <input type="radio" name="jenis" class="mr-2" value="billboard"> Billboard
+                            <input type="radio" name="jenis" class="ml-4 mr-2" value="baliho"> Baliho
+                            <input type="radio" name="jenis" class="ml-4 mr-2" value="videotron"> Videotron
                         </div>
                     </div>
                 </div>
@@ -98,62 +82,52 @@
                     <div class="mb-4">
                         <label class="block text-gray-700">Jenis Lampu :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="jenis_lampu" class="mr-2"> FrontLight
-                            <input type="radio" name="jenis_lampu" class="ml-4 mr-2"> BackLight
+                            <input type="radio" name="jenis_lampu" class="mr-2" value="front light"> FrontLight
+                            <input type="radio" name="jenis_lampu" class="ml-4 mr-2" value="back light"> BackLight
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Titik Kordinat :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="1.036573253609591, 104.24891992465353">
+                        <input type="text" name="lat" class="w-full border border-gray-300 p-2">
+                        <input type="text" name="long" class="w-full border border-gray-300 p-2">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Jumlah Kendaraan :</label>
                         <div class="flex items-center">
-                            <input type="text" class="w-1/2 border border-gray-300 p-2" value="2000">
+                            <input type="text" name="jumlah_kendaraan" class="w-1/2 border border-gray-300 p-2">
                             <span class="ml-2">/ Hari</span>
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Nama Pemilik Tiang :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="PT. Angin Ribut Banget">
+                        <input type="text" name="nama_pemilik" class="w-full border border-gray-300 p-2">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Status Sewa :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="status_sewa" class="mr-2"> Rented
-                            <input type="radio" name="status_sewa" class="ml-4 mr-2"> Available
+                            <input type="radio" name="status_sewa" class="mr-2" value="rented"> Rented
+                            <input type="radio" name="status_sewa" class="ml-4 mr-2" value="available"> Available
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Nama Penyewa :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Camel">
+                        <input type="text" name="nama_penyewa" class="w-full border border-gray-300 p-2">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Lama Sewa :</label>
                         <div class="flex items-center">
-                            <select class="border border-gray-300 p-2">
-                                <option value="">Pilih Lama Sewa</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
+                            <select name="lama_sewa" class="border border-gray-300 p-2">
                                 <option value="12">12</option>
                             </select>
-                            <input type="radio" name="lama_sewa" class="ml-4 mr-2"> Bulan
-                            <input type="radio" name="lama_sewa" class="ml-4 mr-2"> Tahun
+                            <input type="radio" name="satuan_sewa" class="ml-4 mr-2" value="bulan"> Bulan
+                            <input type="radio" name="satuan_sewa" class="ml-4 mr-2" value="tahun"> Tahun
                         </div>
+                    </div>
                     <div class="mb-4">
                         <label class="block text-gray-500">Harga :</label>
                         <div class="flex items-center">
                             <span class="mr-2">Rp</span>
-                            <input type="text" class="w-full border border-gray-300 p-2">
+                            <input type="text" name="harga" class="w-full border border-gray-300 p-2">
                         </div>
                     </div>
                     <div class="flex justify-center mt-4">
@@ -164,62 +138,194 @@
             </form>
         </div>
     </div>
-    
-    <!-- Custom Modal Popup -->
-    <div id="cancelPopup" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <p class="text-lg font-semibold mb-4">Anda yakin ingin membatalkan perubahan?</p>
-            <div class="flex justify-end">
-                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-full mr-2" onclick="closeCancelPopup()">Tidak</button>
-                <button class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="confirmCancel()">Ya</button>
-            </div>
-        </div>
-    </div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        // Fungsi Logout
-        document.getElementById("logout-btn").addEventListener("click", function () {
-          alert("Anda telah logout!");
-          window.location.href = "/sum_fe/Login/Admin/admin.html"; // Redirect ke halaman login
-        });
-    
-        // Popup Modal untuk Status Sewa
-        const statusDropdown = document.getElementById("status-sewa");
-        const popupModal = document.getElementById("popup-modal");
-        const popupTitle = document.getElementById("popup-title");
-        const popupMessage = document.getElementById("popup-message");
-        const closePopup = document.getElementById("close-popup");
-    
-        statusDropdown.addEventListener("change", function () {
-          if (this.value === "available" || this.value === "rented") {
-            popupTitle.innerText = "Status Sewa Dipilih";
-            popupMessage.innerText = `Anda memilih status: ${this.options[this.selectedIndex].text}`;
-            popupModal.classList.remove("hidden");
-          }
-        });
-    
-        closePopup.addEventListener("click", function () {
-          popupModal.classList.add("hidden");
-        });
-      </script>
-
-    <script>
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('code');
+            
+            function fetchData(id) {
+                axios.get(`http://localhost:3000/data/id/${id}`)
+                    .then(response => {
+                        const data = response.data;
+                        
+                        // Cek apakah elemen ada sebelum mengubah nilainya dan log jika tidak
+                        const kodeTiangInput = document.querySelector('input[name="kode_tiang"]');
+                        if (kodeTiangInput) {
+                            kodeTiangInput.value = data.kode_tiang;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk kode_tiang');
+                        }
+        
+                        const provinsiInput = document.querySelector('input[name="provinsi"]');
+                        if (provinsiInput) {
+                            provinsiInput.value = data.provinsi;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk provinsi');
+                        }
+        
+                        const kabupatenInput = document.querySelector('input[name="kabupaten"]');
+                        if (kabupatenInput) {
+                            kabupatenInput.value = data.kabupaten;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk kabupaten');
+                        }
+        
+                        const kotaInput = document.querySelector('input[name="kota"]');
+                        if (kotaInput) {
+                            kotaInput.value = data.kota;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk kota');
+                        }
+        
+                        const namaJalanInput = document.querySelector('input[name="nama_jalan"]');
+                        if (namaJalanInput) {
+                            namaJalanInput.value = data.nama_jalan;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk nama_jalan');
+                        }
+        
+                        const ukuranInput = document.querySelector('input[name="ukuran"]');
+                        if (ukuranInput) {
+                            ukuranInput.value = data.ukuran;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk ukuran');
+                        }
+        
+                        const sisiInput = document.querySelector('input[name="sisi"]');
+                        if (sisiInput) {
+                            sisiInput.value = data.sisi;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk sisi');
+                        }
+        
+                        // Jenis radio button
+                        const jenisRadio = document.querySelectorAll('input[name="jenis"]');
+                        let jenisFound = false;
+                        jenisRadio.forEach(radio => {
+                            if (radio.value === data.jenis) {
+                                radio.checked = true;
+                                jenisFound = true;
+                            }
+                        });
+                        if (!jenisFound) {
+                            console.log('Jenis tidak ditemukan atau tidak cocok dengan data');
+                        }
+        
+                        // Jenis Lampu radio button
+                        const jenisLampuRadio = document.querySelectorAll('input[name="jenis_lampu"]');
+                        let jenisLampuFound = false;
+                        jenisLampuRadio.forEach(radio => {
+                            if (radio.value === data.jenis_lampu) {
+                                radio.checked = true;
+                                jenisLampuFound = true;
+                            }
+                        });
+                        if (!jenisLampuFound) {
+                            console.log('Jenis lampu tidak ditemukan atau tidak cocok dengan data');
+                        }
+        
+                        const latInput = document.querySelector('input[name="lat"]');
+                        if (latInput) {
+                            latInput.value = data.lat;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk lat');
+                        }
+        
+                        const longInput = document.querySelector('input[name="long"]');
+                        if (longInput) {
+                            longInput.value = data.long;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk long');
+                        }
+        
+                        const jumlahKendaraanInput = document.querySelector('input[name="jumlah_kendaraan"]');
+                        if (jumlahKendaraanInput) {
+                            jumlahKendaraanInput.value = data.jumlah_kendaraan;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk jumlah_kendaraan');
+                        }
+        
+                        const namaPemilikInput = document.querySelector('input[name="nama_pemilik"]');
+                        if (namaPemilikInput) {
+                            namaPemilikInput.value = data.nama_pemilik;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk nama_pemilik');
+                        }
+        
+                        const statusSewaRadio = document.querySelectorAll('input[name="status_sewa"]');
+                        let statusSewaFound = false;
+                        statusSewaRadio.forEach(radio => {
+                            if (radio.value === data.status_sewa) {
+                                radio.checked = true;
+                                statusSewaFound = true;
+                            }
+                        });
+                        if (!statusSewaFound) {
+                            console.log('Status sewa tidak ditemukan atau tidak cocok dengan data');
+                        }
+        
+                        const namaPenyewaInput = document.querySelector('input[name="nama_penyewa"]');
+                        if (namaPenyewaInput) {
+                            namaPenyewaInput.value = data.nama_penyewa;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk nama_penyewa');
+                        }
+        
+                        const lamaSewaInput = document.querySelector('select[name="lama_sewa"]');
+                        if (lamaSewaInput) {
+                            lamaSewaInput.value = data.lama_sewa;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk lama_sewa');
+                        }
+        
+                        const hargaInput = document.querySelector('input[name="harga"]');
+                        if (hargaInput) {
+                            hargaInput.value = data.harga;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk harga');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Terjadi kesalahan:', error);
+                    });
+            }
+        
+            fetchData(id);
+        }
+        
+        
+                
         function saveData() {
-            alert('Data berhasil disimpan!');
-            window.location.href = '../admin.html';
-        }
-        function openCancelPopup() {
-            document.getElementById('cancelPopup').classList.remove('hidden');
-        }
-        function closeCancelPopup() {
-            document.getElementById('cancelPopup').classList.add('hidden');
-        }
-        function confirmCancel() {
-            alert('Perubahan dibatalkan!');
-            closeCancelPopup();
+            const updatedData = {
+                kode_tiang: document.querySelector('input[name="kode_tiang"]').value,
+                provinsi: document.querySelector('input[name="provinsi"]').value,
+                kabupaten: document.querySelector('input[name="kabupaten"]').value,
+                kota: document.querySelector('input[name="kota"]').value,
+                nama_jalan: document.querySelector('input[name="nama_jalan"]').value,
+                ukuran: document.querySelector('input[name="ukuran"]').value,
+                sisi: document.querySelector('input[name="sisi"]').value,
+                jenis: document.querySelector('input[name="jenis"]').value,
+                jenis_lampu: document.querySelector('input[name="jenis_lampu"]').value,
+                lat: document.querySelector('input[name="lat"]').value,
+                long: document.querySelector('input[name="long"]').value,
+                jumlah_kendaraan: document.querySelector('input[name="jumlah_kendaraan"]').value,
+                nama_pemilik: document.querySelector('input[name="nama_pemilik"]').value,
+                status_sewa: document.querySelector('input[name="status_sewa"]').value,
+                nama_penyewa: document.querySelector('input[name="nama_penyewa"]').value,
+                lama_sewa: document.querySelector('input[name="lama_sewa"]').value,
+                harga: document.querySelector('input[name="harga"]').value
+            };
+
+            axios.put(`http://localhost:3000/data/id/${id}`, updatedData)
+                .then(response => {
+                    alert('Data berhasil diperbarui!');
+                    window.location.href = '../admin.html'; // Redirect setelah berhasil
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan saat menyimpan data:', error);
+                });
         }
     </script>
-
-    
 </body>
 </html>

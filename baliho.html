@@ -59,7 +59,7 @@
             <p><strong>Ukuran:</strong> <span id="locationSize"></span></p>
             <p><strong>Jenis Tiang:</strong> <span id="locationType"></span></p>
             <p><strong>Jenis Pencahayaan:</strong> <span id="locationLight"></span></p>
-            <p><strong>Koordinat:</strong> <span id="locationLatitude"></span></p>
+            <p><strong>Koordinat:</strong> <span id="locationKoordinat"></span></p>
             <p><strong>Volume Lalu Lintas:</strong> <span id="trafficVolume"></span></p>
             <p><strong>Pemilik Tiang:</strong> <span id="poleOwner"></span></p>
             <p><strong>Status Sewa:</strong> <span id="rentalStatus"></span></p>
@@ -133,6 +133,59 @@
         <a href="ProvideBySoematraMediaAdvertising" class="text-gray-400 hover:underline">Provide By Soematra Media Advertising</a>    
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    // Ambil parameter 'code' dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    if (code) {
+        fetchLocationData(code);
+    } else {
+        alert('ID Lokasi tidak ditemukan!');
+    }
+
+    async function fetchLocationData(id) {
+        try {
+            // Mengambil data berdasarkan ID dengan axios
+            const response = await axios.get(`http://localhost:3000/data/id/${id}`);
+
+            if (response.status === 200) {
+                const data = response.data;
+                // Menampilkan data ke dalam elemen HTML
+                document.getElementById("locationName").textContent = data.nama_tiang;
+                document.getElementById("locationDescription").textContent = data.deskripsi;
+                document.getElementById("poleCode").textContent = data.kode_tiang;
+                document.getElementById("locationProvince").textContent = data.provinsi;
+                document.getElementById("locationRegency").textContent = data.kabupaten;
+                document.getElementById("locationCity").textContent = data.kota;
+                document.getElementById("locationStreet").textContent = data.nama_jalan;
+                document.getElementById("locationSize").textContent = data.ukuran;
+                document.getElementById("locationType").textContent = data.jenis;
+                document.getElementById("locationLight").textContent = data.jenis_lampu;
+                document.getElementById("locationLatitude").textContent = data.lat;
+                document.getElementById("trafficVolume").textContent = data.jumlah_kendaraan;
+                document.getElementById("poleOwner").textContent = data.nama_pemilik_tiang;
+                document.getElementById("rentalStatus").textContent = data.status_sewa;
+                document.getElementById("renter").textContent = data.nama_penyewa;
+                document.getElementById("rentalDuration").textContent = data.lama_sewa;
+                document.getElementById("locationLongitude").textContent = data.long;
+                document.getElementById("locationKoordinat").textContent = `${data.lat}, ${data.long}`;
+
+                // Menampilkan gambar lokasi
+                document.getElementById("locationImage").src = `http://localhost:3000/uploads/${data.gambar}`;
+
+                // Mengupdate link navigasi Google Maps
+                const navigateButton = document.getElementById("navigateButton");
+                navigateButton.href = `https://www.google.com/maps?q=${data.lat},${data.long}`;
+            } else {
+                console.error("Gagal mengambil data:", response.status);
+            }
+        } catch (error) {
+            console.error("Terjadi kesalahan saat mengambil data:", error);
+        }
+    }
+</script>
 
 <script src="/Media/script.js"></script>
 <script>

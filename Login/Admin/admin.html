@@ -203,8 +203,11 @@ async function fetchData() {
           <td class="py-2 px-4">${item.nama_penyewa}</td>
           <td class="py-2 px-4">${item.lama_sewa}</td>
           <td class="py-2 px-4">
-            <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300">Action</button>
-          </td>
+            <!-- Tombol untuk redirect ke halaman edit berdasarkan ID -->
+            <button onclick="redirectToEdit(${item.id})" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
+                Edit
+            </button>
+        </td>
         `;
 
         // Tambahkan row ke tabel
@@ -217,6 +220,12 @@ async function fetchData() {
     console.error("Terjadi kesalahan saat mengambil data:", error);
   }
 }
+
+    function redirectToEdit(id) {
+        // Arahkan ke halaman edit di dalam folder 'Edit' dengan parameter ID di URL
+        window.location.href = `./Edit/edit.html?code=${id}`;
+    }
+
 
 // Panggil fetchData saat halaman dimuat
 document.addEventListener("DOMContentLoaded", fetchData);
