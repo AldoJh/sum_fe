@@ -81,37 +81,10 @@
               <th class="py-2 px-4">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="data-tbody">
             <tr class="border-t">
-              <td class="py-2 px-4">1</td>
-              <td class="py-2 px-4">SOK01</td>
-              <td class="py-2 px-4">
-                <img alt="Placeholder image of a billboard" height="100" src="https://storage.googleapis.com/a1aa/image/BxppoJOZXalBvfQ3i7Jr7AMtK-wM4Fsdhy6gGwYrWYY.jpg" width="100"/>
-              </td>
-              <td class="py-2 px-4">Kepulauan Riau</td>
-              <td class="py-2 px-4">Bintan</td>
-              <td class="py-2 px-4">Bintan</td>
-              <td class="py-2 px-4">Jl. Indun Suri, Teluk Sasah, Tanjung Uban</td>
-              <td class="py-2 px-4">4x6 2 sisi</td>
-              <td class="py-2 px-4">Billboard</td>
-              <td class="py-2 px-4">Frontlight</td>
-              <td class="py-2 px-4">1.03657323560951, 104.24801992463553</td>
-              <td class="py-2 px-4">2000 Kendaraan / Hari</td>
-              <td class="py-2 px-4">PT. Angin Ribut Banget</td>
-              <td class="py-2 px-4">Rented</td>
-              <td class="py-2 px-4">Camel</td>
-              <td class="py-2 px-4">3 Bulan</td>
-              <td class="py-2 px-4 relative">
-                <div class="relative">
-                  <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300" onclick="toggleDropdown(this)">
-                    Action
-                  </button>
-                  <div class="absolute right-0 mt-2 w-32 bg-white border rounded shadow-lg hidden">
-                    <a href="Edit/edit.html" class="block px-4 py-2 hover:bg-gray-200">Edit</a>
-                    <button onclick="confirmDelete()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Hapus</button>
-                  </div>
-                </div>
-              </td>
+              
+              
             </tr>
           </tbody>
         </table>
@@ -188,6 +161,65 @@ if (!userStorage) {
   }
 }
 
+
+// Fungsi untuk mengambil data dan menampilkan dalam tabel
+async function fetchData() {
+  try {
+    // Mengambil data dari server
+    const response = await axios.get("http://localhost:3000/data", {
+      withCredentials: true // Pastikan jika menggunakan cookie (jika diperlukan)
+    });
+
+    // Mengecek apakah response sukses
+    if (response.status === 200) {
+      const data = response.data; // Mendapatkan data dari response
+      const tableBody = document.getElementById("data-tbody"); // Mengambil elemen tbody untuk tabel
+
+      // Kosongkan tbody terlebih dahulu sebelum mengisi
+      tableBody.innerHTML = "";
+      
+      // Loop melalui data dan tambahkan  baris baru ke dalam tabel
+      data.forEach((item, index) => {
+        const row = document.createElement("tr");
+        const imageUrl = `http://localhost:3000/uploads/${item.gambar}`;
+        // Menambahkan data ke dalam baris
+        row.innerHTML = `
+          <td class="py-2 px-4">${index + 1}</td>
+          <td class="py-2 px-4">${item.kode_tiang}</td>
+          <td class="py-2 px-4">
+            <img alt="Image of ${item.kode_tiang}" src="${imageUrl}" width="100" height="100"/>
+          </td>
+          <td class="py-2 px-4">${item.provinsi}</td>
+          <td class="py-2 px-4">${item.kabupaten}</td>
+          <td class="py-2 px-4">${item.kota}</td>
+          <td class="py-2 px-4">${item.nama_jalan}</td>
+          <td class="py-2 px-4">${item.ukuran}</td>
+          <td class="py-2 px-4">${item.jenis}</td>
+          <td class="py-2 px-4">${item.jenis_lampu}</td>
+          <td class="py-2 px-4">${item.lat}, ${item.long}</td>
+          <td class="py-2 px-4">${item.jumlah_kendaraan}</td>
+          <td class="py-2 px-4">${item.nama_pemilik}</td>
+          <td class="py-2 px-4">${item.status_sewa}</td>
+          <td class="py-2 px-4">${item.nama_penyewa}</td>
+          <td class="py-2 px-4">${item.lama_sewa}</td>
+          <td class="py-2 px-4">
+            <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300">Action</button>
+          </td>
+        `;
+
+        // Tambahkan row ke tabel
+        tableBody.appendChild(row);
+      });
+    } else {
+      console.error("Gagal mengambil data:", response.status);
+    }
+  } catch (error) {
+    console.error("Terjadi kesalahan saat mengambil data:", error);
+  }
+}
+
+// Panggil fetchData saat halaman dimuat
+document.addEventListener("DOMContentLoaded", fetchData);
 
 
     // Popup Modal untuk Status Sewa
