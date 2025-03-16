@@ -19,7 +19,7 @@
             </nav>
         <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
       <div class="absolute top-1/2 left-[90%] transform -translate-x-1/2 -translate-y-1/2 -rotate-90 text-6xl font-extrabold tracking-widest leading-none whitespace-nowrap">
-        DASHBOARD ADMIN
+        Edit Data Tiang
       </div>
 
       <!-- Tombol Logout -->
@@ -33,9 +33,15 @@
         <div class="flex-1 p-8">
             <div class="flex justify-between items-center mb-8">
                 <h1 class="text-2xl font-semibold">Form Edit Data Tiang</h1>
-                <button class="text-green-800 flex items-center">
-                    <i class="fas fa-arrow-left mr-2"></i> Kembali
+                <button class="btn-back" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Kembali
                 </button>
+            
+                <script>
+                    function goBack() {
+                        window.location.href = '../admin.html';
+                    }
+                </script>
             </div>
             <form class="grid grid-cols-2 gap-8">
                 <div>
@@ -174,7 +180,7 @@
         // Fungsi Logout
         document.getElementById("logout-btn").addEventListener("click", function () {
           alert("Anda telah logout!");
-          window.location.href = "/SMA/Login/login.html"; // Redirect ke halaman login
+          window.location.href = "/sum_fe/Login/Admin/admin.html"; // Redirect ke halaman login
         });
     
         // Popup Modal untuk Status Sewa

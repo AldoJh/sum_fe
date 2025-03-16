@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "BB-JKT-001": {
             name: "Billboard Jakarta",
             description: "Billboard di pusat kota Jakarta.",
-            image: "./Asset/billboard.jpg",
+            image: "/sum_fe/Asset/billboard.jpg",
             province: "DKI Jakarta",
             regency: "Jakarta Pusat",
             city: "Jakarta",

@@ -17,15 +17,32 @@
               <a class="text-lg" href="#">DASHBOARD</a>
               <a class="text-lg" href="#">HOME</a>
             </nav>
-        </div>
+        <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
+      <div class="absolute top-1/2 left-[90%] transform -translate-x-1/2 -translate-y-1/2 -rotate-90 text-6xl font-extrabold tracking-widest leading-none whitespace-nowrap">
+        DATA INPUT TIANG
+      </div>
+
+      <!-- Tombol Logout -->
+      <div class="mt-auto mb-8">
+        <button id="logout-btn" class="bg-white text-green-800 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white transition duration-300">
+          LOG OUT
+        </button>
+      </div>
+    </div>
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
             <div class="flex justify-between items-center mb-8">
                 <h1 class="text-2xl font-semibold">Data Input Tiang</h1>
-                <button class="text-green-800 flex items-center">
-                    <i class="fas fa-arrow-left mr-2"></i> Kembali
+                <button class="btn-back" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Kembali
                 </button>
+            
+                <script>
+                    function goBack() {
+                        window.location.href = '../admin.html';
+                    }
+                </script>
             </div>
             <form id="dataForm" class="grid grid-cols-2 gap-8">
                 <div>
@@ -138,8 +155,27 @@
             </form>
         </div>
     </div>
+
+    <!-- Custom Modal Popup -->
+    <div id="cancelPopup" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <p class="text-lg font-semibold mb-4">Anda yakin ingin membatalkan perubahan?</p>
+            <div class="flex justify-end">
+                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-full mr-2" onclick="closeCancelPopup()">Tidak</button>
+                <button class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="confirmCancel()">Ya</button>
+            </div>
+        </div>
+    </div>
     
     <script>
+        
+
+ // Fungsi Logout
+ document.getElementById("logout-btn").addEventListener("click", function () {
+          alert("Anda telah logout!");
+          window.location.href = "/sum_fe/Login/Admin/admin.html"; // Redirect ke halaman login
+        });
+
          // Preview the selected image
          function previewImage(event) {
             const file = event.target.files[0]; // Get the file selected by the user
@@ -152,6 +188,9 @@
                 reader.readAsDataURL(file); // Convert file to base64 and display it
             }
         }
+
+        
+
         // Handle form submission
         document.getElementById("dataForm").addEventListener("submit", async function(event) {
             event.preventDefault();
@@ -202,5 +241,48 @@
             }
         });
             </script>
+            
+            // Popup Modal untuk Status Sewa
+            const statusDropdown = document.getElementById("status-sewa");
+            const popupModal = document.getElementById("popup-modal");
+            const popupTitle = document.getElementById("popup-title");
+            const popupMessage = document.getElementById("popup-message");
+            const closePopup = document.getElementById("close-popup");
+        
+            statusDropdown.addEventListener("change", function () {
+              if (this.value === "available" || this.value === "rented") {
+                popupTitle.innerText = "Status Sewa Dipilih";
+                popupMessage.innerText = `Anda memilih status: ${this.options[this.selectedIndex].text}`;
+                popupModal.classList.remove("hidden");
+              }
+            });
+        
+            closePopup.addEventListener("click", function () {
+              popupModal.classList.add("hidden");
+            });
+          </script>
+    
+        <script>
+            function saveData() {
+                alert('Data berhasil disimpan!');
+                window.location.href = '../admin.html';
+            }
+            function openCancelPopup() {
+                document.getElementById('cancelPopup').classList.remove('hidden');
+            }
+            function closeCancelPopup() {
+                document.getElementById('cancelPopup').classList.add('hidden');
+            }
+            function confirmCancel() {
+                alert('Perubahan dibatalkan!');
+                closeCancelPopup();
+            }
+        </script>
+    
+        
+    </body>
+    </html>
+    
+
 </body>
 </html>

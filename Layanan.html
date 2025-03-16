@@ -13,7 +13,7 @@
     <!-- Header -->
     <header class="bg-gray-800 text-white">
         <div class="container mx-auto flex flex-wrap justify-between items-center py-4 px-6">
-            <img src="D:/SMA/Asset/Frame 24.png" alt="Company Logo" class="h-8">
+            <img src="/sum_fe/Asset/Frame 24.png" alt="Company Logo" class="h-8">
             <nav class="flex space-x-4">
                 <div class="relative">
                     <button onclick="toggleDropdown()" class="hover:text-gray-400 focus:outline-none px-4 py-2 bg-gray-700 rounded">
@@ -36,10 +36,10 @@
 <section class="relative max-w-6xl mx-auto mt-8 overflow-hidden">
     <div class="relative w-full">
         <div id="slider" class="flex whitespace-nowrap transition-transform duration-700 ease-in-out">
-            <div class="min-w-full"><img src="D:/SMA/Asset/Gambar 1.png" class="w-full h-64 object-cover rounded-lg"></div>
-            <div class="min-w-full"><img src="D:/SMA/Asset/Gambar 2.png" class="w-full h-64 object-cover rounded-lg"></div>
-            <div class="min-w-full"><img src="D:/SMA/Asset/Gambar 3.png" class="w-full h-64 object-cover rounded-lg"></div>
-            <div class="min-w-full"><img src="D:/SMA/Asset/Gambar 4.png" class="w-full h-64 object-cover rounded-lg"></div>
+            <div class="min-w-full"><img src="/sum_fe/Asset/Gambar 1.png" class="w-full h-64 object-cover rounded-lg"></div>
+            <div class="min-w-full"><img src="/sum_fe/Asset/Gambar 2.png" class="w-full h-64 object-cover rounded-lg"></div>
+            <div class="min-w-full"><img src="/sum_fe/Asset/Gambar 3.png" class="w-full h-64 object-cover rounded-lg"></div>
+            <div class="min-w-full"><img src="/sum_fe/Asset/Gambar 4.png" class="w-full h-64 object-cover rounded-lg"></div>
         </div>
 </section>
 
@@ -63,25 +63,25 @@
     <div class="flex flex-col gap-8 items-center">
         <!-- Cetak Brand Identity -->
         <div class="relative w-full max-w-4xl">
-            <img src="D:/SMA/Asset/download.png" alt="Brand Identity" class="w-full h-96 object-cover rounded-lg shadow-lg">
+            <img src="/sum_fe/Asset/download.png" alt="Brand Identity" class="w-full h-96 object-cover rounded-lg shadow-lg">
             <div class="absolute top-4 left-4 bg-white text-green-500 py-3 px-5 m-4 rounded shadow-lg flex flex-col items-center">
-                <img src="D:/SMA/Asset/Frame 24.png" alt="Logo" class="w-10 h-10 mb-2">
+                <img src="/sum_fe/Asset/Frame 24.png" alt="Logo" class="w-10 h-10 mb-2">
                 <span class="text-lg font-bold">Cetak Brand Identity</span>
             </div>
         </div>
 
         <!-- Cetak Baliho dan Spanduk -->
         <div class="relative w-full max-w-4xl">
-            <img src="D:/SMA/Asset/download.jpg" alt="Spanduk" class="w-full h-96 object-cover rounded-lg shadow-lg">
+            <img src="/sum_fe/Asset/download.jpg" alt="Spanduk" class="w-full h-96 object-cover rounded-lg shadow-lg">
             <div class="absolute top-4 right-4 bg-white text-green-500 py-3 px-5 m-4 rounded shadow-lg flex flex-col items-center">
-                <img src="D:/SMA/Asset/Frame 24.png" alt="Logo" class="w-10 h-10 mb-2">
+                <img src="/sum_fe/Asset/Frame 24.png" alt="Logo" class="w-10 h-10 mb-2">
                 <span class="text-lg font-bold">Cetak Baliho & Spanduk</span>
             </div>
         </div>
 
         <!-- Cetak Neon Box -->
         <div class="relative w-full max-w-4xl">
-            <img src="D:/SMA/Asset/images.jpg" alt="Neon Box" class="w-full h-96 object-cover rounded-lg shadow-lg">
+            <img src="/sum_fe/Asset/images.jpg" alt="Neon Box" class="w-full h-96 object-cover rounded-lg shadow-lg">
             <div class="absolute top-4 left-4 bg-white text-green-500 py-3 px-5 m-4 rounded shadow-lg flex flex-col items-center">
                 <img src="D:/SMA/Asset/Frame 24.png" alt="Logo" class="w-10 h-10 mb-2">
                 <span class="text-lg font-bold">Cetak Neon Box</span>
@@ -130,7 +130,7 @@
             <p class="mt-2">Alamat: Jl. Contoh No. 123, Kota ABC</p>
         </div>
         <div>
-            <img src="D:/SMA/Asset/Frame 24.png" alt="Logo" class="h-12">
+            <img src="/sum_fe/Asset/Frame 24.png" alt="Logo" class="h-12">
         </div>
     </div>
     <div class="container mx-auto text-center mt-4">
@@ -146,8 +146,71 @@
             document.getElementById("footer").scrollIntoView({ behavior: "smooth" });
         }
     </script>
+
+    
     <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+
+        // ======================= Dropdown Menu =======================
+        function setupDropdownMenu() {
+            const dropdownButton = document.getElementById("dropdownButton");
+            const dropdownMenu = document.getElementById("dropdown-menu");
+
+            if (dropdownButton && dropdownMenu) {
+                dropdownButton.addEventListener("click", (event) => {
+                    event.stopPropagation(); // Hindari event dari bubbling ke document
+                    dropdownMenu.classList.toggle("hidden");
+                });
+
+                document.addEventListener("click", (event) => {
+                    if (!dropdownMenu.contains(event.target) && !dropdownButton.contains(event.target)) {
+                        dropdownMenu.classList.add("hidden");
+                    }
+                });
+            }
+        }
+
+        setupDropdownMenu();
+
+         // ======================= Image Slider =======================
+         function initializeSlider() {
+            let slideIndex = 0;
+            const slides = document.querySelectorAll("#slider .min-w-full");
+            const totalSlides = slides.length;
+            const slider = document.getElementById("slider");
+    
+            function showSlide(index) {
+                slider?.style.setProperty("transform", `translateX(${-index * 100}%)`);
+            }
+    
+            if (totalSlides > 0) {
+                setInterval(() => {
+                    slideIndex = (slideIndex + 1) % totalSlides;
+                    showSlide(slideIndex);
+                }, 3000);
+            }
+        }
+    
+        initializeSlider();
+
+        // ======================= Scroll to Footer =======================
+        const scrollToFooterButton = document.getElementById("scrollToFooter");
+        const footer = document.getElementById("footer");
+
+        if (scrollToFooterButton && footer) {
+            scrollToFooterButton.addEventListener("click", () => {
+                footer.scrollIntoView({ behavior: "smooth" });
+            });
+        }
+    });
+</script>
+
+
+
 </body>
 </html>
