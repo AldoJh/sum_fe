@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Report</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <script>
+    function printReport() {
+      let printableContent = document.getElementById('printable-area').cloneNode(true);
+      let newWindow = window.open('', '', 'width=800,height=600');
+      
+      newWindow.document.write(`
+        <html>
+        <head>
+          <title>Print Report</title>
+          <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+          <style>
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              #printable-area, #printable-area * {
+                visibility: visible;
+              }
+              #printable-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          ${printableContent.outerHTML}
+        </body>
+        </html>
+      `);
+      
+      newWindow.document.close();
+      newWindow.focus();
+      newWindow.print();
+      newWindow.close();
+    }
+  </script>
+</head>
+<body class="bg-gray-200">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div class="bg-red-800 text-white w-64 flex flex-col items-center py-8 relative">
+      <div class="profile-pic bg-gray-300 rounded-full w-24 h-24 mb-4"></div>
+      <h2 class="text-xl mb-8">SUPER ADMIN</h2>
+      <nav class="flex flex-col space-y-4">
+        <a class="text-lg" href="admin.html">DASHBOARD</a>
+        <a class="text-lg" href="home.html">HOME</a>
+        <a class="text-lg" href="report.html">REPORT</a>        
+      </nav>
+      <div class="absolute top-1/2 left-[90%] transform -translate-x-1/2 -translate-y-1/2 -rotate-90 text-6xl font-extrabold tracking-widest leading-none whitespace-nowrap">
+        DASHBOARD SUPER ADMIN
+      </div>
+      <div class="mt-auto mb-8">
+        <button id="logout-btn" class="bg-white text-green-800 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white transition duration-300">
+          LOG OUT
+        </button>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+      <h1 class="text-center text-3xl font-bold mb-8">LAPORAN ADMIN</h1>
+      <h1 class="text-center text-3xl font-bold mb-8">Soematera Media Advertising</h1>
+      
+      <!-- Filter Tanggal -->
+      <div class="mb-4 flex space-x-4 filter-section">
+        <input type="date" id="start-date" class="border px-4 py-2 rounded"/>
+        <input type="date" id="end-date" class="border px-4 py-2 rounded"/>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Filter</button>
+      </div>
+      
+      <button onclick="printReport()" class="mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">Print Report</button>
+      
+      <div id="printable-area" class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr class="w-full bg-gray-200 text-left">
+              <th class="py-2 px-4 border">No</th>
+              <th class="py-2 px-4 border">Kode Tiang</th>
+              <th class="py-2 px-4 border">Gambar</th>
+              <th class="py-2 px-4 border">Provinsi</th>
+              <th class="py-2 px-4 border">Kabupaten</th>
+              <th class="py-2 px-4 border">Kota</th>
+              <th class="py-2 px-4 border">Nama Jalan</th>
+              <th class="py-2 px-4 border">Ukuran</th>
+              <th class="py-2 px-4 border">Jenis</th>
+              <th class="py-2 px-4 border">Jenis Lampu</th>
+              <th class="py-2 px-4 border">Titik Koordinat</th>
+              <th class="py-2 px-4 border">Jumlah Kendaraan</th>
+              <th class="py-2 px-4 border">Nama Pemilik Tiang</th>
+              <th class="py-2 px-4 border">Status Sewa</th>
+              <th class="py-2 px-4 border">Nama Penyewa</th>
+              <th class="py-2 px-4 border">Lama Sewa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="py-2 px-4 border text-center">1</td>
+              <td class="py-2 px-4 border">TNG-001</td>
+              <td class="py-2 px-4 border"><img src="image1.jpg" alt="Tiang 1" class="h-10 w-10 object-cover"></td>
+              <td class="py-2 px-4 border">Jawa Barat</td>
+              <td class="py-2 px-4 border">Bandung</td>
+              <td class="py-2 px-4 border">Bandung</td>
+              <td class="py-2 px-4 border">Jalan Merdeka</td>
+              <td class="py-2 px-4 border">12m</td>
+              <td class="py-2 px-4 border">Besi</td>
+              <td class="py-2 px-4 border">LED</td>
+              <td class="py-2 px-4 border">-6.9175, 107.6191</td>
+              <td class="py-2 px-4 border">5000/hari</td>
+              <td class="py-2 px-4 border">PT. Cahaya Sejahtera</td>
+              <td class="py-2 px-4 border text-green-600">Disewakan</td>
+              <td class="py-2 px-4 border">CV. Maju Jaya</td>
+              <td class="py-2 px-4 border">1 Tahun</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
