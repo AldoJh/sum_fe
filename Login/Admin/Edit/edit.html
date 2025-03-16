@@ -26,6 +26,12 @@
                 <button class="btn-back" onclick="goBack()">
                     <i class="fas fa-arrow-left"></i> Kembali
                 </button>
+            
+                <script>
+                    function goBack() {
+                        window.location.href = '../admin.html';
+                    }
+                </script>
             </div>
             <form class="grid grid-cols-2 gap-8">
                 <div>
@@ -138,7 +144,41 @@
             </form>
         </div>
     </div>
+
+     <!-- Custom Modal Popup -->
+     <div id="cancelPopup" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <p class="text-lg font-semibold mb-4">Anda yakin ingin membatalkan perubahan?</p>
+            <div class="flex justify-end">
+                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-full mr-2" onclick="closeCancelPopup()">Tidak</button>
+                <button class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="confirmCancel()">Ya</button>
+            </div>
+        </div>
+    </div>
+
+
+    
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        function saveData() {
+            alert('Data berhasil disimpan!');
+            window.location.href = '../admin.html';
+        }
+        function openCancelPopup() {
+            document.getElementById('cancelPopup').classList.remove('hidden');
+        }
+        function closeCancelPopup() {
+            document.getElementById('cancelPopup').classList.add('hidden');
+        }
+        function confirmCancel() {
+            alert('Perubahan dibatalkan!');
+            closeCancelPopup();
+        }
+    </script>
+
+    
+    
     <script>
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
@@ -327,5 +367,6 @@
                 });
         }
     </script>
+    
 </body>
 </html>
