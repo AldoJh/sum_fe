@@ -17,7 +17,18 @@
               <a class="text-lg" href="#">DASHBOARD</a>
               <a class="text-lg" href="#">HOME</a>
             </nav>
-        </div>
+            <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
+      <div class="absolute top-1/2 left-[90%] transform -translate-x-1/2 -translate-y-1/2 -rotate-90 text-6xl font-extrabold tracking-widest leading-none whitespace-nowrap">
+        DATA EDIT TIANG
+      </div>
+
+      <!-- Tombol Logout -->
+      <div class="mt-auto mb-8">
+        <button id="logout-btn" class="bg-white text-green-800 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white transition duration-300">
+          LOG OUT
+        </button>
+      </div>
+    </div>
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
@@ -156,7 +167,13 @@
         </div>
     </div>
 
-
+    <script>
+        // Fungsi Logout
+        document.getElementById("logout-btn").addEventListener("click", function () {
+            alert("Anda telah logout!");
+            window.location.href = "/sum_fe/Login/login.html"; // Redirect ke halaman login
+        });
+    </script>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -356,6 +373,12 @@
                 lama_sewa: document.querySelector('input[name="lama_sewa"]').value,
                 harga: document.querySelector('input[name="harga"]').value
             };
+            
+            const fileInput = document.getElementById('fileInput');
+            const imageFile = fileInput.files[0];
+            if (imageFile) {
+                formData.append('gambar', imageFile); // Menambahkan file gambar ke FormData
+            }
 
             axios.put(`http://localhost:3000/data/id/${id}`, updatedData)
                 .then(response => {
@@ -365,8 +388,30 @@
                 .catch(error => {
                     console.error('Terjadi kesalahan saat menyimpan data:', error);
                 });
-        }
-    </script>
+                
+            };
+            </script>
+            
+
     
-</body>
-</html>
+        <script>
+            function saveData() {
+                alert('Data berhasil disimpan!');
+                window.location.href = '../admin.html';
+            }
+            function openCancelPopup() {
+                document.getElementById('cancelPopup').classList.remove('hidden');
+            }
+            function closeCancelPopup() {
+                document.getElementById('cancelPopup').classList.add('hidden');
+            }
+            function confirmCancel() {
+                alert('Perubahan dibatalkan!');
+                closeCancelPopup();
+            }
+        </script>
+    
+        
+    </body>
+    </html>
+    
