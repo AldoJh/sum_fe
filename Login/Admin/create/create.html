@@ -14,8 +14,8 @@
             <div class="profile-pic bg-gray-300 rounded-full w-24 h-24 mb-4"></div>
             <h2 class="text-xl mb-8">SUPER ADMIN</h2>
             <nav class="flex flex-col space-y-4">
-                <a class="text-lg" href="admin.html">DASHBOARD</a>
-                <a class="text-lg" href="report.html">REPORT</a>       
+                <a class="text-lg" href="../admin.html">DASHBOARD</a>
+                <a class="text-lg" href="../report.html">REPORT</a>       
             </nav>
         <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
       <div class="absolute top-1/2 left-[90%] transform -translate-x-1/2 -translate-y-1/2 -rotate-90 text-6xl font-extrabold tracking-widest leading-none whitespace-nowrap">
@@ -118,39 +118,6 @@
                         <input type="text" name="nama_pemilik" class="w-full border border-gray-300 p-2" >
                     </div>
                     <div class="mb-4">
-                        <label class="block text-gray-700">Status Sewa :</label>
-                        <div class="flex items-center">
-                            <input type="radio" name="status_sewa" value="rented" class="mr-2" checked> Rented
-                            <input type="radio" name="status_sewa" value="available" class="ml-4 mr-2"> Available
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Nama Penyewa :</label>
-                        <input type="text" name="nama_penyewa" class="w-full border border-gray-300 p-2" >
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Lama Sewa :</label>
-                        <div class="flex items-center">
-                            <select name="lama_sewa" class="border border-gray-300 p-2">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                
-                            </select>
-                            <input type="radio" name="lama_sewa_unit" value="bulan" class="ml-4 mr-2" checked> Bulan
-                            <input type="radio" name="lama_sewa_unit" value="tahun" class="ml-4 mr-2"> Tahun
-                        </div>
-                    </div>
-                    <div class="mb-4">
                         <label class="block text-gray-500">Harga :</label>
                         <div class="flex items-center">
                             <span class="mr-2">Rp</span>
@@ -183,7 +150,7 @@
  // Fungsi Logout
  document.getElementById("logout-btn").addEventListener("click", function () {
           alert("Anda telah logout!");
-          window.location.href = "/sum_fe/Login/Admin/admin.html"; // Redirect ke halaman login
+          window.location.href = "/sum_fe/Login/login.html"; // Redirect ke halaman login
         });
 
          // Preview the selected image

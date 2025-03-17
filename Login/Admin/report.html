@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Report</title>
+  <title>Super Admin Report</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
   <script>
     function printReport() {
       let printableContent = document.getElementById('printable-area').cloneNode(true);
       let newWindow = window.open('', '', 'width=800,height=600');
       
-      newWindow.document.write(`};
-
+      newWindow.document.write(`
         <html>
         <head>
           <title>Print Report</title>
@@ -44,6 +45,14 @@
       newWindow.focus();
       newWindow.print();
       newWindow.close();
+    }
+
+    function exportToExcel() {
+      let table = document.getElementById("report-table");
+      let wb = XLSX.utils.book_new();
+      let ws = XLSX.utils.table_to_sheet(table);
+      XLSX.utils.book_append_sheet(wb, ws, "Laporan Admin");
+      XLSX.writeFile(wb, "Laporan_Admin.xlsx");
     }
   </script>
 </head>
@@ -78,13 +87,18 @@
         <input type="date" id="end-date" class="border px-4 py-2 rounded"/>
         <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Filter</button>
       </div>
-      
-      <button onclick="printReport()" class="mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">Print Report</button>
-      
+
+      <!-- Tombol Print & Export -->
+      <div class="mb-4 flex space-x-4">
+        <button onclick="printReport()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">Print Report</button>
+        <button onclick="exportToExcel()" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700">Export ke Excel</button>
+      </div>
+
+      <!-- Laporan -->
       <div id="printable-area" class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-300">
+        <table id="report-table" class="min-w-full bg-white border border-gray-300">
           <thead>
-            <tr class="w-full bg-gray-200 text-left">
+            <tr class="bg-gray-200 text-left">
               <th class="py-2 px-4 border">No</th>
               <th class="py-2 px-4 border">Kode Tiang</th>
               <th class="py-2 px-4 border">Gambar</th>
@@ -103,6 +117,8 @@
               <th class="py-2 px-4 border">Lama Sewa</th>
             </tr>
           </thead>
+          <tbody>
+          </tbody>
         </table>
       </div>
     </div>
