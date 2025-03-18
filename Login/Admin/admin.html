@@ -313,6 +313,37 @@ document.addEventListener("DOMContentLoaded", fetchData);
     closePopup.addEventListener("click", function () {
       popupModal.classList.add("hidden");
     });
+
+    function deleteItem(itemId) {
+      console.log("Delete item with ID:", itemId);
+  
+      fetch(`http://localhost:3000/data/id/${itemId}`, {
+          method: "DELETE",
+          headers: {
+              "Content-Type": "application/json",
+          },
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error("Gagal menghapus data.");
+          }
+          return response.json();
+      })
+      .then(data => {
+          console.log("Data berhasil dihapus:", data);
+          alert("Data berhasil dihapus!");
+          // Panggil fetchData untuk memperbarui tabel setelah menghapus
+          fetchData();
+      })
+      .catch(error => {
+          console.error("Error saat menghapus data:", error);
+          alert("Gagal menghapus data.");
+      })
+      .finally(() => {
+          closeDeletePopup();
+      });
+  }
+  
   </script>
 
 </body>
