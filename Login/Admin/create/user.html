@@ -81,7 +81,7 @@
         </form>
 
         <div class="flex justify-center mt-4">
-            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2" onclick="saveData()">Simpan</button>
+            <button id="save-btn" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2">Simpan</button>
             <button type="button" class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="openCancelPopup()">Batal</button>
         </div>
 
@@ -97,27 +97,115 @@
         </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        function saveData() {
-            alert('Data berhasil disimpan!');
-            window.location.href = '/sum_fe/Login/Admin/admin.html';
-        }
-        function openCancelPopup() {
-            document.getElementById('cancelPopup').classList.remove('hidden');
-        }
-        function closeCancelPopup() {
-            document.getElementById('cancelPopup').classList.add('hidden');
-        }
-        function confirmCancel() {
-            alert('Perubahan dibatalkan!');
-            closeCancelPopup();
-        }
-
-        // Fungsi Logout
-        document.getElementById("logout-btn").addEventListener("click", function () {
-            alert("Anda telah logout!");
-            window.location.href = "/sum_fe/Login/login.html";
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get("code");
+    
+            if (id) {
+                fetchData(id);
+            } else {
+                console.warn("❌ ID tidak ditemukan di URL!");
+            }
+    
+            // **🔹 Fungsi untuk Mengambil Data Penyewa**
+            function fetchData(id) {
+                axios.get(`http://localhost:3000/data/id/${id}`)
+                    .then(response => {
+                        const penyewa = response.data;
+                        console.log("✅ Data Penyewa:", penyewa);
+    
+                        // Isi data ke dalam form dengan pengecekan elemen
+                        setInputValue("input[name='ukuran']", penyewa.nama_penyewa);
+                        setSelectValue("select[name='lama_sewa']", penyewa.lama_sewa);
+                        setRadioValue("input[name='lama_sewa_unit']", penyewa.lama_sewa_unit);
+                        setRadioValue("input[name='status_sewa']", penyewa.status_sewa);
+                    })
+                    .catch(error => {
+                        console.error("❌ Terjadi kesalahan saat mengambil data:", error);
+                        alert("Gagal mengambil data penyewa!");
+                    });
+            }
+    
+            // **🛠️ Fungsi Membantu Mengatur Nilai Input**
+            function setInputValue(selector, value) {
+                const input = document.querySelector(selector);
+                if (input) {
+                    input.value = value || "";
+                } else {
+                    console.warn(`⚠️ Elemen '${selector}' tidak ditemukan!`);
+                }
+            }
+    
+            function setSelectValue(selector, value) {
+                const select = document.querySelector(selector);
+                if (select) {
+                    select.value = value || select.options[0].value;
+                } else {
+                    console.warn(`⚠️ Elemen '${selector}' tidak ditemukan!`);
+                }
+            }
+    
+            function setRadioValue(selector, value) {
+                const radioInput = document.querySelector(`${selector}[value='${value}']`);
+                if (radioInput) {
+                    radioInput.checked = true;
+                } else {
+                    console.warn(`⚠️ Elemen radio '${selector}' dengan value '${value}' tidak ditemukan!`);
+                }
+            }
+    
+            // **🔹 Fungsi untuk Menyimpan Data Penyewa**
+            function saveData() {
+                const id = urlParams.get("code"); // Ambil ID dari URL
+    
+                if (!id) {
+                    alert("ID tidak ditemukan!");
+                    return;
+                }
+    
+                const nama_penyewa = document.querySelector("input[name='ukuran']").value;
+                const lama_sewa = document.querySelector("select[name='lama_sewa']").value;
+                const lama_sewa_unit = document.querySelector("input[name='lama_sewa_unit']:checked")?.value;
+                const status_sewa = document.querySelector("input[name='status_sewa']:checked")?.value;
+    
+                if (!nama_penyewa || !lama_sewa || !lama_sewa_unit || !status_sewa) {
+                    alert("Harap lengkapi semua data sebelum menyimpan!");
+                    return;
+                }
+    
+                const data = {
+                    nama_penyewa,
+                    lama_sewa,
+                    lama_sewa_unit,
+                    status_sewa
+                };
+    
+                axios.put(`http://localhost:3000/data/id/${id}`, data)
+                    .then(response => {
+                        alert("✅ Data berhasil diperbarui!");
+                        window.location.href = "/sum_fe/Login/Admin/admin.html"; // Redirect setelah update
+                    })
+                    .catch(error => {
+                        console.error("❌ Terjadi kesalahan saat menyimpan data:", error);
+                        alert("Gagal menyimpan perubahan!");
+                    });
+            }
+    
+            // **🔹 Event Listener untuk Simpan**
+            document.getElementById("save-btn").addEventListener("click", function (event) {
+                event.preventDefault(); // Mencegah form reload
+                saveData();
+            });
+    
+            // **🔹 Fungsi Logout**
+            document.getElementById("logout-btn").addEventListener("click", function () {
+                alert("Anda telah logout!");
+                window.location.href = "/sum_fe/Login/login.html";
+            });
         });
     </script>
+    
 </body>
 </html>
