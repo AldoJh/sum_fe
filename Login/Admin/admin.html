@@ -260,19 +260,18 @@ async function fetchData() {
           <td class="py-2 px-4">${item.status_sewa}</td>
           <td class="py-2 px-4">${item.nama_penyewa}</td>
           <td class="py-2 px-4">${item.lama_sewa}</td>
-         <div class="inline-block text-left">
+            <div class="inline-block text-left">
                 <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300" onclick="toggleDropdown(this)">
                   Action
                 </button>
                 <div class="dropdown hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg z-10">
-                  <a href="./Edit/edit.html" onclick="redirectToEdit(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Tiang</a>
-                  <a href="./create/user.html" onclick="redirectToUser(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Penyewa</a>
+                  <a href="./Edit/edit.html?code=${item.id}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Tiang</a>
+                  <a href="./create/user.html?code=${item.id}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Penyewa</a>
                   <a href="#" onclick="deleteItem(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Hapus</a>
                 </div>
-              </div>
-            </td>
-            
-          `;
+            </div>
+          </td>            
+        `;
 
           
         // Tambahkan row ke tabel

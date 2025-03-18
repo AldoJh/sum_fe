@@ -157,238 +157,142 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        function saveData() {
-            alert('Data berhasil disimpan!');
-            window.location.href = '../admin.html';
+        document.addEventListener("DOMContentLoaded", async function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get("code");
+
+            if (!id) {
+                console.error("ID tidak ditemukan di URL.");
+                return;
+            }
+
+            try {
+                const response = await axios.get(`http://localhost:3000/data/id/${id}`);
+                const data = response.data;
+
+                if (!data) {
+                    console.error("Data tidak ditemukan.");
+                    return;
+                }
+
+                // Mengisi form dengan data yang didapat
+                setInputValue("kode_tiang", data.kode_tiang);
+                setInputValue("provinsi", data.provinsi);
+                setInputValue("kabupaten", data.kabupaten);
+                setInputValue("kota", data.kota);
+                setInputValue("nama_jalan", data.nama_jalan);
+                setInputValue("ukuran", data.ukuran);
+                setInputValue("sisi", data.sisi);
+                setRadioValue("jenis", data.jenis);
+                setRadioValue("jenis_lampu", data.jenis_lampu);
+                setInputValue("lat", data.lat);
+                setInputValue("long", data.long);
+                setInputValue("jumlah_kendaraan", data.jumlah_kendaraan);
+                setInputValue("nama_pemilik", data.nama_pemilik);
+                setInputValue("harga", data.harga);
+
+            } catch (error) {
+                console.error("Terjadi kesalahan saat mengambil data:", error);
+                alert("Gagal mengambil data. Periksa koneksi atau API.");
+            }
+        });
+
+        // Fungsi untuk mengisi input text
+        function setInputValue(name, value) {
+            const input = document.querySelector(`input[name="${name}"]`);
+            if (input) {
+                input.value = value || "";
+            } else {
+                console.warn(`Elemen dengan nama '${name}' tidak ditemukan.`);
+            }
         }
+
+        // Fungsi untuk mengisi radio button
+        function setRadioValue(name, value) {
+            const radios = document.querySelectorAll(`input[name="${name}"]`);
+            if (radios.length > 0) {
+                radios.forEach((radio) => {
+                    if (radio.value === value) {
+                        radio.checked = true;
+                    }
+                });
+            } else {
+                console.warn(`Radio button dengan nama '${name}' tidak ditemukan.`);
+            }
+        }
+
+        // Fungsi untuk menyimpan data
+        async function saveData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get("code");
+
+            if (!id) {
+                alert("ID tidak ditemukan.");
+                return;
+            }
+
+            const formData = {
+                kode_tiang: getInputValue("kode_tiang"),
+                provinsi: getInputValue("provinsi"),
+                kabupaten: getInputValue("kabupaten"),
+                kota: getInputValue("kota"),
+                nama_jalan: getInputValue("nama_jalan"),
+                ukuran: getInputValue("ukuran"),
+                sisi: getInputValue("sisi"),
+                jenis: getRadioValue("jenis"),
+                jenis_lampu: getRadioValue("jenis_lampu"),
+                lat: getInputValue("lat"),
+                long: getInputValue("long"),
+                jumlah_kendaraan: getInputValue("jumlah_kendaraan"),
+                nama_pemilik: getInputValue("nama_pemilik"),
+                harga: getInputValue("harga"),
+            };
+
+            try {
+                const response = await axios.put(`http://localhost:3000/data/id/${id}`, formData);
+                alert("Data berhasil diperbarui!");
+                window.location.href = "../admin.html";
+            } catch (error) {
+                console.error("Gagal menyimpan data:", error);
+                alert("Terjadi kesalahan saat menyimpan data.");
+            }
+        }
+
+        // Fungsi untuk mendapatkan nilai dari input text
+        function getInputValue(name) {
+            const input = document.querySelector(`input[name="${name}"]`);
+            return input ? input.value : "";
+        }
+
+        // Fungsi untuk mendapatkan nilai dari radio button
+        function getRadioValue(name) {
+            const radio = document.querySelector(`input[name="${name}"]:checked`);
+            return radio ? radio.value : "";
+        }
+
+        // Fungsi membuka popup batal
         function openCancelPopup() {
-            document.getElementById('cancelPopup').classList.remove('hidden');
+            document.getElementById("cancelPopup").classList.remove("hidden");
         }
+
+        // Fungsi menutup popup batal
         function closeCancelPopup() {
-            document.getElementById('cancelPopup').classList.add('hidden');
+            document.getElementById("cancelPopup").classList.add("hidden");
         }
+
+        // Fungsi konfirmasi pembatalan
         function confirmCancel() {
-            alert('Perubahan dibatalkan!');
+            alert("Perubahan dibatalkan!");
             closeCancelPopup();
         }
+
+        // Fungsi Logout
+        document.getElementById("logout-btn").addEventListener("click", function () {
+            alert("Anda telah logout!");
+            window.location.href = "/sum_fe/Login/login.html"; // Redirect ke halaman login
+        });
+
     </script>
-
-    
-    
-    <script>
-        window.onload = function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('code');
-            
-            function fetchData(id) {
-                axios.get(`http://localhost:3000/data/id/${id}`)
-                    .then(response => {
-                        const data = response.data;
-                        
-                        // Cek apakah elemen ada sebelum mengubah nilainya dan log jika tidak
-                        const kodeTiangInput = document.querySelector('input[name="kode_tiang"]');
-                        if (kodeTiangInput) {
-                            kodeTiangInput.value = data.kode_tiang;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk kode_tiang');
-                        }
-        
-                        const provinsiInput = document.querySelector('input[name="provinsi"]');
-                        if (provinsiInput) {
-                            provinsiInput.value = data.provinsi;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk provinsi');
-                        }
-        
-                        const kabupatenInput = document.querySelector('input[name="kabupaten"]');
-                        if (kabupatenInput) {
-                            kabupatenInput.value = data.kabupaten;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk kabupaten');
-                        }
-        
-                        const kotaInput = document.querySelector('input[name="kota"]');
-                        if (kotaInput) {
-                            kotaInput.value = data.kota;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk kota');
-                        }
-        
-                        const namaJalanInput = document.querySelector('input[name="nama_jalan"]');
-                        if (namaJalanInput) {
-                            namaJalanInput.value = data.nama_jalan;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk nama_jalan');
-                        }
-        
-                        const ukuranInput = document.querySelector('input[name="ukuran"]');
-                        if (ukuranInput) {
-                            ukuranInput.value = data.ukuran;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk ukuran');
-                        }
-        
-                        const sisiInput = document.querySelector('input[name="sisi"]');
-                        if (sisiInput) {
-                            sisiInput.value = data.sisi;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk sisi');
-                        }
-        
-                        // Jenis radio button
-                        const jenisRadio = document.querySelectorAll('input[name="jenis"]');
-                        let jenisFound = false;
-                        jenisRadio.forEach(radio => {
-                            if (radio.value === data.jenis) {
-                                radio.checked = true;
-                                jenisFound = true;
-                            }
-                        });
-                        if (!jenisFound) {
-                            console.log('Jenis tidak ditemukan atau tidak cocok dengan data');
-                        }
-        
-                        // Jenis Lampu radio button
-                        const jenisLampuRadio = document.querySelectorAll('input[name="jenis_lampu"]');
-                        let jenisLampuFound = false;
-                        jenisLampuRadio.forEach(radio => {
-                            if (radio.value === data.jenis_lampu) {
-                                radio.checked = true;
-                                jenisLampuFound = true;
-                            }
-                        });
-                        if (!jenisLampuFound) {
-                            console.log('Jenis lampu tidak ditemukan atau tidak cocok dengan data');
-                        }
-        
-                        const latInput = document.querySelector('input[name="lat"]');
-                        if (latInput) {
-                            latInput.value = data.lat;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk lat');
-                        }
-        
-                        const longInput = document.querySelector('input[name="long"]');
-                        if (longInput) {
-                            longInput.value = data.long;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk long');
-                        }
-        
-                        const jumlahKendaraanInput = document.querySelector('input[name="jumlah_kendaraan"]');
-                        if (jumlahKendaraanInput) {
-                            jumlahKendaraanInput.value = data.jumlah_kendaraan;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk jumlah_kendaraan');
-                        }
-        
-                        const namaPemilikInput = document.querySelector('input[name="nama_pemilik"]');
-                        if (namaPemilikInput) {
-                            namaPemilikInput.value = data.nama_pemilik;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk nama_pemilik');
-                        }
-        
-                        const statusSewaRadio = document.querySelectorAll('input[name="status_sewa"]');
-                        let statusSewaFound = false;
-                        statusSewaRadio.forEach(radio => {
-                            if (radio.value === data.status_sewa) {
-                                radio.checked = true;
-                                statusSewaFound = true;
-                            }
-                        });
-                        if (!statusSewaFound) {
-                            console.log('Status sewa tidak ditemukan atau tidak cocok dengan data');
-                        }
-        
-                        const namaPenyewaInput = document.querySelector('input[name="nama_penyewa"]');
-                        if (namaPenyewaInput) {
-                            namaPenyewaInput.value = data.nama_penyewa;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk nama_penyewa');
-                        }
-        
-                        const lamaSewaInput = document.querySelector('select[name="lama_sewa"]');
-                        if (lamaSewaInput) {
-                            lamaSewaInput.value = data.lama_sewa;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk lama_sewa');
-                        }
-        
-                        const hargaInput = document.querySelector('input[name="harga"]');
-                        if (hargaInput) {
-                            hargaInput.value = data.harga;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk harga');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Terjadi kesalahan:', error);
-                    });
-            }
-        
-            fetchData(id);
-        }
-        
-        
-                
-        function saveData() {
-            const updatedData = {
-                kode_tiang: document.querySelector('input[name="kode_tiang"]').value,
-                provinsi: document.querySelector('input[name="provinsi"]').value,
-                kabupaten: document.querySelector('input[name="kabupaten"]').value,
-                kota: document.querySelector('input[name="kota"]').value,
-                nama_jalan: document.querySelector('input[name="nama_jalan"]').value,
-                ukuran: document.querySelector('input[name="ukuran"]').value,
-                sisi: document.querySelector('input[name="sisi"]').value,
-                jenis: document.querySelector('input[name="jenis"]').value,
-                jenis_lampu: document.querySelector('input[name="jenis_lampu"]').value,
-                lat: document.querySelector('input[name="lat"]').value,
-                long: document.querySelector('input[name="long"]').value,
-                jumlah_kendaraan: document.querySelector('input[name="jumlah_kendaraan"]').value,
-                nama_pemilik: document.querySelector('input[name="nama_pemilik"]').value,
-                status_sewa: document.querySelector('input[name="status_sewa"]').value,
-                nama_penyewa: document.querySelector('input[name="nama_penyewa"]').value,
-                lama_sewa: document.querySelector('input[name="lama_sewa"]').value,
-                harga: document.querySelector('input[name="harga"]').value
-            };
-            
-            const fileInput = document.getElementById('fileInput');
-            const imageFile = fileInput.files[0];
-            if (imageFile) {
-                formData.append('gambar', imageFile); // Menambahkan file gambar ke FormData
-            }
-
-            axios.put(`http://localhost:3000/data/id/${id}`, updatedData)
-                .then(response => {
-                    alert('Data berhasil diperbarui!');
-                    window.location.href = '../admin.html'; // Redirect setelah berhasil
-                })
-                .catch(error => {
-                    console.error('Terjadi kesalahan saat menyimpan data:', error);
-                });
-                
-            };
-            </script>
-            
-
-    
-        <script>
-            function saveData() {
-                alert('Data berhasil disimpan!');
-                window.location.href = '../admin.html';
-            }
-            function openCancelPopup() {
-                document.getElementById('cancelPopup').classList.remove('hidden');
-            }
-            function closeCancelPopup() {
-                document.getElementById('cancelPopup').classList.add('hidden');
-            }
-            function confirmCancel() {
-                alert('Perubahan dibatalkan!');
-                closeCancelPopup();
-            }
-        </script>
     
         
     </body>
