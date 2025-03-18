@@ -44,7 +44,7 @@
                     }
                 </script>
             </div>
-            <form class="grid grid-cols-2 gap-8">
+            <form class="grid grid-cols-2 gap-8" id="formData" enctype="multipart/form-data">
                 <div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kode Tiang :</label>
@@ -53,8 +53,9 @@
                     <div class="mb-4">
                         <label class="block text-gray-700">Gambar :</label>
                         <div class="border border-gray-300 p-2 flex justify-center items-center">
-                            <input type="file" id="fileInput" class="hidden">
-                            <button type="button" class="bg-gray-300 text-gray-700 py-2 px-4" onclick="document.getElementById('fileInput').click()">Choose File</button>
+                            <img id="previewImage" class="hidden" alt="Preview" width="200">
+                            <input type="file" id="fileInput" class="hidden" onchange="previewSelectedImage(event)">
+                            <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-blue-500 text-white py-1 px-3 mt-2 rounded">Choose File</button>
                         </div>
                     </div>
                     <div class="mb-4">
@@ -119,12 +120,6 @@
                         <label class="block text-gray-700">Nama Pemilik Tiang :</label>
                         <input type="text" name="nama_pemilik" class="w-full border border-gray-300 p-2">
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-500">Harga :</label>
-                        <div class="flex items-center">
-                            <span class="mr-2">Rp</span>
-                            <input type="text" name="harga" class="w-full border border-gray-300 p-2">
-                        </div>
                     </div>
                     <div class="flex justify-center mt-4">
                         <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2" onclick="saveData()">Simpan</button>
@@ -157,10 +152,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        function saveData() {
-            alert('Data berhasil disimpan!');
-            window.location.href = '../admin.html';
-        }
         function openCancelPopup() {
             document.getElementById('cancelPopup').classList.remove('hidden');
         }
@@ -170,15 +161,31 @@
         function confirmCancel() {
             alert('Perubahan dibatalkan!');
             closeCancelPopup();
+            window.location.href = '../admin.html';
         }
-    </script>
-
-    
-    
-    <script>
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get('code');
+
+            function previewSelectedImage(event) {
+                const file = event.target.files[0];
+                const preview = document.getElementById('previewImage');
+            
+                if (file) {
+                    console.log("Gambar dipilih:", file.name);
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.classList.remove('hidden');
+                        console.log("Preview gambar diperbarui");
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    console.log("Tidak ada gambar yang dipilih");
+                }
+            }
+            
+            
             
             function fetchData(id) {
                 axios.get(`http://localhost:3000/data/id/${id}`)
@@ -289,38 +296,17 @@
                             console.log('Tidak dapat menemukan elemen untuk nama_pemilik');
                         }
         
-                        const statusSewaRadio = document.querySelectorAll('input[name="status_sewa"]');
-                        let statusSewaFound = false;
-                        statusSewaRadio.forEach(radio => {
-                            if (radio.value === data.status_sewa) {
-                                radio.checked = true;
-                                statusSewaFound = true;
-                            }
-                        });
-                        if (!statusSewaFound) {
-                            console.log('Status sewa tidak ditemukan atau tidak cocok dengan data');
-                        }
+                         // Menampilkan gambar jika ada
+            const preview = document.getElementById('previewImage');
+            if (data.gambar) {
+                preview.src = `http://localhost:3000/uploads/${data.gambar}`; // Sesuaikan path
+                preview.classList.remove('hidden');
+            } else {
+                preview.src = "";
+                preview.classList.add('hidden');
+            }
         
-                        const namaPenyewaInput = document.querySelector('input[name="nama_penyewa"]');
-                        if (namaPenyewaInput) {
-                            namaPenyewaInput.value = data.nama_penyewa;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk nama_penyewa');
-                        }
-        
-                        const lamaSewaInput = document.querySelector('select[name="lama_sewa"]');
-                        if (lamaSewaInput) {
-                            lamaSewaInput.value = data.lama_sewa;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk lama_sewa');
-                        }
-        
-                        const hargaInput = document.querySelector('input[name="harga"]');
-                        if (hargaInput) {
-                            hargaInput.value = data.harga;
-                        } else {
-                            console.log('Tidak dapat menemukan elemen untuk harga');
-                        }
+                        
                     })
                     .catch(error => {
                         console.error('Terjadi kesalahan:', error);
@@ -330,64 +316,60 @@
             fetchData(id);
         }
         
+        function previewSelectedImage(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('previewImage');
         
-                
-        function saveData() {
-            const updatedData = {
-                kode_tiang: document.querySelector('input[name="kode_tiang"]').value,
-                provinsi: document.querySelector('input[name="provinsi"]').value,
-                kabupaten: document.querySelector('input[name="kabupaten"]').value,
-                kota: document.querySelector('input[name="kota"]').value,
-                nama_jalan: document.querySelector('input[name="nama_jalan"]').value,
-                ukuran: document.querySelector('input[name="ukuran"]').value,
-                sisi: document.querySelector('input[name="sisi"]').value,
-                jenis: document.querySelector('input[name="jenis"]').value,
-                jenis_lampu: document.querySelector('input[name="jenis_lampu"]').value,
-                lat: document.querySelector('input[name="lat"]').value,
-                long: document.querySelector('input[name="long"]').value,
-                jumlah_kendaraan: document.querySelector('input[name="jumlah_kendaraan"]').value,
-                nama_pemilik: document.querySelector('input[name="nama_pemilik"]').value,
-                status_sewa: document.querySelector('input[name="status_sewa"]').value,
-                nama_penyewa: document.querySelector('input[name="nama_penyewa"]').value,
-                lama_sewa: document.querySelector('input[name="lama_sewa"]').value,
-                harga: document.querySelector('input[name="harga"]').value
-            };
-            
-            const fileInput = document.getElementById('fileInput');
-            const imageFile = fileInput.files[0];
-            if (imageFile) {
-                formData.append('gambar', imageFile); // Menambahkan file gambar ke FormData
+            if (file) {
+                console.log("Gambar dipilih:", file.name);
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    console.log("Preview gambar diperbarui");
+                };
+                reader.readAsDataURL(file);
+            } else {
+                console.log("Tidak ada gambar yang dipilih");
             }
+        }
 
-            axios.put(`http://localhost:3000/data/id/${id}`, updatedData)
+        const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('code');
+            console.log('ID yang akan diperbarui:', id);
+
+            function saveData() {
+                const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('code');
+            console.log('ID yang akan diperbarui:', id);
+                const formData = new FormData();
+                const fileInput = document.getElementById('fileInput');
+            
+                formData.append('kode_tiang', document.querySelector('input[name="kode_tiang"]').value);
+                formData.append('provinsi', document.querySelector('input[name="provinsi"]').value);
+                formData.append('kabupaten', document.querySelector('input[name="kabupaten"]').value);
+                formData.append('kota', document.querySelector('input[name="kota"]').value);
+                formData.append('nama_jalan', document.querySelector('input[name="nama_jalan"]').value);
+                formData.append('ukuran', document.querySelector('input[name="ukuran"]').value);
+                formData.append('sisi', document.querySelector('input[name="sisi"]').value);
+            
+                if (fileInput.files.length > 0) {
+                    formData.append('gambar', fileInput.files[0]);  // Tambahkan gambar ke FormData
+                }
+            
+                axios.put(`http://localhost:3000/data/id/${id}`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                })
                 .then(response => {
                     alert('Data berhasil diperbarui!');
-                    window.location.href = '../admin.html'; // Redirect setelah berhasil
+                    window.location.href = '../admin.html';
                 })
                 .catch(error => {
-                    console.error('Terjadi kesalahan saat menyimpan data:', error);
+                    console.error('Error menyimpan data:', error);
                 });
-                
-            };
-            </script>
+            }
             
 
-    
-        <script>
-            function saveData() {
-                alert('Data berhasil disimpan!');
-                window.location.href = '../admin.html';
-            }
-            function openCancelPopup() {
-                document.getElementById('cancelPopup').classList.remove('hidden');
-            }
-            function closeCancelPopup() {
-                document.getElementById('cancelPopup').classList.add('hidden');
-            }
-            function confirmCancel() {
-                alert('Perubahan dibatalkan!');
-                closeCancelPopup();
-            }
         </script>
     
         

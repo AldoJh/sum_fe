@@ -48,7 +48,7 @@
                 <div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kode Tiang :</label>
-                        <input type="text" name="kode_tiang" class="w-full border border-gray-300 p-2" >
+                        <input type="text" name="kode_tiang" id="kode_tiang" class="w-full border border-gray-300 p-2" >
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Gambar :</label>
@@ -60,37 +60,37 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Provinsi :</label>
-                        <input type="text" name="provinsi" class="w-full border border-gray-300 p-2" >
+                        <input type="text" name="provinsi" id="provinsi" class="w-full border border-gray-300 p-2" >
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kabupaten :</label>
-                        <input type="text" name="kabupaten" class="w-full border border-gray-300 p-2" >
+                        <input type="text" name="kabupaten" id="kabupaten" class="w-full border border-gray-300 p-2" >
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Kota:</label>
-                        <input type="text" name="kota" class="w-full border border-gray-300 p-2" >
+                        <input type="text" name="kota" id="kota" class="w-full border border-gray-300 p-2" >
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Nama Jalan :</label>
-                        <input type="text" name="nama_jalan" class="w-full border border-gray-300 p-2" >
+                        <input type="text" name="nama_jalan" id="nama_jalan" class="w-full border border-gray-300 p-2" >
                     </div>
                     <div class="mb-4 flex space-x-4">
                         <div class="w-1/2">
                             <label class="block text-gray-700">Ukuran :</label>
-                            <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
+                            <input type="text" name="ukuran" id="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
                         </div>
                     
                         <div class="w-1/2">
                             <label class="block text-gray-700">Sisi :</label>
-                            <input type="text" name="sisi" class="w-full border border-gray-300 p-2 text-sm" >
+                            <input type="text" name="sisi" id="sisi" class="w-full border border-gray-300 p-2 text-sm" >
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Jenis :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="jenis" value="billboard" class="mr-2" checked> Billboard
-                            <input type="radio" name="jenis" value="baliho" class="ml-4 mr-2"> Baliho
-                            <input type="radio" name="jenis" value="videotron" class="ml-4 mr-2"> Videotron
+                            <input type="radio" name="jenis" id="jenis" value="billboard" class="mr-2" checked> Billboard
+                            <input type="radio" name="jenis" id="jenis" value="baliho" class="ml-4 mr-2"> Baliho
+                            <input type="radio" name="jenis" id="jenis" value="videotron" class="ml-4 mr-2"> Videotron
                         </div>
                     </div>
                 </div>
@@ -98,30 +98,30 @@
                     <div class="mb-4">
                         <label class="block text-gray-700">Jenis Lampu :</label>
                         <div class="flex items-center">
-                            <input type="radio" name="jenis_lampu" value="front light" class="mr-2" checked> FrontLight
-                            <input type="radio" name="jenis_lampu" value="back light" class="ml-4 mr-2"> BackLight
+                            <input type="radio" name="jenis_lampu" id="jenis_lampu" value="front light" class="mr-2" checked> FrontLight
+                            <input type="radio" name="jenis_lampu" id="jenis_lampu" value="back light" class="ml-4 mr-2"> BackLight
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Titik Kordinat :</label>
-                        <input type="text" name="titik_kordinat" class="w-full border border-gray-300 p-2" value="1.036573253609591, 104.24891992465353">
+                        <input type="text" name="titik_kordinat" id="titik_koordinat" class="w-full border border-gray-300 p-2" value="1.036573253609591, 104.24891992465353">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Jumlah Kendaraan :</label>
                         <div class="flex items-center">
-                            <input type="text" name="jumlah_kendaraan" class="w-1/2 border border-gray-300 p-2" >
+                            <input type="text" name="jumlah_kendaraan" id="jumlah_kendaraan" class="w-1/2 border border-gray-300 p-2" >
                             <span class="ml-2">/ Hari</span>
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Nama Pemilik Tiang :</label>
-                        <input type="text" name="nama_pemilik" class="w-full border border-gray-300 p-2" >
+                        <input type="text" name="nama_pemilik" id="nama_pemilik" class="w-full border border-gray-300 p-2" >
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-500">Harga :</label>
                         <div class="flex items-center">
                             <span class="mr-2">Rp</span>
-                            <input type="text" name="harga" class="w-full border border-gray-300 p-2" >
+                            <input type="text" name="harga" id="harga" class="w-full border border-gray-300 p-2" >
                         </div>
                     </div>
                     <div class="flex justify-center mt-4">
@@ -145,6 +145,17 @@
     </div>
     
     <script>
+        function openCancelPopup() {
+            document.getElementById('cancelPopup').classList.remove('hidden');
+        }
+        function closeCancelPopup() {
+            document.getElementById('cancelPopup').classList.add('hidden');
+        }
+        function confirmCancel() {
+            alert('Perubahan dibatalkan!');
+            closeCancelPopup();
+            
+        }
         
 
  // Fungsi Logout
@@ -171,7 +182,8 @@
         // Handle form submission
         document.getElementById("dataForm").addEventListener("submit", async function(event) {
             event.preventDefault();
-        
+          
+            
             const formData = new FormData();
         
             // Ambil data dari form
@@ -188,11 +200,6 @@
             formData.append("sisi", document.querySelector('input[name="sisi"]').value);
             formData.append("jenis", document.querySelector('input[name="jenis"]:checked').value);
             formData.append("nama_pemilik", document.querySelector('input[name="nama_pemilik"]').value);
-            formData.append("status_sewa", document.querySelector('input[name="status_sewa"]:checked').value);
-            formData.append("nama_penyewa", document.querySelector('input[name="nama_penyewa"]').value);
-            formData.append("lama_sewa", document.querySelector('select[name="lama_sewa"]').value);
-            formData.append("satuan_sewa", document.querySelector('input[name="lama_sewa_unit"]:checked').value);
-            formData.append("harga", document.querySelector('input[name="harga"]').value);
         
             const fileInput = document.getElementById('fileInput');
             const imageFile = fileInput.files[0];
@@ -217,7 +224,6 @@
                 alert("Terjadi kesalahan: " + error.message);
             }
         });
-            </script>
             
             // Popup Modal untuk Status Sewa
             const statusDropdown = document.getElementById("status-sewa");
