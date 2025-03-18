@@ -14,8 +14,7 @@
       <div class="profile-pic bg-gray-300 rounded-full w-24 h-24 mb-4"></div>
       <h2 class="text-xl mb-8">ADMIN</h2>
       <nav class="flex flex-col space-y-4">
-        <a class="text-lg" href="#">DASHBOARD</a>
-        <a class="text-lg" href="#">HOME</a>
+        <a class="text-lg" href="../Dashboard/dashboard.html">DASHBOARD</a>
       </nav>
 
       <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
@@ -180,7 +179,8 @@ async function fetchData() {
           <td class="py-2 px-4">${item.nama_penyewa}</td>
           <td class="py-2 px-4">${item.lama_sewa}</td>
           <td class="py-2 px-4">
-            <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300">Action</button>
+             <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300" </button>
+             <a href="./Edit/edit.html" onclick="redirectToEdit(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit</a>
           </td>
         `;
 

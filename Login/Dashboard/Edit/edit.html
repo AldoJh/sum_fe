@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Edit Data Tiang</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 </head>
-<body class="bg-gray-100">
-    <div class="flex min-h-screen">
-        <!-- Sidebar -->
-        <div class="bg-green-800 text-white w-64 flex flex-col items-center py-8 relative">
-            <div class="profile-pic bg-gray-300 rounded-full w-24 h-24 mb-4"></div>
-            <h2 class="text-xl mb-8">ADMIN</h2>
-            <nav class="flex flex-col space-y-4">
-              <a class="text-lg" href="#">DASHBOARD</a>
-              <a class="text-lg" href="#">HOME</a>
-            </nav>
-        <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
+<body class="bg-gray-200">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div class="bg-green-800 text-white w-64 flex flex-col items-center py-8 relative">
+      <div class="profile-pic bg-gray-300 rounded-full w-24 h-24 mb-4"></div>
+      <h2 class="text-xl mb-8">ADMIN</h2>
+      <nav class="flex flex-col space-y-4">
+        <a class="text-lg" href="../dashboard.html">DASHBOARD</a>
+      </nav>
+
+      <!-- Teks "DASHBOARD ADMIN" yang diputar ke kiri -->
       <div class="absolute top-1/2 left-[90%] transform -translate-x-1/2 -translate-y-1/2 -rotate-90 text-6xl font-extrabold tracking-widest leading-none whitespace-nowrap">
         DASHBOARD ADMIN
       </div>
@@ -29,184 +29,88 @@
         </button>
       </div>
     </div>
-        <!-- Main Content -->
-        <div class="flex-1 p-8">
-            <div class="flex justify-between items-center mb-8">
-                <h1 class="text-2xl font-semibold">Form Edit Data Tiang</h1>
-                <button class="btn-back" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> Kembali
-                </button>
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-semibold">Data Input Penyewa</h1>
+            <button class="btn-back" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <script>
+                function goBack() {
+                    window.location.href = '../dashboard.html';
+                }
+            </script>
+        </div>
+      <form id="dataForm" class="grid gap-8">
+            <div class="mb-4">
+                <label class="block text-gray-700">Status Sewa :</label>
+                <div class="flex items-center gap-4">
+                    <label><input type="radio" name="status_sewa" value="rented" class="mr-2" checked> Rented</label>
+                    <label><input type="radio" name="status_sewa" value="available" class="mr-2"> Available</label>
+                </div>
+            </div>
             
-                <script>
-                    function goBack() {
-                        window.location.href = '../admin.html';
-                    }
-                </script>
-            </div>
-            <form class="grid grid-cols-2 gap-8">
-                <div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Kode Tiang :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="SOK01">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Gambar :</label>
-                        <div class="border border-gray-300 p-2 flex justify-center items-center">
-                            <input type="file" id="fileInput" class="hidden">
-                            <button type="button" class="bg-gray-300 text-gray-700 py-2 px-4" onclick="document.getElementById('fileInput').click()">Choose File</button>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Provinsi :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Kepulauan Riau">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Kabupaten :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Bintan">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Kota:</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Bintan">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Nama Jalan :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Jl. Indunsuri">
-                    </div>
-                    <div class="mb-4 flex space-x-4">
-                        <!-- Kotak Ukuran -->
-                        <div class="w-1/2">
-                            <label class="block text-gray-700">Ukuran :</label>
-                            <input type="text" class="w-full border border-gray-300 p-2 text-sm" value="4x6">
-                        </div>
-                    
-                        <!-- Kotak Sisi -->
-                        <div class="w-1/2">
-                            <label class="block text-gray-700">Sisi :</label>
-                            <input type="text" class="w-full border border-gray-300 p-2 text-sm" value="2">
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Jenis :</label>
-                        <div class="flex items-center">
-                            <input type="radio" name="jenis" class="mr-2"> Billboard
-                            <input type="radio" name="jenis" class="ml-4 mr-2"> Baliho
-                            <input type="radio" name="jenis" class="ml-4 mr-2"> Videotron
-                        </div>
+            <div class="mb-4 flex space-x-4">
+                <div class="w-1/2">
+                    <label class="block text-gray-700">Nama Penyewa :</label>
+                    <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
+                </div>
+            
+                <div class="w-1/2">
+                    <label class="block text-gray-700">Lama Sewa:</label>
+                    <div class="flex flex-col gap-2">
+                </div>
+                    <select name="lama_sewa" class="border border-gray-300 p-2 rounded w-full">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <div class="flex items-center gap-4">
+                        <label><input type="radio" name="lama_sewa_unit" value="bulan" class="mr-2" checked> Bulan</label>
+                        <label><input type="radio" name="lama_sewa_unit" value="tahun" class="mr-2"> Tahun</label>
                     </div>
                 </div>
-                <div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Jenis Lampu :</label>
-                        <div class="flex items-center">
-                            <input type="radio" name="jenis_lampu" class="mr-2"> FrontLight
-                            <input type="radio" name="jenis_lampu" class="ml-4 mr-2"> BackLight
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Titik Kordinat :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="1.036573253609591, 104.24891992465353">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Jumlah Kendaraan :</label>
-                        <div class="flex items-center">
-                            <input type="text" class="w-1/2 border border-gray-300 p-2" value="2000">
-                            <span class="ml-2">/ Hari</span>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Nama Pemilik Tiang :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="PT. Angin Ribut Banget">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Status Sewa :</label>
-                        <div class="flex items-center">
-                            <input type="radio" name="status_sewa" class="mr-2"> Rented
-                            <input type="radio" name="status_sewa" class="ml-4 mr-2"> Available
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Nama Penyewa :</label>
-                        <input type="text" class="w-full border border-gray-300 p-2" value="Camel">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700">Lama Sewa :</label>
-                        <div class="flex items-center">
-                            <select class="border border-gray-300 p-2">
-                                <option value="">Pilih Lama Sewa</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                            <input type="radio" name="lama_sewa" class="ml-4 mr-2"> Bulan
-                            <input type="radio" name="lama_sewa" class="ml-4 mr-2"> Tahun
-                        </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-500">Harga :</label>
-                        <div class="flex items-center">
-                            <span class="mr-2">Rp</span>
-                            <input type="text" class="w-full border border-gray-300 p-2">
-                        </div>
-                    </div>
-                    <div class="flex justify-center mt-4">
-                        <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2" onclick="saveData()">Simpan</button>
-                        <button type="button" class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="openCancelPopup()">Batal</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Custom Modal Popup -->
-    <div id="cancelPopup" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <p class="text-lg font-semibold mb-4">Anda yakin ingin membatalkan perubahan?</p>
-            <div class="flex justify-end">
-                <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-full mr-2" onclick="closeCancelPopup()">Tidak</button>
-                <button class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="confirmCancel()">Ya</button>
             </div>
-        </div>
-    </div>
-    
-    <script>
-        // Fungsi Logout
-        document.getElementById("logout-btn").addEventListener("click", function () {
-          alert("Anda telah logout!");
-          window.location.href = "/sum_fe/Login/Dashboard/dashboard.html"; // Redirect ke halaman login
-        });
-    
-        // Popup Modal untuk Status Sewa
-        const statusDropdown = document.getElementById("status-sewa");
-        const popupModal = document.getElementById("popup-modal");
-        const popupTitle = document.getElementById("popup-title");
-        const popupMessage = document.getElementById("popup-message");
-        const closePopup = document.getElementById("close-popup");
-    
-        statusDropdown.addEventListener("change", function () {
-          if (this.value === "available" || this.value === "rented") {
-            popupTitle.innerText = "Status Sewa Dipilih";
-            popupMessage.innerText = `Anda memilih status: ${this.options[this.selectedIndex].text}`;
-            popupModal.classList.remove("hidden");
-          }
-        });
-    
-        closePopup.addEventListener("click", function () {
-          popupModal.classList.add("hidden");
-        });
-      </script>
+            <div class="mb-4">
+                <label class="block text-gray-500">Harga :</label>
+                <div class="flex items-center">
+                    <span class="mr-2">Rp</span>
+                    <input type="text" name="harga" class="w-full border border-gray-300 p-2" >
+                </div>
+            </div>
+        </form>
 
+        <div class="flex justify-center mt-4">
+            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2" onclick="saveData()">Simpan</button>
+            <button type="button" class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="openCancelPopup()">Batal</button>
+        </div>
+
+        <!-- Custom Modal Popup -->
+        <div id="cancelPopup" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <p class="text-lg font-semibold mb-4">Anda yakin ingin membatalkan perubahan?</p>
+                <div class="flex justify-end">
+                    <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-full mr-2" onclick="closeCancelPopup()">Tidak</button>
+                    <button class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="confirmCancel()">Ya</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script>
         function saveData() {
             alert('Data berhasil disimpan!');
-            window.location.href = '../dashboard.html';
+            window.location.href = '/sum_fe/Login/Dashboard/dashboard.html';
         }
         function openCancelPopup() {
             document.getElementById('cancelPopup').classList.remove('hidden');
@@ -218,8 +122,12 @@
             alert('Perubahan dibatalkan!');
             closeCancelPopup();
         }
-    </script>
 
-    
+        // Fungsi Logout
+        document.getElementById("logout-btn").addEventListener("click", function () {
+            alert("Anda telah logout!");
+            window.location.href = "/sum_fe/Login/login.html";
+        });
+    </script>
 </body>
 </html>
