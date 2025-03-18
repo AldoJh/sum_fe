@@ -115,11 +115,26 @@
       }
     }
   
-    function deleteItem(itemId) {
-      console.log("Menghapus item dengan ID:", itemId);
+    async function deleteItem(itemId) {
+      try {
+        let response = await fetch(`http://localhost:3000/data/id/${itemId}`, {
+          method: "DELETE",
+        });
+
+        if (response.ok) {
+          alert("Item berhasil dihapus!");
+          fetchData(); // Refresh tabel setelah menghapus
+        } else {
+          alert("Gagal menghapus item!");
+        }
+      } catch (error) {
+        console.error("Terjadi kesalahan saat menghapus:", error);
+        alert("Terjadi kesalahan saat menghapus!");
+      }
+
       closeDeletePopup();
-      alert("Item berhasil dihapus!");
     }
+
   
     // Menutup dropdown saat klik di luar
     document.addEventListener("click", function(event) {
@@ -145,7 +160,7 @@
   <script>
     async function fetchData() {
       try {
-        let response = await fetch('your-api-endpoint');
+        let response = await fetch("http://localhost:3000/data");
         if (response.ok) {
           let data = await response.json();
           let tableBody = document.getElementById("tableBody");
