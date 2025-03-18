@@ -49,13 +49,13 @@
       </div>
 
       <!-- Tombol Create -->
-<div class="flex justify-end mb-4">
-  <button 
-    class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300" 
-    onclick="window.location.href='./create/create.html'">
-    + Create
-  </button>
-</div>
+      <div class="flex justify-end mb-4">
+        <button 
+          class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300" 
+          onclick="window.location.href='./create/create.html'">
+          + Create
+        </button>
+      </div>
 
       <!-- Table -->
       <div class="overflow-x-auto">
@@ -82,9 +82,7 @@
             </tr>
           </thead>
           <tbody id="data-tbody">
-            <tr class="border-t">
-              
-              
+            <tr class="border-t">              
             </tr>
           </tbody>
         </table>
@@ -152,75 +150,11 @@
     }
   </script>
   
-  
   <table>
     <tbody id="tableBody"></tbody>
   </table>
-  
-  <script>
-    async function fetchData() {
-      try {
-        let response = await fetch("http://localhost:3000/data");
-        if (response.ok) {
-          let data = await response.json();
-          let tableBody = document.getElementById("tableBody");
-          tableBody.innerHTML = "";
-          data.forEach((item, index) => {
-            let row = document.createElement("tr");
-            let imageUrl = item.imageUrl || "default-image.jpg";
-            row.innerHTML = `
-              <td class="py-2 px-4">${index + 1}</td>
-              <td class="py-2 px-4">${item.kode_tiang}</td>
-              <td class="py-2 px-4">
-                <img alt="Image of ${item.kode_tiang}" src="${imageUrl}" width="100" height="100"/>
-              </td>
-              <td class="py-2 px-4">${item.provinsi}</td>
-              <td class="py-2 px-4">${item.kabupaten}</td>
-              <td class="py-2 px-4">${item.kota}</td>
-              <td class="py-2 px-4">${item.nama_jalan}</td>
-              <td class="py-2 px-4">${item.ukuran}</td>
-              <td class="py-2 px-4">${item.jenis}</td>
-              <td class="py-2 px-4">${item.jenis_lampu}</td>
-              <td class="py-2 px-4">${item.lat}, ${item.long}</td>
-              <td class="py-2 px-4">${item.jumlah_kendaraan}</td>
-              <td class="py-2 px-4">${item.nama_pemilik}</td>
-              <td class="py-2 px-4">${item.status_sewa}</td>
-              <td class="py-2 px-4">${item.nama_penyewa}</td>
-              <td class="py-2 px-4">${item.lama_sewa}</td>
-              <td class="py-2 px-4">
-                <div class="inline-block text-left">
-                  <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300" onclick="toggleDropdown(this)">Action</button>
-                  <div class="dropdown hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg z-10">
-                    <a href="./Edit/edit.html" onclick="redirectToEdit(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Tiang</a>
-                    <a href="./create/user.html" onclick="redirectToUser(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Penyewa</a>
-                    <a href="#" onclick="confirmDelete(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Hapus</a>
-                  </div>
-                </div>
-              </td>
-            `;
-            tableBody.appendChild(row);
-          });
-        } else {
-          console.error("Gagal mengambil data:", response.status);
-        }
-      } catch (error) {
-        console.error("Terjadi kesalahan saat mengambil data:", error);
-      }
-    }
-  
-    function redirectToEdit(id) {
-      window.location.href = `./Edit/edit.html?code=${id}`;
-    }
-  
-    document.addEventListener("DOMContentLoaded", fetchData);
-  </script>
-  
 
   <script>
-    function toggleDropdown(button) {
-      let dropdown = button.nextElementSibling;
-      dropdown.classList.toggle('hidden');
-    }
     function confirmDelete() {
       if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
         alert("Data telah dihapus!");
