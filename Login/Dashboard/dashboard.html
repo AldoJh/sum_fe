@@ -66,6 +66,9 @@
               <th class="py-2 px-4">Jumlah Kendaraan</th>
               <th class="py-2 px-4">Nama Pemilik Tiang</th>
               <th class="py-2 px-4">Status Sewa</th>
+              <th class="py-2 px-4">Nama Penyewa</th>
+              <th class="py-2 px-4">lama sewa</th>
+              <th class="py-2 px-4">Harga Sewa</th>
               <th class="py-2 px-4">Action</th>
             </tr>
           </thead>
@@ -152,15 +155,16 @@
 async function fetchData() {
   try {
     // Mengambil data dari server
-    const response = await axios.get("http://localhost:3000/data", {
+    const response = await axios.get("http://localhost:3000/all", {
       withCredentials: true // Pastikan jika menggunakan cookie (jika diperlukan)
     });
+    console.log(response);
 
     // Mengecek apakah response sukses
     if (response.status === 200) {
       const data = response.data; // Mendapatkan data dari response
       const tableBody = document.getElementById("data"); // Mengambil elemen tbody untuk tabel
-
+      
       // Kosongkan tbody terlebih dahulu sebelum mengisi
       tableBody.innerHTML = "";
       
@@ -168,6 +172,7 @@ async function fetchData() {
       data.forEach((item, index) => {
         const row = document.createElement("tr");
         const imageUrl = `http://localhost:3000/uploads/${item.gambar}`;
+        const sewaData = item.sewa && item.sewa.length > 0 ? item.sewa[0] : null;
         // Menambahkan data ke dalam baris
         row.innerHTML = `
           <td class="py-2 px-4">${index + 1}</td>
@@ -190,6 +195,9 @@ async function fetchData() {
               ${item.status_sewa}
             </span>
           </td>
+          <td class="py-2 px-4">   ${sewaData ? sewaData.nama_penyewa : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">    ${sewaData ? `${sewaData.lama_sewa} ${sewaData.satuan_sewa}` : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">   ${sewaData ? sewaData.harga_sewa : "Tidak ada penyewa"}</td>
           <td class="py-2 px-4">
             <button 
             class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
