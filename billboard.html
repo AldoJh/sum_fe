@@ -150,7 +150,9 @@
             const response = await axios.get(`http://localhost:3000/data/id/${id}`);
 
             if (response.status === 200) {
-                const data = response.data;
+                const data = response.data[0];
+                const sewa = response.data[0].sewa[0];
+
                 // Menampilkan data ke dalam elemen HTML
                 document.getElementById("locationName").textContent = data.nama_tiang;
                 document.getElementById("locationDescription").textContent = data.deskripsi;
@@ -164,10 +166,10 @@
                 document.getElementById("locationLight").textContent = data.jenis_lampu;
                 document.getElementById("locationLatitude").textContent = data.lat;
                 document.getElementById("trafficVolume").textContent = data.jumlah_kendaraan;
-                document.getElementById("poleOwner").textContent = data.nama_pemilik_tiang;
+                document.getElementById("poleOwner").textContent = data.nama_pemilik;
                 document.getElementById("rentalStatus").textContent = data.status_sewa;
-                document.getElementById("renter").textContent = data.nama_penyewa;
-                document.getElementById("rentalDuration").textContent = data.lama_sewa;
+                document.getElementById("renter").textContent = sewa.nama_penyewa;
+                document.getElementById("rentalDuration").textContent = sewa.lama_sewa;
                 document.getElementById("locationLongitude").textContent = data.long;
                 document.getElementById("locationKoordinat").textContent = `${data.lat}, ${data.long}`;
 

@@ -218,6 +218,7 @@
         // Memastikan ada lat dan long untuk menampilkan marker
         if (item.lat && item.long) {
             const imageUrl = `http://localhost:3000/uploads/${item.gambar}`; // URL gambar
+            const sewaData = item.sewa && item.sewa.length > 0 ? item.sewa[0] : null;
 
             // Buat marker dengan koordinat lat dan long
             const marker = L.marker([parseFloat(item.lat), parseFloat(item.long)], { 
@@ -241,8 +242,8 @@
                                 ${item.status_sewa === 'available' ? 'Available' : 'Rented'}
                             </span>
                         </p>
-                        <p style="margin: 5px 0; font-size: 14px;"><strong>Nama Penyewa:</strong> ${item.nama_penyewa}</p>
-                        <p style="margin: 5px 0; font-size: 14px;"><strong>Lama Sewa:</strong> ${item.lama_sewa} ${item.satuan_sewa}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Nama Penyewa:</strong> ${sewaData ? sewaData.nama_penyewa : "Tidak ada penyewa"}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Lama Sewa:</strong> ${sewaData ? `${sewaData.lama_sewa} ${sewaData.satuan_sewa}` : "Tidak ada penyewa"}</p>
                         <a href="./${item.jenis}.html?code=${item.id}" 
                             style="display: block; background-color: orange; color: white; text-align: center; padding: 10px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 10px;">
                             Show Details
