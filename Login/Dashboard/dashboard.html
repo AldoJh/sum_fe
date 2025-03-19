@@ -234,6 +234,15 @@ document.addEventListener("DOMContentLoaded", fetchData);
       popupModal.classList.add("hidden");
     });
 
+    function handleSewaButtonClick(id, statusSewa) {
+      if (statusSewa === 'available') {
+        // Jika status sewa adalah 'available', arahkan ke halaman Edit
+        window.location.href = `./Edit/edit.html?code=${id}`;
+      } else {
+        // Jika status sewa bukan 'available', tampilkan popup
+        showPopup("Tiang ini sudah disewa!");
+      }
+    }
     
   </script>
 
