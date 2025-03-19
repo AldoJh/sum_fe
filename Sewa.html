@@ -187,6 +187,72 @@
     
         const map = initializeMap();
         const markers = L.layerGroup().addTo(map);
+        
+         // Memisahkan addMarkers untuk pencarian dan kategori
+async function addSearchMarkers(data) {
+    markers.clearLayers(); // Clear existing markers
+
+    data.forEach(item => {
+        if (item.lat && item.long) {
+            const latLng = [parseFloat(item.lat), parseFloat(item.long)];
+            const imageUrl = `http://localhost:3000/uploads/${item.gambar}`;
+            const sewaData = item.sewa && item.sewa.length > 0 ? item.sewa[0] : null;
+
+            const marker = L.marker(latLng).addTo(markers)
+                .bindPopup(`
+                <div style="display: flex; gap: 15px; max-width: 400px; font-family: Arial, sans-serif; padding: 10px;">
+                    <img src="${imageUrl}" alt="${item.nama_jalan}" 
+                         style="width: 40%; height: auto; max-height: 150px; object-fit: cover; border-radius: 5px;">
+                    <div style="width: 60%;">
+                        <h3>${item.nama_jalan}</h3>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Kode Tiang:</strong> ${item.kode_tiang}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Deskripsi:</strong> ${item.jenis_lampu}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Lokasi:</strong> ${item.kabupaten}, ${item.kota}, ${item.provinsi}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Ukuran:</strong> ${item.ukuran}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Jenis Lampu:</strong> ${item.jenis_lampu}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Koordinat:</strong> ${item.lat}, ${item.long}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Volume Kendaraan:</strong> ${item.jumlah_kendaraan} kendaraan/hari</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Pemilik Tiang:</strong> ${item.nama_pemilik}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Status Sewa:</strong> 
+                            <span style="color: ${item.status_sewa === 'available' ? 'green' : 'red'}; font-weight: bold;">
+                                ${item.status_sewa === 'available' ? 'Available' : 'Rented'}
+                            </span>
+                        </p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Nama Penyewa:</strong> ${sewaData ? sewaData.nama_penyewa : "Tidak ada penyewa"}</p>
+                        <p style="margin: 5px 0; font-size: 14px;"><strong>Lama Sewa:</strong> ${sewaData ? `${sewaData.lama_sewa} ${sewaData.satuan_sewa}` : "Tidak ada penyewa"}</p>
+                        <a href="./${item.jenis}.html?code=${item.id}" 
+                            style="display: block; background-color: orange; color: white; text-align: center; padding: 10px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 10px;">
+                            Show Details
+                        </a>
+                    </div>
+                </div>
+                `);
+            markers.addLayer(marker);
+        }
+    });
+}
+
+async function searchLocations(searchTerm) {
+    try {
+        const response = await axios.post(`http://localhost:3000/data/search/${searchTerm}`);
+        console.log(response.data); // Log the data from API
+        addSearchMarkers(response.data);  // Add markers with the returned data
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        alert('data tidak ditemukan');
+    }
+}
+
+// Event listener for search button
+document.getElementById("searchButton").addEventListener("click", function () {
+    const searchTerm = document.getElementById("searchBox").value.trim();
+    if (searchTerm) {
+        searchLocations(searchTerm); // Call search function with the input value
+    } else {
+        alert("Please enter a search term.");
+    }
+});
+
     
         // ======================= Custom Icons =======================
         const icons = {

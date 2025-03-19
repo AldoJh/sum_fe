@@ -35,18 +35,22 @@
     <div class="flex-1 p-8">
       <h1 class="text-center text-3xl font-bold mb-8">WELCOME SUPER ADMIN</h1>
       <div class="flex justify-center space-x-4 mb-8">
-        <input class="border border-gray-400 p-2 w-80" placeholder="Provinsi" type="text"/>
-        <input class="border border-gray-400 p-2 w-80" placeholder="Kabupaten" type="text"/>
-        <input class="border border-gray-400 p-2 w-80" placeholder="Kota" type="text"/>
-        <input class="border border-gray-400 p-2 w-80" placeholder="Ukuran" type="text"/>
+        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Provinsi" type="text"/>
+        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Kabupaten" type="text"/>
+        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Kota" type="text"/>
+        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Ukuran" type="text"/>
         
         <!-- Dropdown Status Sewa -->
         <select id="status-sewa" class="border border-gray-400 p-2 rounded">
-          <option value="">Pilih Status Sewa</option>
-          <option value="available">Available</option>
-          <option value="rented">Rented</option>
+            <option value="">Pilih Status Sewa</option>
+            <option value="available">Available</option>
+            <option value="rented">Rented</option>
         </select>
-      </div>
+    
+        <!-- Tombol Pencarian -->
+        <button id="search-button" class="bg-blue-500 text-white p-2 rounded">Cari</button>
+    </div>
+    
 
       <!-- Tombol Create -->
       <div class="flex justify-end mb-4">
@@ -149,6 +153,7 @@
       let dropdown = button.nextElementSibling;
       dropdown.classList.toggle("hidden");
     }
+
   </script>
   
   <table>
@@ -356,6 +361,8 @@ document.addEventListener("DOMContentLoaded", fetchData);
           closeDeletePopup();
       });
   }
+  
+
   
   </script>
 
