@@ -66,8 +66,6 @@
               <th class="py-2 px-4">Jumlah Kendaraan</th>
               <th class="py-2 px-4">Nama Pemilik Tiang</th>
               <th class="py-2 px-4">Status Sewa</th>
-              <th class="py-2 px-4">Nama Penyewa</th>
-              <th class="py-2 px-4">Lama Sewa</th>
               <th class="py-2 px-4">Action</th>
             </tr>
           </thead>
@@ -90,9 +88,21 @@
     </div>
   </div>
 
+  <div id="popupModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <p class="text-lg font-semibold mb-4">Tiang ini sudah disewa!</p>
+      <div class="flex justify-end">
+        <button class="bg-gray-300 text-gray-800 py-2 px-4 rounded-full mr-2" onclick="closePopup()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <script>
+
+    
+    
      // Fungsi Logout
      document.getElementById("logout-btn").addEventListener("click", async function () {
       try {
@@ -175,18 +185,25 @@ async function fetchData() {
           <td class="py-2 px-4">${item.lat} + ${item.long}</td>
           <td class="py-2 px-4">${item.jumlah_kendaraan}</td>
           <td class="py-2 px-4">${item.nama_pemilik}</td>
-          <td class="py-2 px-4">${item.status_sewa}</td>
-          <td class="py-2 px-4">${item.nama_penyewa}</td>
-          <td class="py-2 px-4">${item.lama_sewa}</td>
           <td class="py-2 px-4">
-             <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300" </button>
-             <a href="./Edit/edit.html" onclick="redirectToEdit(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit</a>
+            <span class="${item.status_sewa === 'available' ? 'text-green-500' : 'text-red-500'}">
+              ${item.status_sewa}
+            </span>
+          </td>
+          <td class="py-2 px-4">
+            <button 
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+            onclick="handleSewaButtonClick(${item.id}, '${item.status_sewa}')"
+            ${item.status_sewa !== 'available' ? 'disabled' : ''}>
+            Sewa
+          </button>
           </td>
         `;
 
         // Tambahkan row ke tabel
         tableBody.appendChild(row);
       });
+      
     } else {
       console.error("Gagal mengambil data:", response.status);
     }
@@ -216,6 +233,8 @@ document.addEventListener("DOMContentLoaded", fetchData);
     closePopup.addEventListener("click", function () {
       popupModal.classList.add("hidden");
     });
+
+    
   </script>
 
 </body>

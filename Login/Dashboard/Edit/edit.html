@@ -43,25 +43,25 @@
             </script>
         </div>
       <form id="dataForm" class="grid gap-8">
-            <div class="mb-4">
+            <!-- <div class="mb-4">
                 <label class="block text-gray-700">Status Sewa :</label>
                 <div class="flex items-center gap-4">
                     <label><input type="radio" name="status_sewa" value="rented" class="mr-2" checked> Rented</label>
                     <label><input type="radio" name="status_sewa" value="available" class="mr-2"> Available</label>
                 </div>
-            </div>
+            </div> -->
             
             <div class="mb-4 flex space-x-4">
                 <div class="w-1/2">
                     <label class="block text-gray-700">Nama Penyewa :</label>
-                    <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
+                    <input type="text" name="nama_penyewa" id="nama_penyewa" class="w-full border border-gray-300 p-2 text-sm" >
                 </div>
             
                 <div class="w-1/2">
                     <label class="block text-gray-700">Lama Sewa:</label>
                     <div class="flex flex-col gap-2">
                 </div>
-                    <select name="lama_sewa" class="border border-gray-300 p-2 rounded w-full">
+                    <select name="lama_sewa" id="lama_sewa" class="border border-gray-300 p-2 rounded w-full">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -76,8 +76,8 @@
                         <option value="12">12</option>
                     </select>
                     <div class="flex items-center gap-4">
-                        <label><input type="radio" name="lama_sewa_unit" value="bulan" class="mr-2" checked> Bulan</label>
-                        <label><input type="radio" name="lama_sewa_unit" value="tahun" class="mr-2"> Tahun</label>
+                        <label><input type="radio" name="lama_sewa_unit" id="lama_sewa_unit" value="bulan" class="mr-2" checked> Bulan</label>
+                        <label><input type="radio" name="lama_sewa_unit" id="lama_sewa_unit" value="tahun" class="mr-2"> Tahun</label>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                 <label class="block text-gray-500">Harga :</label>
                 <div class="flex items-center">
                     <span class="mr-2">Rp</span>
-                    <input type="text" name="harga" class="w-full border border-gray-300 p-2" >
+                    <input type="text" name="harga" id="harga_sewa" class="w-full border border-gray-300 p-2" >
                 </div>
             </div>
         </form>
@@ -107,11 +107,8 @@
         </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        function saveData() {
-            alert('Data berhasil disimpan!');
-            window.location.href = '/sum_fe/Login/Dashboard/dashboard.html';
-        }
         function openCancelPopup() {
             document.getElementById('cancelPopup').classList.remove('hidden');
         }
@@ -123,11 +120,69 @@
             closeCancelPopup();
         }
 
-        // Fungsi Logout
-        document.getElementById("logout-btn").addEventListener("click", function () {
-            alert("Anda telah logout!");
-            window.location.href = "/sum_fe/Login/login.html";
+
+
+        document.getElementById("logout-btn").addEventListener("click", async function () {
+            try {
+                const response = await axios.delete("http://localhost:3000/logout", {
+                    withCredentials: true // Agar cookie dihapus juga
+                });
+        
+                if (response.status === 200) {
+                    alert("✅ Logout berhasil!");
+                    
+                   // Hapus cookie user
+                   document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        
+                   // Hapus data user dari Local Storage
+                   localStorage.removeItem("user");
+        
+                    // Redirect ke halaman login
+                    window.location.href = "../login.html";
+                } else {
+                    alert("❌ Logout gagal!");
+                }
+            } catch (error) {
+                console.error("❌ Terjadi kesalahan saat logout:", error);
+                alert("Terjadi kesalahan saat logout.");
+            }
         });
+
+        // Ambil id_tiang dari URL
+        function getIdTiangFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('code');
+        }
+
+        // Fungsi untuk menyimpan data
+        function saveData() {
+            const id_tiang = getIdTiangFromURL();
+            const nama_penyewa = document.getElementById('nama_penyewa').value;
+            const lama_sewa = document.getElementById('lama_sewa').value;
+            const harga_sewa = document.getElementById('harga_sewa').value;
+            const satuan_sewa = document.querySelector('input[name="lama_sewa_unit"]:checked').value;
+
+            const data = {
+                id_tiang: id_tiang,
+                nama_penyewa: nama_penyewa,
+                lama_sewa: lama_sewa,
+                satuan_sewa: satuan_sewa,
+                harga_sewa: harga_sewa
+            };
+
+            // Menggunakan axios untuk POST data ke API
+            axios.post('http://localhost:3000/sewa', data)
+                .then(response => {
+                    alert('Data berhasil disimpan!');
+                    // Lakukan sesuatu setelah data berhasil disimpan
+                    console.log(response.data);
+                    window.location.href = '../dashboard.html';
+                })
+                .catch(error => {
+                    console.error('Ada masalah saat menyimpan data:', error);
+                    alert('Gagal menyimpan data!');
+                });
+        }
     </script>
 </body>
 </html>

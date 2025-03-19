@@ -75,6 +75,7 @@
               <th class="py-2 px-4">Titik Koordinat</th>
               <th class="py-2 px-4">Jumlah Kendaraan</th>
               <th class="py-2 px-4">Nama Pemilik Tiang</th>
+              <th class="py-2 px-4">Status Sewa</th>
               <th class="py-2 px-4">Action</th>
             </tr>
           </thead>
@@ -254,6 +255,11 @@ async function fetchData() {
           <td class="py-2 px-4">${item.lat}, ${item.long}</td>
           <td class="py-2 px-4">${item.jumlah_kendaraan}</td>
           <td class="py-2 px-4">${item.nama_pemilik}</td>
+          <td class="py-2 px-4">
+            <span class="${item.status_sewa === 'available' ? 'text-green-500' : 'text-red-500'}">
+              ${item.status_sewa}
+            </span>
+          </td>
          <div class="inline-block text-left">
                 <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300" onclick="toggleDropdown(this)">
                   Action
