@@ -190,7 +190,8 @@
             function fetchData(id) {
                 axios.get(`http://localhost:3000/data/id/${id}`)
                     .then(response => {
-                        const data = response.data;
+                        const data = response.data[0];
+                        console.log(response.data)
                         
                         // Cek apakah elemen ada sebelum mengubah nilainya dan log jika tidak
                         const kodeTiangInput = document.querySelector('input[name="kode_tiang"]');
