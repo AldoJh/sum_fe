@@ -73,8 +73,8 @@
                         <option value="12">12</option>
                     </select>
                     <div class="flex items-center gap-4">
-                        <label><input type="radio" name="lama_sewa_unit" value="bulan" class="mr-2" checked> Bulan</label>
-                        <label><input type="radio" name="lama_sewa_unit" value="tahun" class="mr-2"> Tahun</label>
+                        <label><input type="radio" name="satuan_sewa" value="bulan" class="mr-2" checked> Bulan</label>
+                        <label><input type="radio" name="satuan_sewa" value="tahun" class="mr-2"> Tahun</label>
                     </div>
                 </div>
             </div>
@@ -113,14 +113,14 @@
             function fetchData(id) {
                 axios.get(`http://localhost:3000/data/id/${id}`)
                     .then(response => {
-                        const penyewa = response.data;
-                        console.log("✅ Data Penyewa:", penyewa);
+                        const penyewa = response.data[0].sewa[0];
+                        const data = response.data[0]
     
                         // Isi data ke dalam form dengan pengecekan elemen
                         setInputValue("input[name='ukuran']", penyewa.nama_penyewa);
                         setSelectValue("select[name='lama_sewa']", penyewa.lama_sewa);
-                        setRadioValue("input[name='lama_sewa_unit']", penyewa.lama_sewa_unit);
-                        setRadioValue("input[name='status_sewa']", penyewa.status_sewa);
+                        setRadioValue("input[name='satuan_sewa']", penyewa.satuan_sewa);
+                        setRadioValue("input[name='status_sewa']", data.status_sewa);
                     })
                     .catch(error => {
                         console.error("❌ Terjadi kesalahan saat mengambil data:", error);
@@ -167,10 +167,10 @@
     
                 const nama_penyewa = document.querySelector("input[name='ukuran']").value;
                 const lama_sewa = document.querySelector("select[name='lama_sewa']").value;
-                const lama_sewa_unit = document.querySelector("input[name='lama_sewa_unit']:checked")?.value;
+                const satuan_sewa = document.querySelector("input[name='satuan_sewa']:checked")?.value;
                 const status_sewa = document.querySelector("input[name='status_sewa']:checked")?.value;
     
-                if (!nama_penyewa || !lama_sewa || !lama_sewa_unit || !status_sewa) {
+                if (!nama_penyewa || !lama_sewa || !satuan_sewa || !status_sewa) {
                     alert("Harap lengkapi semua data sebelum menyimpan!");
                     return;
                 }
@@ -178,14 +178,14 @@
                 const data = {
                     nama_penyewa,
                     lama_sewa,
-                    lama_sewa_unit,
+                    satuan_sewa,
                     status_sewa
                 };
     
-                axios.put(`http://localhost:3000/data/id/${id}`, data)
+                axios.put(`http://localhost:3000/sewa/${id}`, data)
                     .then(response => {
                         alert("✅ Data berhasil diperbarui!");
-                        window.location.href = "/sum_fe/Login/Admin/admin.html"; // Redirect setelah update
+                        window.location.href = "./Admin/admin.html"; // Redirect setelah update
                     })
                     .catch(error => {
                         console.error("❌ Terjadi kesalahan saat menyimpan data:", error);
