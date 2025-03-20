@@ -168,8 +168,6 @@
                 document.getElementById("trafficVolume").textContent = data.jumlah_kendaraan;
                 document.getElementById("poleOwner").textContent = data.nama_pemilik;
                 document.getElementById("rentalStatus").textContent = data.status_sewa;
-                document.getElementById("renter").textContent = sewa.nama_penyewa;
-                document.getElementById("rentalDuration").textContent = sewa.lama_sewa;
                 document.getElementById("locationLongitude").textContent = data.long;
                 document.getElementById("locationKoordinat").textContent = `${data.lat}, ${data.long}`;
 
@@ -179,6 +177,9 @@
                 // Mengupdate link navigasi Google Maps
                 const navigateButton = document.getElementById("navigateButton");
                 navigateButton.href = `https://www.google.com/maps?q=${data.lat},${data.long}`;
+                document.getElementById("renter").textContent = sewa.nama_penyewa;
+                document.getElementById("rentalDuration").textContent = sewa.lama_sewa;
+               
             } else {
                 console.error("Gagal mengambil data:", response.status);
             }
