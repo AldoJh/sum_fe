@@ -119,6 +119,7 @@
                     <div class="mb-4">
                         <label class="block text-gray-700">Nama Pemilik Tiang :</label>
                         <input type="text" name="nama_pemilik" class="w-full border border-gray-300 p-2">
+                        <input type="text" name="status_sewa" class="w-full border border-gray-300 p-2">
                     </div>
                     </div>
                     <div class="flex justify-center mt-4">
@@ -296,6 +297,13 @@
                         } else {
                             console.log('Tidak dapat menemukan elemen untuk nama_pemilik');
                         }
+
+                        const satuan_sewa= document.querySelector('input[name="status_sewa"]');
+                        if (satuan_sewa) {
+                            satuan_sewa.value = data.status_sewa;
+                        } else {
+                            console.log('Tidak dapat menemukan elemen untuk status_sewa');
+                        }
         
                          // Menampilkan gambar jika ada
             const preview = document.getElementById('previewImage');
@@ -336,40 +344,59 @@
         }
 
         const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('code');
-            console.log('ID yang akan diperbarui:', id);
-
-            function saveData() {
-                const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('code');
-            console.log('ID yang akan diperbarui:', id);
-                const formData = new FormData();
-                const fileInput = document.getElementById('fileInput');
+        const id = urlParams.get('code');
+        console.log('ID yang akan diperbarui:', id);
+        
+        function saveData() {
+            const formData = new FormData();
+            const fileInput = document.getElementById('fileInput');
             
-                formData.append('kode_tiang', document.querySelector('input[name="kode_tiang"]').value);
-                formData.append('provinsi', document.querySelector('input[name="provinsi"]').value);
-                formData.append('kabupaten', document.querySelector('input[name="kabupaten"]').value);
-                formData.append('kota', document.querySelector('input[name="kota"]').value);
-                formData.append('nama_jalan', document.querySelector('input[name="nama_jalan"]').value);
-                formData.append('ukuran', document.querySelector('input[name="ukuran"]').value);
-                formData.append('sisi', document.querySelector('input[name="sisi"]').value);
-            
-                if (fileInput.files.length > 0) {
-                    formData.append('gambar', fileInput.files[0]);  // Tambahkan gambar ke FormData
-                }
-            
-                axios.put(`http://localhost:3000/data/id/${id}`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                })
+            // Mengumpulkan data selain gambar
+            const data = {
+                kode_tiang: document.querySelector('input[name="kode_tiang"]').value,
+                provinsi: document.querySelector('input[name="provinsi"]').value,
+                kabupaten: document.querySelector('input[name="kabupaten"]').value,
+                kota: document.querySelector('input[name="kota"]').value,
+                nama_jalan: document.querySelector('input[name="nama_jalan"]').value,
+                ukuran: document.querySelector('input[name="ukuran"]').value,
+                sisi: document.querySelector('input[name="sisi"]').value,
+                jenis: document.querySelector('input[name="jenis"]:checked').value,
+                jenis_lampu: document.querySelector('input[name="jenis_lampu"]:checked').value,
+                lat: document.querySelector('input[name="lat"]').value,
+                long: document.querySelector('input[name="long"]').value,
+                jumlah_kendaraan: document.querySelector('input[name="jumlah_kendaraan"]').value,
+                nama_pemilik: document.querySelector('input[name="nama_pemilik"]').value,
+            };
+        
+            // Mengirim data tanpa gambar
+            axios.put(`http://localhost:3000/data/id/${id}`, data)
                 .then(response => {
-                    alert('Data berhasil diperbarui!');
-                    window.location.href = '../admin.html';
+                    console.log('Data berhasil diperbarui', response.data);
+                    // Setelah data berhasil diperbarui, kirimkan gambar jika ada
+                    if (fileInput.files.length > 0) {
+                        const gambarFormData = new FormData();
+                        gambarFormData.append('gambar', fileInput.files[0]);
+        
+                        axios.post(`http://localhost:3000/uploadImage/${id}`, gambarFormData, {
+                            headers: { 'Content-Type': 'multipart/form-data' }
+                        })
+                        .then(response => {
+                            console.log('Gambar berhasil diperbarui:', response.data);
+                            alert('Data dan gambar berhasil diperbarui!');
+                        })
+                        .catch(error => {
+                            console.error('Error mengunggah gambar:', error);
+                            alert('Gagal mengunggah gambar');
+                        });
+                    }
                 })
                 .catch(error => {
-                    console.error('Error menyimpan data:', error);
+                    console.error('Error mengupdate data:', error);
+                    alert('Gagal mengupdate data');
                 });
-            }
-            
+        }
+        
+                
 
         </script>
     
