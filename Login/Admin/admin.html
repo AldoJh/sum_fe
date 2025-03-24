@@ -34,22 +34,22 @@
     <!-- Main Content -->
     <div class="flex-1 p-8">
       <h1 class="text-center text-3xl font-bold mb-8">WELCOME SUPER ADMIN</h1>
-      <div class="flex justify-center space-x-4 mb-8">
+      <!-- <div class="flex justify-center space-x-4 mb-8">
         <input class="search-input border border-gray-400 p-2 w-80" placeholder="Provinsi" type="text"/>
         <input class="search-input border border-gray-400 p-2 w-80" placeholder="Kabupaten" type="text"/>
         <input class="search-input border border-gray-400 p-2 w-80" placeholder="Kota" type="text"/>
-        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Ukuran" type="text"/>
+        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Ukuran" type="text"/> -->
         
         <!-- Dropdown Status Sewa -->
-        <select id="status-sewa" class="border border-gray-400 p-2 rounded">
+        <!-- <select id="status-sewa" class="border border-gray-400 p-2 rounded">
             <option value="">Pilih Status Sewa</option>
             <option value="available">Available</option>
             <option value="rented">Rented</option>
-        </select>
+        </select> -->
     
         <!-- Tombol Pencarian -->
-        <button id="search-button" class="bg-blue-500 text-white p-2 rounded">Cari</button>
-    </div>
+        <!-- <button id="search-button" class="bg-blue-500 text-white p-2 rounded">Cari</button>
+    </div> -->
     
 
       <!-- Tombol Create -->
@@ -280,6 +280,7 @@ async function fetchData() {
                   <a href="./Edit/edit.html?code=${item.id}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Tiang</a>
                   <a href="./create/user.html?code=${item.id}"  class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Penyewa</a>
                   <a href="#" onclick="deleteItem(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Hapus</a>
+                  <a href="#" onclick="deleteSewa(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Hapus Sewa</a>
                 </div>
             </div>
           </td>            
@@ -361,6 +362,36 @@ document.addEventListener("DOMContentLoaded", fetchData);
           closeDeletePopup();
       });
   }
+
+  function deleteSewa(itemId) {
+    console.log("Delete item with ID:", itemId);
+
+    fetch(`http://localhost:3000/sewa/${itemId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Gagal menghapus sewa");
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Sewa berhasil dihapus:", data);
+        alert("Sewa berhasil dihapus!");
+        // Panggil fetchData untuk memperbarui tabel setelah menghapus
+        fetchData();
+    })
+    .catch(error => {
+        console.error("Error saat menghapus Sewa:", error);
+        alert("Gagal menghapus Sewa.");
+    })
+    .finally(() => {
+        closeDeletePopup();
+    });
+}
   
 
   
