@@ -132,14 +132,14 @@
       try {
         const response = await fetch("http://localhost:3000/report");
         const data = await response.json();
-        console.log(data);
+      
   
         const tbody = document.querySelector("#report-table tbody");
         tbody.innerHTML = "";
   
         data.forEach((item, index) => {
           const row = document.createElement("tr");
-  
+          console.log(item.sewa[0].nama_penyewa);
           row.innerHTML = `
             <td class="py-2 px-4 border">${index + 1}</td>
             <td class="py-2 px-4 border">${item.kode_tiang || "-"}</td>
@@ -157,8 +157,8 @@
             <td class="py-2 px-4 border">${item.jumlah_kendaraan || "-"}</td>
             <td class="py-2 px-4 border">${item.nama_pemilik || "-"}</td>
             <td class="py-2 px-4 border">${item.status_sewa || "-"}</td>
-            <td class="py-2 px-4 border">${item.sewa?.nama_penyewa || "-"}</td>
-            <td class="py-2 px-4 border">${item.sewa?.lama_sewa || "-"}</td>
+            <td class="py-2 px-4 border">${item.sewa[0]?.nama_penyewa || "-"}</td>
+            <td class="py-2 px-4 border">${item.sewa[0]?.lama_sewa || "-"}</td>
           `;
   
           tbody.appendChild(row);
