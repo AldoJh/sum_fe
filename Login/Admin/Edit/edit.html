@@ -54,7 +54,7 @@
                         <label class="block text-gray-700">Gambar :</label>
                         <div class="border border-gray-300 p-2 flex justify-center items-center">
                             <img id="previewImage" class="hidden" alt="Preview" width="200">
-                            <input type="file" id="fileInput" class="hidden" onchange="previewSelectedImage(event)">
+                            <input type="file" id="fileInput" name="gambar" class="hidden" onchange="previewSelectedImage(event)">
                             <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-blue-500 text-white py-1 px-3 mt-2 rounded">Choose File</button>
                         </div>
                     </div>
@@ -343,57 +343,46 @@
             }
         }
 
-        const urlParams = new URLSearchParams(window.location.search);
+       
+        
+        function saveData(event) {
+            const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('code');
         console.log('ID yang akan diperbarui:', id);
         
-        function saveData() {
+            // Ambil nilai dari input form
             const formData = new FormData();
-            const fileInput = document.getElementById('fileInput');
-            
-            // Mengumpulkan data selain gambar
-            const data = {
-                kode_tiang: document.querySelector('input[name="kode_tiang"]').value,
-                provinsi: document.querySelector('input[name="provinsi"]').value,
-                kabupaten: document.querySelector('input[name="kabupaten"]').value,
-                kota: document.querySelector('input[name="kota"]').value,
-                nama_jalan: document.querySelector('input[name="nama_jalan"]').value,
-                ukuran: document.querySelector('input[name="ukuran"]').value,
-                sisi: document.querySelector('input[name="sisi"]').value,
-                jenis: document.querySelector('input[name="jenis"]:checked').value,
-                jenis_lampu: document.querySelector('input[name="jenis_lampu"]:checked').value,
-                lat: document.querySelector('input[name="lat"]').value,
-                long: document.querySelector('input[name="long"]').value,
-                jumlah_kendaraan: document.querySelector('input[name="jumlah_kendaraan"]').value,
-                nama_pemilik: document.querySelector('input[name="nama_pemilik"]').value,
-            };
+            formData.append("kode_tiang", document.querySelector('input[name="kode_tiang"]').value);
+            formData.append("provinsi", document.querySelector('input[name="provinsi"]').value);
+            formData.append("kabupaten", document.querySelector('input[name="kabupaten"]').value);
+            formData.append("kota", document.querySelector('input[name="kota"]').value);
+            formData.append("nama_jalan", document.querySelector('input[name="nama_jalan"]').value);
+            formData.append("ukuran", document.querySelector('input[name="ukuran"]').value);
+            formData.append("sisi", document.querySelector('input[name="sisi"]').value);
+            formData.append("lat", document.querySelector('input[name="lat"]').value);
+            formData.append("long", document.querySelector('input[name="long"]').value);
+            formData.append("jumlah_kendaraan", document.querySelector('input[name="jumlah_kendaraan"]').value);
+            formData.append("nama_pemilik", document.querySelector('input[name="nama_pemilik"]').value);
+            formData.append("status_sewa", document.querySelector('input[name="status_sewa"]').value);
         
-            // Mengirim data tanpa gambar
-            axios.put(`http://localhost:3000/data/id/${id}`, data)
-                .then(response => {
-                    console.log('Data berhasil diperbarui', response.data);
-                    // Setelah data berhasil diperbarui, kirimkan gambar jika ada
-                    if (fileInput.files.length > 0) {
-                        const gambarFormData = new FormData();
-                        gambarFormData.append('gambar', fileInput.files[0]);
+            // Ambil file gambar jika ada yang diunggah
+            const fileInput = document.querySelector('input[name="gambar"]');
+            if (fileInput.files.length > 0) {
+                formData.append("gambar", fileInput.files[0]);
+            }
         
-                        axios.post(`http://localhost:3000/uploadImage/${id}`, gambarFormData, {
-                            headers: { 'Content-Type': 'multipart/form-data' }
-                        })
-                        .then(response => {
-                            console.log('Gambar berhasil diperbarui:', response.data);
-                            alert('Data dan gambar berhasil diperbarui!');
-                        })
-                        .catch(error => {
-                            console.error('Error mengunggah gambar:', error);
-                            alert('Gagal mengunggah gambar');
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error mengupdate data:', error);
-                    alert('Gagal mengupdate data');
-                });
+            axios.put(`http://localhost:3000/data/id/${id}`, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            })
+            .then(response => {
+                alert("Data berhasil diperbarui!");
+                console.log("Data berhasil diperbarui", response);
+                 // alihkan ke halaman admin
+                    window.location.href = "../admin.html";
+            })
+            .catch(error => {
+                console.error("Gagal mengupdate data:", error);
+            });
         }
         
                 
