@@ -50,7 +50,7 @@
         <h2 id="locationName" class="text-2xl font-bold mb-4"></h2>
         <p id="locationDescription" class="text-gray-700 mb-4"></p>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4 p-4">
             <p><strong>Kode Tiang:</strong> <span id="poleCode"></span></p>
             <p><strong>Provinsi:</strong> <span id="locationProvince"></span></p>
             <p><strong>Kabupaten/Kota:</strong> <span id="locationRegency"></span></p>
@@ -65,6 +65,10 @@
             <p><strong>Status Sewa:</strong> <span id="rentalStatus"></span></p>
             <p><strong>Penyewa:</strong> <span id="renter"></span></p>
             <p><strong>Durasi Sewa:</strong> <span id="rentalDuration"></span></p>
+            <p><strong>Tanggal Mulai Sewa:</strong> <span id="rentalStartDate"></span></p>
+            <p><strong>Tanggal Akhir Sewa:</strong> <span id="rentalEndDate"></span></p>
+            <p><strong>Harga Sebelum PPN:</strong> <span id="priceBeforeTax"></span></p>
+            <p><strong>Harga Setelah PPN:</strong> <span id="priceAfterTax"></span></p>
             <p><strong>Latitude:</strong> <span id="locationLatitude"></span></p>
             <p><strong>Longitude:</strong> <span id="locationLongitude"></span></p>
         </div>
@@ -170,6 +174,10 @@
                 document.getElementById("trafficVolume").textContent = data.jumlah_kendaraan;
                 document.getElementById("poleOwner").textContent = data.nama_pemilik;
                 document.getElementById("rentalStatus").textContent = data.status_sewa;
+                document.getElementById("rentalStartDate").textContent = data.tanggal_mulai;
+                document.getElementById("rentalEndDate").textContent = data.tanggal_akhir;
+                document.getElementById("priceBeforeTax").textContent = data.harga_sebelum_ppn;
+                document.getElementById("priceAfterTax").textContent = data.harga_setelah_ppn;
                 document.getElementById("locationLongitude").textContent = data.long;
                 document.getElementById("locationKoordinat").textContent = `${data.lat}, ${data.long}`;
 

@@ -42,26 +42,38 @@
                 }
             </script>
         </div>
-      <form id="dataForm" class="grid gap-8">
-            <!-- <div class="mb-4">
+        <form id="dataForm" class="grid gap-8">
+            <div class="mb-4">
                 <label class="block text-gray-700">Status Sewa :</label>
                 <div class="flex items-center gap-4">
                     <label><input type="radio" name="status_sewa" value="rented" class="mr-2" checked> Rented</label>
                     <label><input type="radio" name="status_sewa" value="available" class="mr-2"> Available</label>
                 </div>
-            </div> -->
+            </div>
             
-            <div class="mb-4 flex space-x-4">
+            <div class="mb-4 ">
                 <div class="w-1/2">
                     <label class="block text-gray-700">Nama Penyewa :</label>
-                    <input type="text" name="nama_penyewa" id="nama_penyewa" class="w-full border border-gray-300 p-2 text-sm" >
+                    <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
                 </div>
             
+                <div class="mb-4 ">
+                    <div class="w-1/2">
+                        <label class="block text-gray-700">Tanggal Mulai :</label>
+                        <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
+                    </div>
+
+                    <div class="mb-4 ">
+                        <div class="w-1/2">
+                            <label class="block text-gray-700">Tanggal Berakhir :</label>
+                            <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
+                        </div>
+
                 <div class="w-1/2">
                     <label class="block text-gray-700">Lama Sewa:</label>
                     <div class="flex flex-col gap-2">
                 </div>
-                    <select name="lama_sewa" id="lama_sewa" class="border border-gray-300 p-2 rounded w-full">
+                    <select name="lama_sewa" class="border border-gray-300 p-2 rounded w-full">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -76,24 +88,18 @@
                         <option value="12">12</option>
                     </select>
                     <div class="flex items-center gap-4">
-                        <label><input type="radio" name="lama_sewa_unit" id="lama_sewa_unit" value="bulan" class="mr-2" checked> Bulan</label>
-                        <label><input type="radio" name="lama_sewa_unit" id="lama_sewa_unit" value="tahun" class="mr-2"> Tahun</label>
+                        <label><input type="radio" name="satuan_sewa" value="bulan" class="mr-2" checked> Bulan</label>
+                        <label><input type="radio" name="satuan_sewa" value="tahun" class="mr-2"> Tahun</label>
                     </div>
-                </div>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-500">Harga :</label>
-                <div class="flex items-center">
-                    <span class="mr-2">Rp</span>
-                    <input type="text" name="harga" id="harga_sewa" class="w-full border border-gray-300 p-2" >
                 </div>
             </div>
         </form>
 
         <div class="flex justify-center mt-4">
-            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2" onclick="saveData()">Simpan</button>
+            <button id="save-btn" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2">Simpan</button>
             <button type="button" class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="openCancelPopup()">Batal</button>
         </div>
+
 
         <!-- Custom Modal Popup -->
         <div id="cancelPopup" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
