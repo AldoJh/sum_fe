@@ -274,11 +274,11 @@ async function fetchData() {
           </td>
           <td class="py-2 px-4">${sewaData ? sewaData.nama_penyewa : "Tidak ada penyewa"}</td>
           <td class="py-2 px-4">${sewaData ? `${sewaData.lama_sewa} ${sewaData.satuan_sewa}` : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${sewaData ? sewaData.tgl_mulai : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${sewaData ? sewaData.tgl_selesai : "Tidak ada penyewa"}</td>
           <td class="py-2 px-4">${sewaData ? sewaData.harga_sewa : "Tidak ada penyewa"}</td>
-          <td class="py-2 px-4">${sewaData ? sewaData.harga_sewa_sebelum_ppn : "Tidak ada penyewa"}</td>
-          <td class="py-2 px-4">${sewaData ? sewaData.harga_sewa_setelah_ppn : "Tidak ada penyewa"}</td>
-          <td class="py-2 px-4">${sewaData ? sewaData.tanggal_mulai : "Tidak ada penyewa"}</td>
-          <td class="py-2 px-4">${sewaData ? sewaData.tanggal_akhir : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${sewaData ? sewaData.harga_sewa_PPN : "Tidak ada penyewa"}</td>
+        
           <td class="py-2 px-4">
                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300" onclick="toggleDropdown(this)">
                   Action

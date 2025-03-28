@@ -54,13 +54,13 @@
             <div class="mb-4 ">
                 <div class="w-1/2">
                     <label class="block text-gray-700">Nama Penyewa :</label>
-                    <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
+                    <input type="text" name="ukuran" id="nama_penyewa" class="w-full border border-gray-300 p-2 text-sm" >
                 </div>
 
                 <div class="mb-4 ">
                     <div class="w-1/2">
                         <label class="block text-gray-700">Harga Sebelum PPN :</label>
-                        <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
+                        <input type="number" name="ukuran" id="harga_sewa" class="w-full border border-gray-300 p-2 text-sm" >
                     </div>
                         
                 <div class="mb-4 ">
@@ -79,7 +79,7 @@
                     <label class="block text-gray-700">Lama Sewa:</label>
                     <div class="flex flex-col gap-2">
                 </div>
-                    <select name="lama_sewa" class="border border-gray-300 p-2 rounded w-full">
+                    <select name="lama_sewa" id="lama_sewa" class="border border-gray-300 p-2 rounded w-full">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -94,8 +94,8 @@
                         <option value="12">12</option>
                     </select>
                     <div class="flex items-center gap-4">
-                        <label><input type="radio" name="satuan_sewa" value="bulan" class="mr-2" checked> Bulan</label>
-                        <label><input type="radio" name="satuan_sewa" value="tahun" class="mr-2"> Tahun</label>
+                        <label><input type="radio" name="lama_sewa_unit" id="lama_sewa_unit" value="bulan" class="mr-2" checked> Bulan</label>
+                        <label><input type="radio" name="lama_sewa_unit" id="lama_sewa_unit" value="tahun" class="mr-2"> Tahun</label>
                     </div>
                 </div>
             </div>
@@ -161,26 +161,33 @@
         });
 
         // Ambil id_tiang dari URL
-        function getIdTiangFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('code');
-        }
+        
 
         // Fungsi untuk menyimpan data
         function saveData() {
+            function getIdTiangFromURL() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('code');
+            }
             const id_tiang = getIdTiangFromURL();
             const nama_penyewa = document.getElementById('nama_penyewa').value;
             const lama_sewa = document.getElementById('lama_sewa').value;
             const harga_sewa = document.getElementById('harga_sewa').value;
             const satuan_sewa = document.querySelector('input[name="lama_sewa_unit"]:checked').value;
+            const tgl_mulai = document.getElementById('start-date').value;
+            const tgl_selesai = document.getElementById('end-date').value;
 
             const data = {
                 id_tiang: id_tiang,
                 nama_penyewa: nama_penyewa,
                 lama_sewa: lama_sewa,
                 satuan_sewa: satuan_sewa,
-                harga_sewa: harga_sewa
+                harga_sewa: harga_sewa,
+                tgl_mulai: tgl_mulai,
+                tgl_selesai: tgl_selesai
             };
+
+            console.log('Data yang akan disimpan:', data);  // Debugging
 
             // Menggunakan axios untuk POST data ke API
             axios.post('http://localhost:3000/sewa', data)
@@ -195,6 +202,11 @@
                     alert('Gagal menyimpan data!');
                 });
         }
+
+        document.getElementById("save-btn").addEventListener("click", function(event) {
+            event.preventDefault(); // Mencegah reload halaman
+            saveData();
+        });
     </script>
 </body>
 </html>

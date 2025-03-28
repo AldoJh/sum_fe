@@ -128,49 +128,52 @@
     </div>
   </div>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      fetchData();
-    });
-  
-    async function fetchData() {
-      try {
-        const response = await fetch("http://localhost:3000/report");
-        const data = await response.json();
-      
-  
-        const tbody = document.querySelector("#report-table tbody");
-        tbody.innerHTML = "";
-  
-        data.forEach((item, index) => {
-          const row = document.createElement("tr");
-          console.log(item.sewa[0].nama_penyewa);
-          row.innerHTML = `
-            <td class="py-2 px-4 border">${index + 1}</td>
-            <td class="py-2 px-4 border">${item.kode_tiang || "-"}</td>
-            <td class="py-2 px-4 border">
-              <img src="http://localhost:3000/uploads/${item.gambar}" alt="Gambar" class="w-16 h-16 object-cover">
-            </td>
-            <td class="py-2 px-4 border">${item.provinsi || "-"}</td>
-            <td class="py-2 px-4 border">${item.kabupaten || "-"}</td>
-            <td class="py-2 px-4 border">${item.kota || "-"}</td>
-            <td class="py-2 px-4 border">${item.nama_jalan || "-"}</td>
-            <td class="py-2 px-4 border">${item.ukuran || "-"}</td>
-            <td class="py-2 px-4 border">${item.jenis || "-"}</td>
-            <td class="py-2 px-4 border">${item.jenis_lampu || "-"}</td>
-            <td class="py-2 px-4 border">${item.lat}, ${item.long}</td>
-            <td class="py-2 px-4 border">${item.jumlah_kendaraan || "-"}</td>
-            <td class="py-2 px-4 border">${item.nama_pemilik || "-"}</td>
-            <td class="py-2 px-4 border">${item.status_sewa || "-"}</td>
-            <td class="py-2 px-4 border">${item.sewa[0]?.nama_penyewa || "-"}</td>
-            <td class="py-2 px-4 border">${item.sewa[0]?.lama_sewa || "-"}</td>
-          `;
-  
-          tbody.appendChild(row);
-        });
-      } catch (error) {
-        console.error("Gagal mengambil data:", error);
+    document.addEventListener("DOMContentLoaded", fetchData);
+      async function fetchData() {
+        try {
+          const response = await fetch("http://localhost:3000/report");
+          const data = await response.json();
+          console.log(data[0])
+        
+    
+          const tbody = document.querySelector("#report-table tbody");
+          tbody.innerHTML = "";
+    
+          data.forEach((item, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td class="py-2 px-4 border">${index + 1}</td>
+              <td class="py-2 px-4 border">${item.datum?.kode_tiang || "-"}</td>
+              <td class="py-2 px-4 border">
+                <img src="http://localhost:3000/uploads/${item.datum?.gambar}" alt="Gambar" class="w-16 h-16 object-cover">
+              </td>
+              <td class="py-2 px-4 border">${item.datum?.provinsi || "-"}</td>
+              <td class="py-2 px-4 border">${item.datum?.kabupaten || "-"}</td>
+              <td class="py-2 px-4 border">${item.datum?.kota || "-"}</td>
+              <td class="py-2 px-4 border">${item.datum?.nama_jalan || "-"}</td>
+              <td class="py-2 px-4 border">${item.datum?.ukuran || "-"}</td>
+              <td class="py-2 px-4 border">${item.datum?.jenis || "-"}</td>
+              <td class="py-2 px-4 border">${item.datum?.jenis_lampu || "-"}</td>
+              <td class="py-2 px-4 border">${item.datum?.lat}, ${item.datum?.long}</td>
+              <td class="py-2 px-4 border">${item.datum?.jumlah_kendaraan || "-"}</td>
+              <td class="py-2 px-4 border">${item.datum?.nama_pemilik || "-"}</td>
+              <td class="py-2 px-4 border">${item.datum?.status_sewa || "-"}</td>
+              <td class="py-2 px-4 border">${item.nama_penyewa || "-"}</td>
+              <td class="py-2 px-4 border">${item.lama_sewa} ${item.satuan_sewa}</td>
+              <td class="py-2 px-4 border">${item.tgl_mulai}</td>
+              <td class="py-2 px-4 border">${item.tgl_selesai}</td>
+              <td class="py-2 px-4 border">${item.harga_sewa}</td>
+              <td class="py-2 px-4 border">${item.harga_sewa_PPN}</td>
+            `;
+    
+            tbody.appendChild(row);
+          });
+        } catch (error) {
+          console.error("Gagal mengambil data:", error);
+        }
       }
-    }
+  
+    
   </script>
   
 </body>
