@@ -250,6 +250,11 @@ async function fetchData() {
         const row = document.createElement("tr");
         const imageUrl = `http://localhost:3000/uploads/${item.gambar}`;
         const sewaData = item.sewa && item.sewa.length > 0 ? item.sewa[0] : null;
+        let tglMulai = sewaData.tgl_mulai;
+        let tglHabis = sewaData.tgl_selesai;
+
+        let formattedDate = new Date(tglMulai).toISOString().split('T')[0];
+        let tgl = new Date(tglHabis).toISOString().split('T')[0];
         // Menambahkan data ke dalam baris
         row.innerHTML = `
           <td class="py-2 px-4">${index + 1}</td>
@@ -274,8 +279,8 @@ async function fetchData() {
           </td>
           <td class="py-2 px-4">${sewaData ? sewaData.nama_penyewa : "Tidak ada penyewa"}</td>
           <td class="py-2 px-4">${sewaData ? `${sewaData.lama_sewa} ${sewaData.satuan_sewa}` : "Tidak ada penyewa"}</td>
-          <td class="py-2 px-4">${sewaData ? sewaData.tgl_mulai : "Tidak ada penyewa"}</td>
-          <td class="py-2 px-4">${sewaData ? sewaData.tgl_selesai : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${formattedDate ? formattedDate : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${tgl ? tgl : "Tidak ada penyewa"}</td>
           <td class="py-2 px-4">${sewaData ? sewaData.harga_sewa : "Tidak ada penyewa"}</td>
           <td class="py-2 px-4">${sewaData ? sewaData.harga_sewa_PPN : "Tidak ada penyewa"}</td>
         

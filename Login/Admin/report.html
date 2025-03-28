@@ -134,12 +134,18 @@
           const response = await fetch("http://localhost:3000/report");
           const data = await response.json();
           console.log(data[0])
+          
         
     
           const tbody = document.querySelector("#report-table tbody");
           tbody.innerHTML = "";
     
           data.forEach((item, index) => {
+            let tglMulai = item.tgl_mulai;
+            let tglHabis = item.tgl_selesai;
+  
+            let formattedDate = new Date(tglMulai).toISOString().split('T')[0];
+            let tgl = new Date(tglHabis).toISOString().split('T')[0];
             const row = document.createElement("tr");
             row.innerHTML = `
               <td class="py-2 px-4 border">${index + 1}</td>
@@ -160,8 +166,8 @@
               <td class="py-2 px-4 border">${item.datum?.status_sewa || "-"}</td>
               <td class="py-2 px-4 border">${item.nama_penyewa || "-"}</td>
               <td class="py-2 px-4 border">${item.lama_sewa} ${item.satuan_sewa}</td>
-              <td class="py-2 px-4 border">${item.tgl_mulai}</td>
-              <td class="py-2 px-4 border">${item.tgl_selesai}</td>
+              <td class="py-2 px-4 border">${formattedDate}</td>
+              <td class="py-2 px-4 border">${tgl}</td>
               <td class="py-2 px-4 border">${item.harga_sewa}</td>
               <td class="py-2 px-4 border">${item.harga_sewa_PPN}</td>
             `;

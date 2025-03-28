@@ -43,8 +43,8 @@
             <div class="mb-4">
                 <label class="block text-gray-700">Status Sewa :</label>
                 <div class="flex items-center gap-4">
-                    <label><input type="radio" name="status_sewa" value="rented" class="mr-2" checked> Rented</label>
-                    <label><input type="radio" name="status_sewa" value="available" class="mr-2"> Available</label>
+                    <label><input type="radio" name="status_sewa" id="status_sewa" value="rented" class="mr-2" checked> Rented</label>
+                    <label><input type="radio" name="status_sewa" id="status_sewa" value="available" class="mr-2"> Available</label>
                 </div>
             </div>
             
@@ -52,25 +52,25 @@
                 <div class="mb-4 ">
                     <div class="w-1/2">
                         <label class="block text-gray-700">Nama Penyewa :</label>
-                        <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
+                        <input type="text" name="nama_penyewa" id="nama_penyewa" class="w-full border border-gray-300 p-2 text-sm" >
                     </div>
 
                     <div class="mb-4 ">
                         <div class="w-1/2">
                             <label class="block text-gray-700">Harga Sebelum PPN :</label>
-                            <input type="text" name="ukuran" class="w-full border border-gray-300 p-2 text-sm" >
+                            <input type="number" name="harga" id="harga"class="w-full border border-gray-300 p-2 text-sm" >
                         </div>
                             
                         <div class="mb-4 ">
                             <div class="w-1/2">
                                 <label class="block text-gray-700">Tanggal Tayang :</label>
-                                <input type="date" id="start-date" class="border px-4 py-2 rounded"/>
+                                <input type="date" id="start-date" name="start-date" class="border px-4 py-2 rounded"/>
                             </div>
         
                             <div class="mb-4 ">
                                 <div class="w-1/2">
                                     <label class="block text-gray-700">Tanggal Habis Tayang :</label>
-                                    <input type="date" id="end-date" class="border px-4 py-2 rounded"/>
+                                    <input type="date" id="end-date" name="end-date" class="border px-4 py-2 rounded"/>
                                 </div>
 
                             
@@ -79,7 +79,7 @@
                         <label class="block text-gray-700">Lama Sewa:</label>
                         <div class="flex flex-col gap-2">
                     </div>
-                        <select name="lama_sewa" class="border border-gray-300 p-2 rounded w-full">
+                        <select name="lama_sewa" id="lama_sewa" class="border border-gray-300 p-2 rounded w-full">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -94,8 +94,8 @@
                             <option value="12">12</option>
                         </select>
                         <div class="flex items-center gap-4">
-                            <label><input type="radio" name="satuan_sewa" value="bulan" class="mr-2" checked> Bulan</label>
-                            <label><input type="radio" name="satuan_sewa" value="tahun" class="mr-2"> Tahun</label>
+                            <label><input type="radio" name="satuan_sewa" id="satuan_sewa" value="bulan" class="mr-2" checked> Bulan</label>
+                            <label><input type="radio" name="satuan_sewa" id="satuan_sewa" value="tahun" class="mr-2"> Tahun</label>
                         </div>
                     </div>
                 </div>
@@ -137,9 +137,22 @@
                     .then(response => {
                         const penyewa = response.data[0].sewa[0];
                         const data = response.data[0]
+                        console.log("✅ Berhasil mengambil data:", response);
+
+                        let tglMulai = penyewa.tgl_mulai;
+                        let tglHabis = penyewa.tgl_selesai;
+
+                        let formattedDate = new Date(tglMulai).toISOString().split('T')[0];
+                        let tgl = new Date(tglHabis).toISOString().split('T')[0];
+
+                        console.log(formattedDate, tgl);
+
     
                         // Isi data ke dalam form dengan pengecekan elemen
-                        setInputValue("input[name='ukuran']", penyewa.nama_penyewa);
+                        setInputValue("input[name='nama_penyewa']", penyewa.nama_penyewa);
+                        setInputValue("input[name='harga']", penyewa.harga_sewa);
+                        setInputValue("input[name='start-date']", formattedDate);
+                        setInputValue("input[name='end-date']", tgl);
                         setSelectValue("select[name='lama_sewa']", penyewa.lama_sewa);
                         setRadioValue("input[name='satuan_sewa']", penyewa.satuan_sewa);
                         setRadioValue("input[name='status_sewa']", data.status_sewa);
@@ -180,34 +193,44 @@
     
             // **🔹 Fungsi untuk Menyimpan Data Penyewa**
             function saveData() {
-                const id = urlParams.get("code"); // Ambil ID dari URL
+                const id = urlParams.get("code");
     
                 if (!id) {
                     alert("ID tidak ditemukan!");
                     return;
                 }
     
-                const nama_penyewa = document.querySelector("input[name='ukuran']").value;
-                const lama_sewa = document.querySelector("select[name='lama_sewa']").value;
-                const satuan_sewa = document.querySelector("input[name='satuan_sewa']:checked")?.value;
+                const nama_penyewa = document.getElementById('nama_penyewa').value;
+            const lama_sewa = document.getElementById('lama_sewa').value;
+            const harga_sewa = document.getElementById('harga').value;
+            const satuan_sewa = document.querySelector('input[name="satuan_sewa"]:checked').value;
+            const tgl_mulai = document.getElementById('start-date').value;
+            const tgl_selesai = document.getElementById('end-date').value;
                 const status_sewa = document.querySelector("input[name='status_sewa']:checked")?.value;
+
+                console.log("📤 Data yang akan dikirim:", nama_penyewa,lama_sewa,harga_sewa,satuan_sewa,tgl_mulai,tgl_selesai,status_sewa);
     
                 if (!nama_penyewa || !lama_sewa || !satuan_sewa || !status_sewa) {
                     alert("Harap lengkapi semua data sebelum menyimpan!");
                     return;
                 }
+                const di = urlParams.get("code");
     
                 const data = {
                     nama_penyewa,
                     lama_sewa,
                     satuan_sewa,
-                    status_sewa
+                    status_sewa,
+                    tgl_mulai,
+                    tgl_selesai,
+                    harga_sewa
                 };
+                console.log("📤 Data yang akan dikirim:", data);
     
-                axios.put(`http://localhost:3000/sewa/${id}`, data)
+                axios.put(`http://localhost:3000/sewa/${di}`, data)
                     .then(response => {
                         alert("✅ Data berhasil diperbarui!");
-                        window.location.href = "./Admin/admin.html"; // Redirect setelah update
+                        window.location.href = "../admin.html"; // Redirect setelah update
                     })
                     .catch(error => {
                         console.error("❌ Terjadi kesalahan saat menyimpan data:", error);
