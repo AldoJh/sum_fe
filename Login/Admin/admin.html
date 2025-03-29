@@ -250,11 +250,11 @@ async function fetchData() {
         const row = document.createElement("tr");
         const imageUrl = `http://localhost:3000/uploads/${item.gambar}`;
         const sewaData = item.sewa && item.sewa.length > 0 ? item.sewa[0] : null;
-        let tglMulai = sewaData.tgl_mulai;
-        let tglHabis = sewaData.tgl_selesai;
-
-        let formattedDate = new Date(tglMulai).toISOString().split('T')[0];
-        let tgl = new Date(tglHabis).toISOString().split('T')[0];
+        let tglMulai = sewaData ? sewaData.tgl_mulai : null;
+        let tglHabis = sewaData ? sewaData.tgl_selesai : null;
+    
+        let formattedDate = tglMulai ? new Date(tglMulai).toISOString().split('T')[0] : "Tidak ada penyewa";
+        let tgl = tglHabis ? new Date(tglHabis).toISOString().split('T')[0] : "Tidak ada penyewa";
         // Menambahkan data ke dalam baris
         row.innerHTML = `
           <td class="py-2 px-4">${index + 1}</td>
