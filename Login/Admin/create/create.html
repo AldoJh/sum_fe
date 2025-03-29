@@ -216,7 +216,7 @@
                 const result = await response.json();
                 if (response.ok) {
                     alert("Data berhasil disimpan");
-                    window.location.href = '../admin.html'; // Redirect setelah berhasil
+                    window.location.href = "../admin.html"; // Redirect setelah berhasil
                 } else {
                     alert("Gagal menyimpan data: " + result.message);
                 }
@@ -248,7 +248,7 @@
         <script>
             function saveData() {
                 alert('Data berhasil disimpan!');
-                window.location.href = '../admin.html';
+                window.location.href = "../admin.html";
             }
             function openCancelPopup() {
                 document.getElementById('cancelPopup').classList.remove('hidden');
