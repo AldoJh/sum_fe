@@ -34,26 +34,19 @@
     <!-- Main Content -->
     <div class="flex-1 p-8">
       <h1 class="text-center text-3xl font-bold mb-8">WELCOME SUPER ADMIN</h1>
-      <!-- <div class="flex justify-center space-x-4 mb-8">
-        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Provinsi" type="text"/>
-        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Kabupaten" type="text"/>
-        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Kota" type="text"/>
-        <input class="search-input border border-gray-400 p-2 w-80" placeholder="Ukuran" type="text"/> -->
-        
-        <!-- Dropdown Status Sewa -->
-        <!-- <select id="status-sewa" class="border border-gray-400 p-2 rounded">
-            <option value="">Pilih Status Sewa</option>
-            <option value="available">Available</option>
-            <option value="rented">Rented</option>
-        </select> -->
-    
-        <!-- Tombol Pencarian -->
-        <!-- <button id="search-button" class="bg-blue-500 text-white p-2 rounded">Cari</button>
-    </div> -->
-    
-
-      <!-- Tombol Create -->
-      <div class="flex justify-end mb-4">
+      <!-- Search Bar and Create Button -->
+      <div class="flex justify-end items-center mb-4 space-x-2">
+        <input 
+          type="text" 
+          id="search-input" 
+          class="border border-gray-300 rounded-lg px-4 py-2" 
+          placeholder="Cari berdasarkan kode tiang..." 
+        />
+        <button 
+          class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300" 
+          onclick="searchData()">
+          Cari
+        </button>
         <button 
           class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300" 
           onclick="window.location.href='./create/create.html'">
@@ -404,10 +397,91 @@ document.addEventListener("DOMContentLoaded", fetchData);
         closeDeletePopup();
     });
 }
-  
-
-  
   </script>
 
+<script>
+async function searchData() {
+  const searchInput = document.getElementById("search-input").value.trim();
+  if (!searchInput) {
+    alert("Masukkan kata kunci untuk mencari data.");
+    return;
+  }
+
+  try {
+    const response = await axios.post(`http://localhost:3000/data/search/${searchInput}`);
+    if (response.status === 200) {
+      const data = response.data;
+      const tableBody = document.getElementById("data-tbody");
+
+      // Kosongkan tabel sebelum mengisi ulang
+      tableBody.innerHTML = "";
+
+      // Loop melalui data dan tambahkan baris baru ke tabel
+      data.forEach((item, index) => {
+        const row = document.createElement("tr");
+        const imageUrl = `http://localhost:3000/uploads/${item.gambar}`;
+        const sewaData = item.sewa && item.sewa.length > 0 ? item.sewa[0] : null;
+
+        row.innerHTML = `
+          <td class="py-2 px-4">${index + 1}</td>
+          <td class="py-2 px-4">${item.kode_tiang}</td>
+          <td class="py-2 px-4">
+            <img alt="Image of ${item.kode_tiang}" src="${imageUrl}" width="100" height="100"/>
+          </td>
+          <td class="py-2 px-4">${item.provinsi}</td>
+          <td class="py-2 px-4">${item.kabupaten}</td>
+          <td class="py-2 px-4">${item.kota}</td>
+          <td class="py-2 px-4">${item.nama_jalan}</td>
+          <td class="py-2 px-4">${item.ukuran}</td>
+          <td class="py-2 px-4">${item.jenis}</td>
+          <td class="py-2 px-4">${item.jenis_lampu}</td>
+          <td class="py-2 px-4">${item.lat}, ${item.long}</td>
+          <td class="py-2 px-4">${item.jumlah_kendaraan}</td>
+          <td class="py-2 px-4">${item.nama_pemilik}</td>
+          <td class="py-2 px-4">
+            <span class="${item.status_sewa === 'available' ? 'text-green-500' : 'text-red-500'}">
+              ${item.status_sewa}
+            </span>
+          </td>
+          <td class="py-2 px-4">${sewaData ? sewaData.nama_penyewa : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${sewaData ? `${sewaData.lama_sewa} ${sewaData.satuan_sewa}` : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${sewaData ? new Date(sewaData.tgl_mulai).toISOString().split('T')[0] : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${sewaData ? new Date(sewaData.tgl_selesai).toISOString().split('T')[0] : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${sewaData ? sewaData.harga_sewa : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">${sewaData ? sewaData.harga_sewa_PPN : "Tidak ada penyewa"}</td>
+          <td class="py-2 px-4">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300" onclick="toggleDropdown(this)">
+              Action
+            </button>
+            <div class="dropdown hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg z-10">
+              <a href="./Edit/edit.html?code=${item.id}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Tiang</a>
+              <a href="./create/user.html?code=${item.id}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit Data Penyewa</a>
+              <a href="#" onclick="deleteItem(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Hapus</a>
+              <a href="#" onclick="deleteSewa(${item.id})" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Hapus Sewa</a>
+            </div>
+          </td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+    } else {
+      alert("Data tidak ditemukan!");
+    }
+  } catch (error) {
+    console.error("Terjadi kesalahan saat mencari data:", error);
+    alert("Data tidak ditemukan!");
+  }
+}
+
+
+// Event listener untuk tombol Enter
+document.getElementById("search-input").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    searchData();
+  }
+});
+
+document.querySelector("button[onclick='searchData()']").addEventListener("click", searchData);
+</script>
 </body>
 </html>
